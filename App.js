@@ -9,18 +9,19 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import ChoiceLogin from './src/login/ChoiceLogin'
+import SplashScreen from './src/SplashScreen'
 
 import {createStackNavigator , 
   createAppContainer ,} from 'react-navigation';
 const Navigation = createStackNavigator(
   {
+    Splash:SplashScreen,
     Login: {
       screen: ChoiceLogin
-    
     },
   },
   { 
-    initialRouteName: 'Login'  
+    //initialRouteName: 'Splash'  
   }
  );
 

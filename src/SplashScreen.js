@@ -10,24 +10,19 @@ import {
 	ActivityIndicator,
 	Dimensions,
 	Modal,
-	ChekBox, AsyncStorage
+	ChekBox, AsyncStorage,Image
 } from 'react-native';
 import { TabNavigator } from "react-navigation";
 
 
-export default class Splash extends Component {
+export default class SplashScreen  extends Component {
 	/*
 	navigationOptions = {
 		title: `A`,
 		headerBackTitle: null
 	  }
 */
-	static NavigationOptions = {
-			title: 'HOME',
-			headerBackTitle: null
-    };
-    
-/*
+
 	componentWillMount() {
 		setTimeout(
 			() => {
@@ -39,19 +34,37 @@ export default class Splash extends Component {
 					}else{
 					//	this.props.navigation.replace('Profile');
 					}
+					this.props.navigation.replace('Login');
 				});
 			}, 2500
 			)
 	}
-*/	
+	
 	render() {
 		return (
-			<View >
-
-				
+			<View style={styles.container}>
+  				<Image 
+					style={styles.image}
+					source={require('../image/arno.jpg')}
+                 />
 			</View>
 			);
 
 		}
 	}
 
+	const styles = StyleSheet.create ({
+		image: {
+			width: 200, 
+			height: 90 ,
+			resizeMode: 'contain' ,
+			borderRadius:2,
+			
+		},
+		container: {
+			flex: 1,
+			justifyContent: 'center',
+			alignItems: 'center',
+			backgroundColor: '#F5FCFF',
+		  },
+	})

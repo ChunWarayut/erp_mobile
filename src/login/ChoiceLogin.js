@@ -42,7 +42,7 @@ export default class ChoiceLogin extends Component {
                             <TouchableHighlight onPress = {()=> this.arno() }>
                                 <Image 
                                     style={styles.image}
-                                    source={require('/React/erp_mobile/image/arno.jpg')}
+                                  source={require('../../image/arno.jpg')}
                                 />
                             </TouchableHighlight >
                         </View>
@@ -50,7 +50,7 @@ export default class ChoiceLogin extends Component {
                             <TouchableHighlight onPress = {()=> this.partner()}>
                                 <Image 
                                     style={styles.image}
-                                    source={require('/React/erp_mobile/image/partner-chips.jpg')}
+                                    source={require('../../image/partner-chips.jpg')}
                                 /> 
                             </TouchableHighlight>
                         </View>
@@ -58,7 +58,7 @@ export default class ChoiceLogin extends Component {
                             <TouchableHighlight  onPress = {()=> this.tool()}>
                                 <Image 
                                     style={styles.image}
-                                    source={require('/React/erp_mobile/image/tool-management.jpg')}
+                                    source={require('../../image/tool-management.jpg')}
                                 />
                             </TouchableHighlight>
                         </View>
