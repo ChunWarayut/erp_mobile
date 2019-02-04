@@ -22,7 +22,8 @@ export default class ChoiceLogin extends Component {
       }
 
       arno(){
-          this.setState({count: this.state.count+1}); 
+          this.setState({count: this.state.count+1});
+          this.props.navigation.replace('Login_Arno'); 
       }
       partner(){
         this.setState({countp: this.state.countp+1}); 
