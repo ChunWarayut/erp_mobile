@@ -65,6 +65,6 @@ export default class SplashScreen  extends Component {
 			flex: 1,
 			justifyContent: 'center',
 			alignItems: 'center',
-			backgroundColor: '#F5FCFF',
+			
 		  },
 	})
