@@ -6,61 +6,99 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import { Button, Icon } from 'native-base';
 import ChoiceLogin from './src/login/ChoiceLogin';
 import SplashScreen from './src/SplashScreen';
 import login_arno from './src/login/login_arno';
 import home from './src/Home/home';
-import{createStackNavigator , 
-        createAppContainer ,
-      } 
-      from 'react-navigation';
-const Navigation = createStackNavigator(
+import menu from './src/Home/menu';
+import DrawerNav from './src/Home/DrawerNavigator'
+import {
+  createStackNavigator,
+  createAppContainer,
+  createDrawerNavigator,
+  DrawerItem,
+  DrawerNavigator
+}
+  from 'react-navigation';
+
+
+
+
+const AppNavigation = createStackNavigator(
   {
-    Splash:{
-      screen: SplashScreen ,
-      navigationOptions : {
+    Splash: {
+      screen: SplashScreen,
+      navigationOptions: {
         header: null,
         tabBarLabel: 'Splash'
       }
     },
     Login: {
-      screen: ChoiceLogin ,
-      navigationOptions : {
+      screen: ChoiceLogin,
+      navigationOptions: {
         header: null,
         tabBarLabel: 'Login'
-      }, 
+      },
     },
     Login_Arno: {
-      screen: login_arno , 
-      navigationOptions : {
+      screen: login_arno,
+      navigationOptions: {
         header: null,
         tabBarLabel: 'Arno'
       }
     },
+
     Home_Arno: {
-      screen: home , 
-      // navigationOptions : {
-      //   title: 'HOME'
+      screen: DrawerNav,
+
+      navigationOptions:  ({ navigation }) => ({
+        header: null,
+      })
+      // navigationOptions:  {
+      //   headerTitleStyle: {
+      //     width: '90%',
+      //     textAlign: 'center',
+      // },
+      // headerTitle: 'HOME',
+      // headerLeft: (
+      //     <Button transparent onPress={() => this.props.navigation.dispatch(DrawerActions.toggleDrawer())} >
+      //       <Icon name='menu' />
+      //     </Button>
+      //   ),
+      // headerRight: (
+      //     <View>   
+
+      //     </View> 
+      //   ),
       // }
-  }
-
-    
+    }
   },
-  { 
-    initialRouteName: 'Home_Arno'  
-  }
- );
+  {
+    initialRouteName: 'Home_Arno'
+  });
 
-const AppContainer = createAppContainer(Navigation);
 
-export default class App extends Component{
-  render(){
-    return < AppContainer/>;
+const AppContainer = createAppContainer(AppNavigation);
+
+export default class App extends Component {
+
+
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
+
+
+
+  render() {
+    return < AppContainer />;
+  }
+
 }
-  
+
 
 
 const styles = StyleSheet.create({
