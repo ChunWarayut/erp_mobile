@@ -9,36 +9,18 @@ import {Platform,
         } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import GLOBALS from '../GLOBALS';
-import {  Button , Left, Right, Body, Icon } from 'native-base';
-export default class home_arno extends Component {
-    static navigationOptions = {
-        
-        headerTitleStyle: {
-            width: '90%',
-            textAlign: 'center',
-        },
-        
-        headerStyle:{
-        //backgroundColor:'red',
-        },
-        headerTitle: 'HOME',
-        headerLeft: (
-            <Button transparent>
-              <Icon name='menu' />
-            </Button>
-          ),
-        headerRight: (
-            <View>   
+import { Button , Icon} from 'native-base';
 
-            </View> 
-          ),
-        };
+
+
+export default class home_arno extends Component {
 
     render( ){
         return (
             <View>
                 
-
+                <Text>Welcome</Text>
+               
             </View> 
         )
     }
