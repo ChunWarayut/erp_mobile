@@ -101,7 +101,7 @@ export default class login_arno extends Component {
                </View>
                <View style={{padding: 10}} >
                   <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.clickMe ()} >
-                      <Text style={styles.loginText}>Sing up</Text>
+                      <Text style={styles.loginText}>Sign in</Text>
                   </TouchableHighlight>
                 </View>
                   <View>
