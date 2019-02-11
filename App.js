@@ -38,14 +38,14 @@ const AppNavigation = createStackNavigator(
         tabBarLabel: 'Login'
       },
     },
-    Login_Arno: {
+    LoginArno: {
       screen: LoginArno,
       navigationOptions: {
         header: null,
         tabBarLabel: 'Arno'
       }
     },
-    Home_Arno: {
+    HomeArno: {
       screen: Home,
       navigationOptions : { 
       header: null,
@@ -54,7 +54,7 @@ const AppNavigation = createStackNavigator(
    
   },
   {
-    initialRouteName: 'Home_Arno'
+    initialRouteName: 'HomeArno'
   }
 );
 

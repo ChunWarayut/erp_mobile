@@ -13,6 +13,7 @@ import {ListItem } from'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {About} from './About';
 import {HomeScreen} from './HomeScreen';
+import {Profile} from '../Profile/Profile';
 const window = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 
@@ -76,7 +77,7 @@ export default function Menu({ onItemSelected }) {
           </ListItem>
           <ListItem style={styles.list} onPress={() => onItemSelected( <About/>)}>
             <View style = {{flex: 0.25}}>
-              <Icon name='list' style={styles.icon} />
+              <Icon name='tachometer' style={styles.icon} />
             </View>
             <View style = {{flex: 0.7}}>
               <Text
@@ -102,7 +103,7 @@ export default function Menu({ onItemSelected }) {
           </ListItem>
           <ListItem style={styles.list}  onPress={() => onItemSelected( <About/>)}>
             <View style = {{flex: 0.25}}>
-              <Icon name='search' style={styles.icon} />
+              <Icon name='retweet' style={styles.icon} />
             </View>   
             <View style = {{flex: 0.7}}>
               <Text
@@ -113,7 +114,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
             </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <About/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile/>)}>
             <View style = {{flex: 0.25}}>
                 <Icon name='address-card' style={styles.icon} />
             </View>
