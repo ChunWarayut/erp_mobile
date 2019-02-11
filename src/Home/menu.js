@@ -12,6 +12,7 @@ import {
 import {ListItem } from'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import {About} from './About';
+import {PurchaseRequestView} from '../PurchaseRequest/PurchaseRequestView';
 import {HomeScreen} from './HomeScreen';
 import {Profile} from '../Profile/Profile';
 const window = Dimensions.get('window');
@@ -63,7 +64,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
           </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected(<About/> )}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected(<PurchaseRequestView/> )}>
           <View style = {{flex: 0.25}}> 
             <Icon name='clipboard' style={styles.icon} />
           </View>
