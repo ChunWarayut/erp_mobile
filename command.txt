@@ -1,0 +1,2 @@
+// Run ios and select simulator device
+react-native run-ios --simulator="iPhone 6s" 
