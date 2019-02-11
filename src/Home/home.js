@@ -9,7 +9,7 @@ import {
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 //import {About} from './about';
-import {Homescreen} from './HomeScreen';
+import {HomeScreen} from './HomeScreen';
 const image = require('../../image/menu.png');
 
 
@@ -22,7 +22,7 @@ export default class Home extends Component {
 
     this.state = {
       isOpen: false,
-      selectedItem:<Homescreen/>,
+      selectedItem:<HomeScreen/>,
     };
   }
 
