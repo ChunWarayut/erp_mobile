@@ -10,7 +10,7 @@ import {
     Text,
 } from 'react-native';
 
-class Homescreen extends Component {
+class HomeScreen extends Component {
 
     render(){
 
@@ -25,4 +25,4 @@ class Homescreen extends Component {
     }
 
     
-}export { Homescreen };
+}export { HomeScreen };
