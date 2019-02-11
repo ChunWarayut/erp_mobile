@@ -1,29 +1,105 @@
-import React, {Component} from 'react';
-import {Platform, 
-        StyleSheet, 
-        Text, 
-        View,
-        Image,
-        TouchableHighlight,
-        Alert
-        } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
-import GLOBALS from '../GLOBALS';
-import { Button , Icon} from 'native-base';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import SideMenu from 'react-native-side-menu';
+import Menu from './menu';
+//import {About} from './about';
+import {Homescreen} from './homescreen';
+const image = require('../../image/menu.png');
 
 
 
-export default class home_arno extends Component {
+export default class home extends Component {
+  constructor(props) {
+    super(props);
 
-    render( ){
-        return (
-            <View>
-                
-                <Text>Welcome</Text>
-               
-            </View> 
-        )
-    }
+    this.toggle = this.toggle.bind(this);
+
+    this.state = {
+      isOpen: false,
+      selectedItem:<Homescreen/>,
+    };
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  }
+
+  updateMenuState(isOpen) {
+    this.setState({ isOpen });
+  }
+
+  onMenuItemSelected = item =>
+    this.setState({
+      isOpen: false,
+      selectedItem: item,
+    });
+
+  render() {
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+    
+    return (
+      <SideMenu
+        menu={menu}
+        isOpen={this.state.isOpen}
+        onChange={isOpen => this.updateMenuState(isOpen)}
+      >
+        <View style={styles.container}>
+        
+       {this.state.selectedItem}
+      
+        </View>
        
-  
+
+        <TouchableOpacity
+          onPress={this.toggle}
+          style={styles.button}
+        >
+          <Image
+            source={image}
+            style={{ width: 32, height: 32 }}
+          />
+        </TouchableOpacity>
+
+      </SideMenu>
+    );
+  }
 }
+
+
+
+const styles = StyleSheet.create({
+  button: {
+    position: 'absolute',
+    top: 20,
+    padding: 10,
+  },
+  caption: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    alignItems: 'center',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});

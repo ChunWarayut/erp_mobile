@@ -51,7 +51,7 @@ export default class login_arno extends Component {
             //console.warn(responseJson);
             if(responseJson.result==true){
            //   AsyncStorage.setItem('Login_token', this.state.userid);
-             // this.props.navigation.replace('Profile')
+            this.props.navigation.replace('Home_Arno')
              console.warn(responseJson);
             }else{
               Alert.alert('ไม่มีบัญชีผู้ใช้อยู่ในระบบ');
