@@ -11,7 +11,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import GLOBALS from '../GLOBALS';
 
 
-export default class login_arno extends Component {
+export default class LoginArno extends Component {
   
     constructor(props) {
       super(props);
@@ -100,7 +100,7 @@ export default class login_arno extends Component {
                   />
                </View>
                <View style={{padding: 10}} >
-                  <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.clickMe ()} >
+                  <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={ ()=>this.clickMe ()} >
                       <Text style={styles.loginText}>Sign in</Text>
                   </TouchableHighlight>
                 </View>

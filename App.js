@@ -8,10 +8,10 @@
 
 import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
-import ChoiceLogin from './src/login/ChoiceLogin';
+import ChoiceLogin from './src/Login/ChoiceLogin';
 import SplashScreen from './src/SplashScreen';
-import login_arno from './src/login/login_arno';
-import home from './src/Home/home';
+import LoginArno from './src/Login/LoginArno';
+import Home from './src/Home/Home';
 // import search_product from './src/Search_Product/search_product';
 
 import {
@@ -21,29 +21,6 @@ import {
   DrawerItems, SafeAreaView,createDrawerNavigator,ScrollView
 }
   from 'react-navigation';
-
-
-const CustomDrawerContentComponent = (props) => {
-  return (
-    <ScrollView>
-    <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-      <DrawerItems {...props} />
-    </SafeAreaView>
-  </ScrollView>
-  )
-}
-
-const AppDrawerNavigator = createDrawerNavigator({
-
-  HomeScreen: { screen: home }
-}, {
-    drawerPosition: 'left',
-    contentComponent: CustomDrawerContentComponent,
-    drawerOpenRoute: 'DrawerOpen',
-    drawerCloseRoute: 'DrawerClose',
-    drawerToggleRoute: 'DrawerToggle'
-
-  })
 
 const AppNavigation = createStackNavigator(
   {
@@ -62,29 +39,19 @@ const AppNavigation = createStackNavigator(
       },
     },
     Login_Arno: {
-      screen: login_arno,
+      screen: LoginArno,
       navigationOptions: {
         header: null,
         tabBarLabel: 'Arno'
       }
     },
     Home_Arno: {
-      screen: home,
+      screen: Home,
       navigationOptions : { 
       header: null,
-      //   title: 'HOME'
        }
     },
-    // Search_Product: {
-    //   screen: search_product , 
-    //   navigationOptions : {
-
-    //  
-    //   }
-    //}
-
-
-
+   
   },
   {
     initialRouteName: 'Home_Arno'
@@ -98,8 +65,6 @@ export default class App extends Component {
     return < AppContainer />;
   }
 }
-
-
 
 
 const styles = StyleSheet.create({

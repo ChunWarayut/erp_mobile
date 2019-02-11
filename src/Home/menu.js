@@ -7,11 +7,12 @@ import {
   View,
   Image,
   Text,
+  TouchableHighlight,
 } from 'react-native';
 import {ListItem } from'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import {About} from './about';
-import {Homescreen} from './homescreen';
+import {About} from './About';
+import {Homescreen} from './HomeScreen';
 const window = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 
@@ -23,7 +24,8 @@ export default function Menu({ onItemSelected }) {
           <View style={styles.header}>
               <View style={styles.headerContent}>
                   <Image style={styles.avatar}
-                    source={{uri: 'https://bootdey.com/img/Content/avatar/avatar6.png'}}/>
+                     source={require('../../image/imagedefault.png')}
+                  />
                     <View style={{ padding: 5 , flex: 1 }}>
                       <Text style={styles.item}>John Doe </Text>
                       <Text style={styles.item}>jhonnydoe@mail.com </Text>
@@ -32,68 +34,99 @@ export default function Menu({ onItemSelected }) {
               </View>
           </View>
       <View style={{ padding: 3 }}> 
-          <ListItem style={styles.list}>
-              <Icon name='home' style={styles.icon} />
-              <Text
-                onPress={() => onItemSelected( <Homescreen/>)}
-                style={styles.item}
-              >
-                หน้าเเรก
-              </Text>
+              
+             
+        <ListItem style={styles.list} onPress={() => onItemSelected( <Homescreen/>)}>
+            <View style = {{flex: 0.25}}>
+                <Icon name='home' style={styles.icon} />
+            </View>
+                <View style = {{flex: 0.7}}>
+                <Text
+                  style={styles.item}
+                >
+                  หน้าเเรก
+                </Text>
+              </View>
           </ListItem>
-          <ListItem style={styles.list}>
-          <Icon name='search' style={styles.icon} />
+              
+              
+          <ListItem style={styles.list} onPress={() => onItemSelected('Contacts')}>
+            <View style = {{flex: 0.25}}> 
+             <Icon name='search' style={styles.icon} />
+            </View>
+            <View style = {{flex: 0.7}}> 
               <Text
-                onPress={() => onItemSelected('Contacts')}
                 style={styles.item}
               >
                 ค้นหาสินค้า
               </Text>
+          </View>
           </ListItem>
           <ListItem style={styles.list}>
-          <Icon name='clipboard' style={styles.icon} />
+          <View style = {{flex: 0.25}}> 
+            <Icon name='clipboard' style={styles.icon} />
+          </View>
+          <View style = {{flex: 0.7}}>
               <Text
                 onPress={() => onItemSelected( <About/>)}
                 style={styles.item}
               >
                 สั่งซื้อสินค้า
               </Text>
+          </View>
           </ListItem>
           <ListItem style={styles.list}>
-          <Icon name='list' style={styles.icon} />
+            <View style = {{flex: 0.25}}>
+              <Icon name='list' style={styles.icon} />
+            </View>
+            <View style = {{flex: 0.7}}>
               <Text
                 onPress={() => onItemSelected( <About/>)}
                 style={styles.item}
               >
                 สั่งทดสอบสินค้า
               </Text>
+              </View>
           </ListItem>
           <ListItem style={styles.list}>
-          <Icon name='id-badge' style={styles.icon} />
-              <Text
-                onPress={() => onItemSelected( <About/>)}
-                style={styles.item}
-              >
-                ลูกค้า
-              </Text>
+              <View style = {{flex: 0.25}}>
+                  <Icon name='id-badge' style={styles.icon} />
+              </View>
+              
+              <View style = {{flex: 0.7}}>
+                  <Text
+                    onPress={() => onItemSelected( <About/>)}
+                    style={styles.item}
+                  >
+                    ลูกค้า
+                  </Text>
+              </View>
           </ListItem>
           <ListItem style={styles.list}>
-          <Icon name='search' style={styles.icon} />
+            <View style = {{flex: 0.25}}>
+              <Icon name='search' style={styles.icon} />
+            </View>   
+            <View style = {{flex: 0.7}}>
               <Text
                 onPress={() => onItemSelected( <About/>)}
                 style={styles.item}
               >
                 รีกายร์สินค้า
               </Text>
+            </View>
           </ListItem>
           <ListItem style={styles.list}>
-          <Icon name='address-card' style={styles.icon} />
-              <Text
-                onPress={() => onItemSelected( <About/>)}
-                style={styles.item}
-              >
-                โปรไฟล์
-              </Text>
+            <View style = {{flex: 0.25}}>
+                <Icon name='address-card' style={styles.icon} />
+            </View>
+              <View style = {{flex: 0.7}}>
+                <Text
+                  onPress={() => onItemSelected( <About/>)}
+                  style={styles.item}
+                >
+                  โปรไฟล์
+                </Text>
+              </View>
           </ListItem>
         </View>
       
@@ -138,7 +171,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '300',
     paddingTop: 5,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
+    textAlign:'left'
   },
   list:{
     flex: 1, 

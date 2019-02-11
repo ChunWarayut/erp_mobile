@@ -7,14 +7,14 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import SideMenu from 'react-native-side-menu';
-import Menu from './menu';
+import Menu from './Menu';
 //import {About} from './about';
-import {Homescreen} from './homescreen';
+import {Homescreen} from './HomeScreen';
 const image = require('../../image/menu.png');
 
 
 
-export default class home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props);
 
