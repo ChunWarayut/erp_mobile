@@ -23,27 +23,6 @@ import {
   from 'react-navigation';
 
 
-const CustomDrawerContentComponent = (props) => {
-  return (
-    <ScrollView>
-    <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
-      <DrawerItems {...props} />
-    </SafeAreaView>
-  </ScrollView>
-  )
-}
-
-const AppDrawerNavigator = createDrawerNavigator({
-
-  HomeScreen: { screen: home }
-}, {
-    drawerPosition: 'left',
-    contentComponent: CustomDrawerContentComponent,
-    drawerOpenRoute: 'DrawerOpen',
-    drawerCloseRoute: 'DrawerClose',
-    drawerToggleRoute: 'DrawerToggle'
-
-  })
 
 const AppNavigation = createStackNavigator(
   {
