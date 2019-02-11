@@ -6,6 +6,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import {Header , Left ,Button, Body,Title,Right,Content} from'native-base'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 //import {About} from './about';
@@ -46,34 +48,53 @@ export default class Home extends Component {
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
     
     return (
+     
+
       <SideMenu
         menu={menu}
         isOpen={this.state.isOpen}
         onChange={isOpen => this.updateMenuState(isOpen)}
-      >
-        <View style={styles.container}>
-        
-       {this.state.selectedItem}
+      > 
       
+       <Header style={{ backgroundColor: '#FFFFFF'}}> 
+        <Left>
+            <TouchableOpacity
+              onPress={this.toggle}
+              style={{ width: 32, height: 32 }}
+            >
+             <Image
+              source={image}
+              style={{ width: 32, height: 32 }}
+              />
+
+            </TouchableOpacity>
+        </Left> 
+
+          <Body>
+            <Title>Header</Title>
+          </Body>
+          
+      </Header> 
+      <Content style={{flex: 1 , backgroundColor: '#FFFFFF'}}>
+        <View  style={styles.container}>
+            {this.state.selectedItem}
         </View>
-       
-
-        <TouchableOpacity
-          onPress={this.toggle}
-          style={styles.button}
-        >
-          <Image
-            source={image}
-            style={{ width: 32, height: 32 }}
-          />
-        </TouchableOpacity>
-
+        </Content>
       </SideMenu>
+     
     );
   }
 }
 
-
+{/* <TouchableOpacity
+onPress={this.toggle}
+style={styles.button}
+>
+<Image
+  source={image}
+  style={{ width: 32, height: 32 }}
+/>
+</TouchableOpacity> */}
 
 const styles = StyleSheet.create({
   button: {
@@ -88,8 +109,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#FFFFFF',
   },
   welcome: {
@@ -101,5 +120,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  icon:{
+    fontSize: 30, 
+    color: '#FFFFFF', 
+    flex: 0.3
   },
 });
