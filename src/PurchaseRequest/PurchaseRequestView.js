@@ -32,16 +32,13 @@ class PurchaseRequestView extends Component {
     constructor(props) {
         super(props);
         
-        var ds = new ListView.DataSource({rowHasChanged: this._rowHasChanged});
+        var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-        this.state = {
-            dataSource: ds.cloneWithRows(this.data,'purchase_request_id')
-        };
+        this.state = { 
+            dataSource : ds.cloneWithRows(data)
+        }
     }
 
-    _rowHasChanged (){
-
-    }
 
 
 
@@ -64,6 +61,7 @@ class PurchaseRequestView extends Component {
 
 const styles=StyleSheet.create({
     container: {
+        marginLeft:-32,
         flex: 1,
         paddingTop: 22
        },
