@@ -1,16 +1,12 @@
 
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {
-    Dimensions,
-    StyleSheet,
-    ScrollView,
+import { 
     Text,
     View,
     Image,
     TouchableOpacity,
 } from 'react-native';
-import { Header, Left, Button, Body, Title, Right, Content } from 'native-base'
+import { Header, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
 
 class HomeScreen extends Component { 
@@ -44,7 +40,7 @@ class HomeScreen extends Component {
                     </Left>
 
                     <Body>
-                        <Title>Header</Title>
+                        <Title>หน้าหลัก</Title>
                     </Body>
                     <Right>
 

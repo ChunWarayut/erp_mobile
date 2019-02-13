@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
+  StyleSheet, 
+  View, 
 } from 'react-native';
-import { Header, Left, Button, Body, Title, Right, Content } from 'native-base'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import {Content } from 'native-base' 
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
-import { HomeScreen } from './HomeScreen';
-import GLOBALS from '../GLOBALS';
+import { HomeScreen } from './HomeScreen'; 
 
 
 

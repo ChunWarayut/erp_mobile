@@ -6,8 +6,7 @@ import {
   ScrollView,
   View,
   Image,
-  Text,
-  TouchableHighlight,
+  Text
 } from 'react-native';
 import {ListItem } from'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'

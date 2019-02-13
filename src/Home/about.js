@@ -1,15 +1,12 @@
 
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import {
-    Dimensions,
-    StyleSheet,
-    ScrollView,
+import { 
     View,
     Image,
     Text,
     TouchableOpacity,
 } from 'react-native';
+import { Header, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
 
 class About extends Component { 
@@ -42,7 +39,7 @@ class About extends Component {
                     </Left>
 
                     <Body>
-                        <Title>Header</Title>
+                        <Title>เกี่ยวกับเรา</Title>
                     </Body>
                     <Right>
 

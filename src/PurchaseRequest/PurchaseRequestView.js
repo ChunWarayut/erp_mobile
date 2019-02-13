@@ -1,5 +1,4 @@
 
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
     View,
@@ -67,7 +66,7 @@ class PurchaseRequestView extends Component {
                     </Left>
 
                     <Body>
-                        <Title>Header</Title>
+                        <Title>ใบร้องขอ</Title>
                     </Body>
                     <Right>
 
