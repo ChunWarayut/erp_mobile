@@ -20,7 +20,7 @@ const window = Dimensions.get('window');
 
 
 
-export default function Menu({ onItemSelected }) {
+export default function Menu({ onItemSelected, OnToggle }) {
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
           <View style={styles.header}>
@@ -38,7 +38,7 @@ export default function Menu({ onItemSelected }) {
       <View style={{ padding: 3 }}> 
               
              
-        <ListItem style={styles.list} onPress={() => onItemSelected( <HomeScreen/>)}>
+        <ListItem style={styles.list} onPress={() => onItemSelected( <HomeScreen OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
                 <Icon name='home' style={styles.icon} />
             </View>
@@ -52,7 +52,7 @@ export default function Menu({ onItemSelected }) {
           </ListItem>
               
               
-          <ListItem style={styles.list} onPress={ () => onItemSelected(<About/>)}>
+          <ListItem style={styles.list} onPress={ () => onItemSelected(<About  OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}> 
              <Icon name='search' style={styles.icon} />
             </View>
@@ -64,7 +64,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
           </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected(<PurchaseRequestView/> )}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected(<PurchaseRequestView  OnToggled = {OnToggle}/> )}>
           <View style = {{flex: 0.25}}> 
             <Icon name='clipboard' style={styles.icon} />
           </View>
@@ -76,7 +76,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
           </View>
           </ListItem>
-          <ListItem style={styles.list} onPress={() => onItemSelected( <About/>)}>
+          <ListItem style={styles.list} onPress={() => onItemSelected( <About  OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
               <Icon name='tachometer' style={styles.icon} />
             </View>
@@ -88,7 +88,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
               </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <About/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <About  OnToggled = {OnToggle}/>)}>
               <View style = {{flex: 0.25}}>
                   <Icon name='id-badge' style={styles.icon} />
               </View>
@@ -102,7 +102,7 @@ export default function Menu({ onItemSelected }) {
                   </Text>
               </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <About/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <About   OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
               <Icon name='retweet' style={styles.icon} />
             </View>   
@@ -115,7 +115,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
             </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile /> )}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile  OnToggled = {OnToggle}/> )}>
             <View style = {{flex: 0.25}}>
                 <Icon name='address-card' style={styles.icon} />
             </View>

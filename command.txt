@@ -1,6 +1,9 @@
 // Run ios and select simulator device
 react-native run-ios --simulator="iPhone 6s" 
 
+// Navigation
+npm install --save react-native-gesture-handler
+
 // Font awsome 
 npm install react-native-elements --save
 

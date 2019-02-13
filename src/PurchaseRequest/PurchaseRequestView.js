@@ -4,9 +4,12 @@ import React, { Component } from 'react';
 import {
     View,
     Text,
+    Image,
+    TouchableOpacity,
 } from 'react-native';
-import { Header } from 'react-native-elements';
+import { Header, Left, Button, Body, Title, Right, Content } from 'native-base'
 import Swipeout from 'react-native-swipeout';
+import GLOBALS from '../GLOBALS';
 
 const data = [{
     purchase_request_id: '1',
@@ -26,7 +29,19 @@ const data = [{
 
 }];
 
-class PurchaseRequestView extends Component {
+class PurchaseRequestView extends Component { 
+
+    constructor(props) {
+        super(props);
+ 
+        this.state = {
+        };
+
+    }
+
+    toggle() {
+        this.isOpenGlobals = !this.isOpenGlobals
+    }
 
     render() {
         var swipeoutBtns = [
@@ -37,17 +52,35 @@ class PurchaseRequestView extends Component {
 
         return (
             <View>
-                <Header
-                    leftComponent={{ icon: 'menu', color: '#fff' }}
-                    centerComponent={{ text: 'Purchase Request', style: { color: '#fff' } }} 
-                />
+                <Header style={{ backgroundColor: '#FFFFFF' }}>
+                    <Left>
+                        <TouchableOpacity
+                            onPress={this.props.OnToggled}
+                            style={{ width: 32, height: 32 }}
+                        >
+                            <Image
+                                source={GLOBALS.image}
+                                style={{ width: 32, height: 32 }}
+                            />
+
+                        </TouchableOpacity>
+                    </Left>
+
+                    <Body>
+                        <Title>Header</Title>
+                    </Body>
+                    <Right>
+
+                    </Right>
+
+                </Header>
 
                 <Swipeout right={swipeoutBtns}>
                     <View>
                         <Text>Swipe me left</Text>
                     </View>
                 </Swipeout>
-                
+
             </View>
 
         )
