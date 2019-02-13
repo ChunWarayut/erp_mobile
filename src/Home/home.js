@@ -12,6 +12,7 @@ import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
 //import {About} from './about';
 import {HomeScreen} from './HomeScreen';
+import GLOBALS from '../GLOBALS';
 const image = require('../../image/menu.png');
 
 
@@ -26,33 +27,37 @@ export default class Home extends Component {
       isOpen: false,
       selectedItem:<HomeScreen/>,
     };
+
   }
 
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen,
     });
+    GLOBALS.isOpen =!GLOBALS.isOpen
   }
 
   updateMenuState(isOpen) {
     this.setState({ isOpen });
+    GLOBALS.isOpen =isOpen
   }
 
-  onMenuItemSelected = item =>
+  onMenuItemSelected = item =>{
     this.setState({
       isOpen: false,
       selectedItem: item,
     });
-
+    GLOBALS.isOpen = false
+  }
   render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-    
+    const menu = <Menu onItemSelected={this.onMenuItemSelected }   />;
+    const OpenMenu = this.state.isOpen || GLOBALS.isOpen
     return (
      
 
       <SideMenu
         menu={menu}
-        isOpen={this.state.isOpen}
+        isOpen={OpenMenu}
         onChange={isOpen => this.updateMenuState(isOpen)}
       > 
       
@@ -127,3 +132,8 @@ const styles = StyleSheet.create({
     flex: 0.3
   },
 });
+
+// export function toggle() {
+  
+// }
+//module.exports = Home;

@@ -30,11 +30,11 @@ export default class SplashScreen  extends Component {
 				.then((token) => {
 					this.setState({ user_id: token });
 					if (token == null) {
-					//	this.props.navigation.replace('Login');
+						this.props.navigation.replace('Login');
 					}else{
-					//	this.props.navigation.replace('Profile');
+						this.props.navigation.replace('HomeArno');
 					}
-					this.props.navigation.replace('Login');
+					
 				});
 			}, 2500
 			)

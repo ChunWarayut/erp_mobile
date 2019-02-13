@@ -5,7 +5,8 @@ import {Platform,
         View,
         Image,
         TouchableHighlight,
-        Alert
+        Alert,
+        AsyncStorage
         } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import GLOBALS from '../GLOBALS';
@@ -50,9 +51,9 @@ export default class LoginArno extends Component {
           .then((responseJson) => {
             //console.warn(responseJson);
             if(responseJson.result==true){
-           //   AsyncStorage.setItem('Login_token', this.state.userid);
+            AsyncStorage.setItem('Login_token', this.state.userid);
             this.props.navigation.replace('HomeArno')
-             console.warn(responseJson);
+             //console.warn(responseJson);
             }else{
               Alert.alert('ไม่มีบัญชีผู้ใช้อยู่ในระบบ');
             }
@@ -84,7 +85,7 @@ export default class LoginArno extends Component {
                 <View style={{padding: 10}} >
                   <TextInput
                     style={styles.textinput}
-                    placeholder="username"
+                    placeholder="Username"
                     onChangeText={(userid) => this.setState({userid})}         
                     value={this.state.text}
                   />
@@ -92,7 +93,7 @@ export default class LoginArno extends Component {
                 <View style={{padding: 10}}> 
                   <TextInput
                     style={styles.textinput}
-                    placeholder="password"
+                    placeholder="Password"
                     secureTextEntry={true}
                     onChangeText={(pass) => this.setState({pass})}
                     value={this.state.text}
