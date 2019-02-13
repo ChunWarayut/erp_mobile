@@ -1,2 +1,11 @@
 // Run ios and select simulator device
 react-native run-ios --simulator="iPhone 6s" 
+
+// Font awsome 
+npm install react-native-elements --save
+
+//vector icon 
+npm install react-native-vector-icons --save
+
+// link
+react-native link
