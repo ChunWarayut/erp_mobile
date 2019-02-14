@@ -12,6 +12,8 @@ import ChoiceLogin from './src/Login/ChoiceLogin';
 import SplashScreen from './src/SplashScreen';
 import LoginArno from './src/Login/LoginArno';
 import Home from './src/Home/Home';
+import SearchProduct from './src/SearchProduct/SearchProduct';
+import ProductList from './src/SearchProduct/ProductList'
 // import search_product from './src/Search_Product/search_product';
 
 import {
@@ -51,10 +53,23 @@ const AppNavigation = createStackNavigator(
       header: null,
        }
     },
+    ProductList: {
+      screen: ProductList,
+      navigationOptions : { 
+      header: null,
+       }
+    },
+    SearchProduct: {
+      screen: SearchProduct,
+      navigationOptions : { 
+      header: null,
+       }
+    },
+
    
   },
   {
-    initialRouteName: 'HomeArno'
+    initialRouteName: 'SearchProduct'
   }
 );
 

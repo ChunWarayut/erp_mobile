@@ -15,6 +15,7 @@ import {About} from './About';
 import {PurchaseRequestView} from '../PurchaseRequest/PurchaseRequestView';
 import {HomeScreen} from './HomeScreen';
 import {Profile} from '../Profile/Profile';
+import {SearchProduct} from '../SearchProduct/SearchProduct';
 const window = Dimensions.get('window');
 const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 
@@ -52,7 +53,7 @@ export default function Menu({ onItemSelected }) {
           </ListItem>
               
               
-          <ListItem style={styles.list} onPress={() => onItemSelected(<About/>)}>
+          <ListItem style={styles.list} onPress={() => onItemSelected(<SearchProduct/>)}>
             <View style = {{flex: 0.25}}> 
              <Icon name='search' style={styles.icon} />
             </View>
@@ -115,6 +116,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
             </View>
           </ListItem>
+
           <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile/>)}>
             <View style = {{flex: 0.25}}>
                 <Icon name='address-card' style={styles.icon} />
@@ -128,6 +130,10 @@ export default function Menu({ onItemSelected }) {
                 </Text>
               </View>
           </ListItem>
+
+        
+
+
         </View>
       
     </ScrollView>
