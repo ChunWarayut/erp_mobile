@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-    AppRegistry, 
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    Button,
-    TouchableHighlight,
-    Alert,
-    Text, 
-    TouchableOpacity
-} from 'react-native';
-import PropTypes from 'prop-types';
 
-import {ListItem } from'native-base'
+import {
+    View,
+    Button,
+} from 'react-native';
+
+
 import { Input, Header } from 'react-native-elements';
-import { Dropdown } from 'react-native-material-dropdown';
 
 
 // const window = Dimensions.get('window');
@@ -67,16 +56,7 @@ export default class SearchProduct extends Component {
 
 
     render() {
-        var colNum = this.state.Num
-
-        let data = [];
-
-       for( i = 0 ; i < colNum ; i++){
-        data[i]  = {
-            value: this.state.stock_group[i].stock_group_name
-           }
-       }
-
+  
        
         return (
             <View>
@@ -87,11 +67,6 @@ export default class SearchProduct extends Component {
                     rightComponent={{ icon: 'home', color: '#fff' }}
                 />
 
-                <Dropdown
-                    label='คลังสินค้า/Stock'
-                    data={data}
-                    errorMessage='Example: -.'
-                />
 
                 <Input
 

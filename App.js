@@ -51,23 +51,12 @@ const AppNavigation = createStackNavigator(
       header: null,
        }
     },
-    ProductList: {
-      screen: ProductList,
-      navigationOptions : { 
-      header: null,
-       }
-    },
-    SearchProduct: {
-      screen: SearchProduct,
-      navigationOptions : { 
-      header: null,
-       }
-    },
+   
 
    
   },
   {
-    initialRouteName: 'SearchProduct'
+    initialRouteName: 'HomeArno'
   }
 );
 

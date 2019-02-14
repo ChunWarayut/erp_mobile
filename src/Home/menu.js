@@ -52,7 +52,7 @@ export default function Menu({ onItemSelected, OnToggle }) {
           </ListItem>
               
               
-          <ListItem style={styles.list} onPress={() => onItemSelected(<SearchProduct/>)}>
+          <ListItem style={styles.list} onPress={() => onItemSelected(<SearchProduct OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}> 
              <Icon name='search' style={styles.icon} />
             </View>
@@ -116,7 +116,7 @@ export default function Menu({ onItemSelected, OnToggle }) {
             </View>
           </ListItem>
 
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile  OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
                 <Icon name='address-card' style={styles.icon} />
             </View>
