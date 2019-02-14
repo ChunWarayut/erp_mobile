@@ -19,8 +19,6 @@ import ProductList from './src/SearchProduct/ProductList'
 import {
   createStackNavigator,
   createAppContainer,
-  DrawerNavigator,
-  DrawerItems, SafeAreaView,createDrawerNavigator,ScrollView
 }
   from 'react-navigation';
 

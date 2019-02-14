@@ -6,8 +6,7 @@ import {
   ScrollView,
   View,
   Image,
-  Text,
-  TouchableHighlight,
+  Text
 } from 'react-native';
 import {ListItem } from'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -17,11 +16,11 @@ import {HomeScreen} from './HomeScreen';
 import {Profile} from '../Profile/Profile';
 import {SearchProduct} from '../SearchProduct/SearchProduct';
 const window = Dimensions.get('window');
-const uri = 'https://pickaface.net/gallery/avatar/Opi51c74d0125fd4.png';
 
 
 
-export default function Menu({ onItemSelected }) {
+
+export default function Menu({ onItemSelected, OnToggle }) {
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
           <View style={styles.header}>
@@ -39,7 +38,7 @@ export default function Menu({ onItemSelected }) {
       <View style={{ padding: 3 }}> 
               
              
-        <ListItem style={styles.list} onPress={() => onItemSelected( <HomeScreen/>)}>
+        <ListItem style={styles.list} onPress={() => onItemSelected( <HomeScreen OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
                 <Icon name='home' style={styles.icon} />
             </View>
@@ -65,7 +64,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
           </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected(<PurchaseRequestView/> )}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected(<PurchaseRequestView  OnToggled = {OnToggle}/> )}>
           <View style = {{flex: 0.25}}> 
             <Icon name='clipboard' style={styles.icon} />
           </View>
@@ -77,7 +76,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
           </View>
           </ListItem>
-          <ListItem style={styles.list} onPress={() => onItemSelected( <About/>)}>
+          <ListItem style={styles.list} onPress={() => onItemSelected( <About  OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
               <Icon name='tachometer' style={styles.icon} />
             </View>
@@ -89,7 +88,7 @@ export default function Menu({ onItemSelected }) {
               </Text>
               </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <About/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <About  OnToggled = {OnToggle}/>)}>
               <View style = {{flex: 0.25}}>
                   <Icon name='id-badge' style={styles.icon} />
               </View>
@@ -103,7 +102,7 @@ export default function Menu({ onItemSelected }) {
                   </Text>
               </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <About/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <About   OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
               <Icon name='retweet' style={styles.icon} />
             </View>   

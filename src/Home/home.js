@@ -1,100 +1,68 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
+  StyleSheet, 
+  View, 
 } from 'react-native';
-import {Header , Left ,Button, Body,Title,Right,Content} from'native-base'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import {Content } from 'native-base' 
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
-//import {About} from './about';
-import {HomeScreen} from './HomeScreen';
-const image = require('../../image/menu.png');
+import { HomeScreen } from './HomeScreen'; 
 
 
 
-export default class Home extends Component {
+export default class Home extends Component { 
+
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
-
     this.state = {
-      isOpen: false,
-      selectedItem:<HomeScreen/>,
+      isOpen : false,
+      selectedItem: <HomeScreen OnToggled={this.toggle}/>,
     };
+
   }
 
   toggle() {
     this.setState({
-      isOpen: !this.state.isOpen,
-    });
+      isOpen : !this.state.isOpen 
+    })
   }
+
 
   updateMenuState(isOpen) {
-    this.setState({ isOpen });
+    this.setState({
+      isOpen : isOpen 
+    })
   }
 
-  onMenuItemSelected = item =>
+  onMenuItemSelected = item => {
     this.setState({
-      isOpen: false,
       selectedItem: item,
-    });
-
+      isOpen : false,
+    }); 
+  }
   render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-    
-    return (
-     
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} OnToggle={this.toggle} />;
+return (
 
-      <SideMenu
-        menu={menu}
-        isOpen={this.state.isOpen}
-        onChange={isOpen => this.updateMenuState(isOpen)}
-      > 
-      
-       <Header style={{ backgroundColor: '#FFFFFF'}}> 
-        <Left>
-            <TouchableOpacity
-              onPress={this.toggle}
-              style={{ width: 32, height: 32 }}
-            >
-             <Image
-              source={image}
-              style={{ width: 32, height: 32 }}
-              />
 
-            </TouchableOpacity>
-        </Left> 
+  <SideMenu
+    menu={menu}
+    isOpen={this.state.isOpen}
+    onChange={isOpen => this.updateMenuState(isOpen)}
+  >
+    <Content style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+      <View style={styles.container}>
+        {this.state.selectedItem}
+      </View>
+    </Content>
+  </SideMenu>
 
-          <Body>
-            <Title>Header</Title>
-          </Body>
-          
-      </Header> 
-      <Content style={{flex: 1 , backgroundColor: '#FFFFFF'}}>
-        <View  style={styles.container}>
-            {this.state.selectedItem}
-        </View>
-        </Content>
-      </SideMenu>
-     
-    );
+);
   }
 }
 
-{/* <TouchableOpacity
-onPress={this.toggle}
-style={styles.button}
->
-<Image
-  source={image}
-  style={{ width: 32, height: 32 }}
-/>
-</TouchableOpacity> */}
 
 const styles = StyleSheet.create({
   button: {
@@ -121,9 +89,14 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-  icon:{
-    fontSize: 30, 
-    color: '#FFFFFF', 
+  icon: {
+    fontSize: 30,
+    color: '#FFFFFF',
     flex: 0.3
   },
 });
+
+// export function toggle() {
+
+// }
+//module.exports = Home;
