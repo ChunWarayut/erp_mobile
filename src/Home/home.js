@@ -43,7 +43,7 @@ export default class Home extends Component {
     }); 
   }
   render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} OnToggle={this.toggle} />;
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} OnToggle={this.toggle}  navigation={this.props.navigation}/>;
 return (
 
 

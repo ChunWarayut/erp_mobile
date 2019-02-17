@@ -66,7 +66,7 @@ class Profile extends Component {
                             this.setState({ datauser: responseJson.user })
                             this.setState({ len: responseJson.result })
                         } else {
-                            this.props.navigation.navigate('Login');
+                            //this.props.navigation.navigate('Login');
                         }
                     })
                     .catch((error) => {
@@ -84,7 +84,7 @@ class Profile extends Component {
     }
 
     render() {
-
+        console.warn(this.props);
         var dataUserCode = []
         var dataUserPrefix = []
         var dataName = []
@@ -94,7 +94,7 @@ class Profile extends Component {
         var dataUserName = []
         var dataPassWord = []
         if (this.state.len) {
-            //  console.warn(this.state.datauser);
+            
 
             dataUserCode.push(
                 <Text style={styles.text}>
@@ -222,7 +222,9 @@ class Profile extends Component {
 
                             </View>
                         </ListItem>
-                        <ListItem>
+                        <ListItem
+                        onPress={ () => this.props.navigation.navigate('EditProfilePhon') } 
+                        >
                             <View style={styles.list}>
                                 <View style={styles.viewCol}>
                                     <Text style={{ fontSize: 14 }}>

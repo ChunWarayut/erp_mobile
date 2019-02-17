@@ -20,7 +20,7 @@ const window = Dimensions.get('window');
 
 
 
-export default function Menu({ onItemSelected, OnToggle }) {
+export default function Menu({ onItemSelected, OnToggle ,navigation}) {
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
           <View style={styles.header}>
@@ -116,7 +116,7 @@ export default function Menu({ onItemSelected, OnToggle }) {
             </View>
           </ListItem>
 
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile  OnToggled = {OnToggle}/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <Profile  OnToggled = {OnToggle} navigation={navigation}/>)}>
             <View style = {{flex: 0.25}}>
                 <Icon name='address-card' style={styles.icon} />
             </View>
