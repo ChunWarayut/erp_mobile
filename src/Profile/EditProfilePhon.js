@@ -1,24 +1,26 @@
 
 import React, { Component } from 'react';
-import { 
+import {
     View,
     Image,
     Text,
     TouchableOpacity,
+    StyleSheet,
 } from 'react-native';
 import { Header, Left, Body, Title, Right } from 'native-base'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import GLOBALS from '../GLOBALS';
 
-export default class EditProfilePhon extends Component { 
+export default class EditProfilePhon extends Component {
     constructor(props) {
-        super(props); 
+        super(props);
 
         this.state = {
         };
 
     }
 
-    
+
     render() {
         console.warn(this.props)
         const { goBack } = this.props.navigation;
@@ -28,13 +30,14 @@ export default class EditProfilePhon extends Component {
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
                     <Left>
                         <TouchableOpacity
-                            onPress={()=>goBack()}
+                            onPress={() => goBack()}
                             style={{ width: 32, height: 32 }}
                         >
-                            <Image
-                                source={GLOBALS.image}
-                                style={{ width: 32, height: 32 }}
-                            />
+                            {/* <Image
+                                source={GLOBALS.IconBack}
+                                style={styles.icon}
+                            /> */}
+                             <Icon name='angle-left' style={styles.icon} />
 
                         </TouchableOpacity>
                     </Left>
@@ -48,11 +51,18 @@ export default class EditProfilePhon extends Component {
 
                 </Header>
                 <Text>
-                EditProfilePhon
+                    EditProfilePhon
                 </Text>
             </View>
         )
     }
 
 
-} 
+}
+
+const styles = StyleSheet.create({
+    icon: { 
+           width: 32, 
+           height: 32
+         }
+})

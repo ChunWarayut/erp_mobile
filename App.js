@@ -59,6 +59,13 @@ const AppNavigation = createStackNavigator(
        }
     },
 
+    ProductList: {
+      screen: ProductList,
+      navigationOptions : { 
+      header: null,
+       }
+    },
+
    
   },
   {
