@@ -1,53 +1,132 @@
 
 import React, { Component } from 'react';
 import {
+    StyleSheet,
     View,
+    ListView,
+    Separator,
     Text,
     Image,
     TouchableOpacity,
+    TouchableHighlight,
 } from 'react-native';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Header, Left, Button, Body, Title, Right, Content } from 'native-base'
 import Swipeout from 'react-native-swipeout';
 import GLOBALS from '../GLOBALS';
 
-const data = [{
-    purchase_request_id: '1',
-    purchase_request_code: "PR1901001-TH",
-    purchase_request_date: "2019-02-07",
-    img_status: "https://banner2.kisspng.com/20180421/uew/kisspng-computer-icons-check-mark-royalty-free-true-or-false-5adb4ad84b3f16.6675153715243209843082.jpg",
-}, {
-    purchase_request_id: '2',
-    purchase_request_code: "PR1901002-TH",
-    purchase_request_date: "2019-02-09",
-    img_status: "https://banner2.kisspng.com/20180421/uew/kisspng-computer-icons-check-mark-royalty-free-true-or-false-5adb4ad84b3f16.6675153715243209843082.jpg",
-}, {
-    purchase_request_id: '3',
-    purchase_request_code: "PR1901003-TH",
-    purchase_request_date: "2019-02-11",
-    img_status: "https://banner2.kisspng.com/20180421/uew/kisspng-computer-icons-check-mark-royalty-free-true-or-false-5adb4ad84b3f16.6675153715243209843082.jpg",
+var purchase_requests = [];
 
-}];
-
-class PurchaseRequestView extends Component { 
+class PurchaseRequestView extends Component {
 
     constructor(props) {
         super(props);
- 
+        const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
         this.state = {
+            data_source: ds.cloneWithRows(purchase_requests),
+            date_start: '',
+            date_end: '',
+            keyword: '',
+            user_id: '',
         };
 
     }
 
-    toggle() {
-        this.isOpenGlobals = !this.isOpenGlobals
+    componentWillMount() {
+
+        this.fetchData()
+
+    }
+
+    async fetchData() {
+
+        fetch(GLOBALS.SERVICE_URL + '/getPurchaseRequestBy.php', {
+
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                date_start: this.state.date_start,
+                date_end: this.state.date_end,
+                keyword: this.state.keyword,
+                user_id: this.state.user_id,
+            })
+
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+
+                this.setState({
+                    data_source: this.state.data_source.cloneWithRows(responseJson),
+                    purchase_requests: responseJson,
+                })
+                console.warn(responseJson);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
+    }
+
+    editNote(rowData) {
+        console.warn('Edit. ', rowData);
+    }
+
+    deleteNote(rowData) {
+        console.warn('Delete. ', rowData);
+    }
+
+    viewNote(id, rowData) {
+        console.warn("View Data :", rowData);
+    }
+
+    renderRow(rowData) {
+        let swipeBtns = [
+            {
+                text: 'Edit',
+                backgroundColor: 'orange',
+                underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+                onPress: () => { this.editNote(rowData) }
+            },
+            {
+                text: 'Delete',
+                backgroundColor: 'red',
+                underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
+                onPress: () => { this.deleteNote(rowData) }
+            }
+        ];
+        return (
+            <Swipeout right={swipeBtns}
+                autoClose='true'
+                backgroundColor='transparent'>
+                <TouchableHighlight>
+                    <View style={styles.listItem}>
+                        <View style={styles.listItemIcon}>
+                            <Icon name="rocket" color="#900" />
+                        </View>
+
+                        <View style={styles.listItemContent}>
+                            <View style={styles.listItemContentRow}>
+                                <Text style={styles.listItemContentTitle}> {rowData.purchase_request_code} </Text>
+                                <Text style={styles.listItemContentDate}> {rowData.purchase_request_date} </Text>
+                            </View>
+                            <View style={styles.listItemContentRow}>
+                                <Text style={styles.listItemContentDetail}> Status : {rowData.purchase_request_accept_status} </Text>
+                            </View>
+                        </View>
+                    </View>
+                </TouchableHighlight>
+
+            </Swipeout>
+
+        )
     }
 
     render() {
-        var swipeoutBtns = [
-            {
-                text: 'Button'
-            }
-        ]
+
 
         return (
             <View>
@@ -74,11 +153,12 @@ class PurchaseRequestView extends Component {
 
                 </Header>
 
-                <Swipeout right={swipeoutBtns}>
-                    <View>
-                        <Text>Swipe me left</Text>
-                    </View>
-                </Swipeout>
+                <View style={styles.container}>
+                    <ListView
+                        style={styles.listBody}
+                        dataSource={this.state.data_source}
+                        renderRow={this.renderRow.bind(this)} />
+                </View>
 
             </View>
 
@@ -87,3 +167,53 @@ class PurchaseRequestView extends Component {
 
 
 } export { PurchaseRequestView };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'stretch',
+        justifyContent: 'center'
+    },
+    listBody: {
+        flex: 1,
+    },
+    listItem: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        paddingTop: 8,
+        paddingBottom: 8
+    },
+    listItemIcon: {
+        margin: 4,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: "#efb",
+        justifyContent: 'center',
+        alignItems: 'center'
+
+    },
+    listItemContent: {
+        flex: 1,
+        alignItems: 'stretch',
+        paddingRight:4,
+    },
+    listItemContentRow: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'stretch'
+    },
+    listItemContentTitle: {
+        flex: 1,
+        textAlign: 'left',
+    },
+    listItemContentDate: {
+        flex: 1,
+        textAlign: 'right',
+    },
+    listItemContentDetail: {
+        flex: 1,
+        color: "#aaa"
+    }
+})
