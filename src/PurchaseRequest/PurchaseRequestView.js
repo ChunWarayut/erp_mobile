@@ -132,8 +132,8 @@ class PurchaseRequestView extends Component {
 
 
         return (
-            <ScrollView>
-                <Container>
+            <Container>
+                <View>
                     <Header style={{ backgroundColor: '#FFFFFF' }}>
                         <Left>
                             <TouchableOpacity
@@ -163,20 +163,17 @@ class PurchaseRequestView extends Component {
                         </Right>
 
                     </Header>
-                    <ScrollView
-                    
-                    style={{flex:1}}>
-                    <ListView
-                        style={styles.listBody}
-                        dataSource={this.state.data_source}
-                        renderRow={this.renderRow.bind(this)} />
+                </View>
+                <View>
+                    <ScrollView>
+                        <ListView
+                            style={styles.listBody}
+                            dataSource={this.state.data_source}
+                            renderRow={this.renderRow.bind(this)} />
                     </ScrollView>
-                    
+                </View>
 
-
-
-                </Container>
-            </ScrollView>
+            </Container>
 
 
         )
