@@ -9,6 +9,9 @@ import {
     Image,
     TouchableHighlight,
     ListView,
+    ScrollView,
+
+
 
 
 
@@ -18,7 +21,12 @@ import {
 
 
 import { TextInput } from 'react-native-gesture-handler';
-import { Container, Content, Button, Icon, Picker, Form, Header, Left, Body, Title, Right } from 'native-base';
+import { Container, Content, Picker, Form, Header, Left, Body, Title, Right, Spinner } from 'native-base';
+
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+
 import GLOBALS from '../GLOBALS';
 
 
@@ -100,6 +108,7 @@ export default class SearchProduct extends Component {
 
     }
 
+
     //-----------------------------------------------------------------------------------
     async search() {
 
@@ -168,6 +177,8 @@ export default class SearchProduct extends Component {
         )
     }
 
+
+
     render() {
         //  const {navigate} = this.props.navigation;
 
@@ -189,8 +200,10 @@ export default class SearchProduct extends Component {
 
 
 
+
         return (
-            <View>
+            <Container>
+
 
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
                     <Left>
@@ -214,15 +227,11 @@ export default class SearchProduct extends Component {
                     </Right>
 
                 </Header>
-
-                <Container>
-
-                    <Content>
-
-                        <Form>
+                <Content>
+                <Form>
                             <Text>
                                 คลังสินค้า/Stock
-                                            </Text>
+                            </Text>
 
                             <Picker
                                 mode="dropdown"
@@ -234,14 +243,14 @@ export default class SearchProduct extends Component {
                                 onValueChange={this.onValueChange.bind(this)}
                             >
 
-                                <Picker.Item label='ทั้งหมด' value='0' />
+                                <Picker.Item label='ทั้งหมด' value=" " />
                                 {dataPicker}
                             </Picker>
                         </Form>
 
 
 
-                        <TextInput
+                        <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                             placeholder='คำค้น'
                             shake={true}
                             errorStyle={{ color: 'back' }}
@@ -251,25 +260,44 @@ export default class SearchProduct extends Component {
                             value={this.state.keyword}
                         />
 
-                        <TouchableHighlight style={styles.btnSearch} onPress={() => this.search()} >
-                            <Text>ค้นหา</Text>
-                        </TouchableHighlight>
 
-                        <View style={styles.container}>
+
+
+
+                        {/* <TouchableHighlight style={styles.btnSearch} underlayColor={'#4fc3f7'} onPress={() => this.search()} >
+                            <Text style={styles.button}>
+                                ค้นหา
+                            </Text>
+                        </TouchableHighlight> */}
+
+                        {/* <Button
+                            style={styles.button}
+                            size={15}
+                            onPress={() => this.search()}
+                            title="ค้นหาสินค้า"
+                        /> */}
+
+                            <TouchableHighlight
+                                underlayColor={'#4fc3f7'}
+                                style={styles.button}
+                                onPress={() => this.search()}
+
+                            >
+                                <Text> ค้นหาสินค้า </Text>
+                            </TouchableHighlight>
+
                             <ListView
-                                style={styles.listBody}
-                                dataSource={this.state.data_source}
-                                renderRow={this.renderRow.bind(this)}
-                            />
-                        </View>
+                        style={styles.listBody}
+                        dataSource={this.state.data_source}
+                        renderRow={this.renderRow.bind(this)}
+                    />
 
-                    </Content>
-                </Container>
-
+                </Content>
+                        
 
 
-
-            </View>
+                    
+            </Container >
         )
     }
 
@@ -278,13 +306,26 @@ export default class SearchProduct extends Component {
 export { SearchProduct };
 
 const styles = StyleSheet.create({
-    btnSearch: {
-        color: 'red',
+    btncontainer: {
+        flex: 0.2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        flexGrow: 0.2
+    },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#DDDDDD',
+        width: 150,
+        height: 40,
+
     },
     container: {
-        flex: 1,
+        flex: 0.2,
         alignItems: 'stretch',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexGrow: 0.2
     },
     listBody: {
         flex: 1,
@@ -332,5 +373,6 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'right',
     },
+
 
 });
