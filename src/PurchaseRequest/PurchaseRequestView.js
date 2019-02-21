@@ -7,6 +7,7 @@ import {
     Text,
     TouchableOpacity,
     TouchableHighlight,
+    ScrollView
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -131,44 +132,52 @@ class PurchaseRequestView extends Component {
 
 
         return (
-            <Container>
-                <Header style={{ backgroundColor: '#FFFFFF' }}>
-                    <Left>
-                        <TouchableOpacity
-                            onPress={this.props.OnToggled}
-                            style={{ width: 32, height: 32 }}
-                        >
-                            <Icon
-                                name='bars'
-                                style={styles.headerIcon} />
+            <ScrollView>
+                <Container>
+                    <Header style={{ backgroundColor: '#FFFFFF' }}>
+                        <Left>
+                            <TouchableOpacity
+                                onPress={this.props.OnToggled}
+                                style={{ width: 32, height: 32 }}
+                            >
+                                <Icon
+                                    name='bars'
+                                    style={styles.headerIcon} />
 
-                        </TouchableOpacity>
-                    </Left>
+                            </TouchableOpacity>
+                        </Left>
 
-                    <Body>
-                        <Title>ใบร้องขอ</Title>
-                    </Body>
-                    <Right>
-                        <TouchableOpacity
-                            onPress={this.addNode()}
-                            style={{ width: 32, height: 32 }}
-                        >
-                            <Icon
-                                name='plus-circle'
-                                style={styles.headerIcon} />
+                        <Body>
+                            <Title>ใบร้องขอ</Title>
+                        </Body>
+                        <Right>
+                            <TouchableOpacity
+                                onPress={this.addNode()}
+                                style={{ width: 32, height: 32 }}
+                            >
+                                <Icon
+                                    name='plus-circle'
+                                    style={styles.headerIcon} />
 
-                        </TouchableOpacity>
-                    </Right>
+                            </TouchableOpacity>
+                        </Right>
 
-                </Header>
-                <ListView
-                    style={styles.listBody}
-                    dataSource={this.state.data_source}
-                    renderRow={this.renderRow.bind(this)} />
+                    </Header>
+                    <ScrollView
+                    
+                    style={{flex:1}}>
+                    <ListView
+                        style={styles.listBody}
+                        dataSource={this.state.data_source}
+                        renderRow={this.renderRow.bind(this)} />
+                    </ScrollView>
+                    
 
 
 
-            </Container>
+                </Container>
+            </ScrollView>
+
 
         )
     }
