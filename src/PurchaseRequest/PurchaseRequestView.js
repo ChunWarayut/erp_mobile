@@ -4,15 +4,13 @@ import {
     StyleSheet,
     View,
     ListView,
-    Separator,
     Text,
-    Image,
     TouchableOpacity,
     TouchableHighlight,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Header, Left, Button, Body, Title, Right, Content } from 'native-base'
+import { Header, Left, Body, Title, Right, Container } from 'native-base'
 import Swipeout from 'react-native-swipeout';
 import GLOBALS from '../GLOBALS';
 
@@ -83,6 +81,10 @@ class PurchaseRequestView extends Component {
         console.warn("View Data :", rowData);
     }
 
+    addNode(data) {
+        console.warn("Add node.");
+    }
+
     renderRow(rowData) {
         let swipeBtns = [
             {
@@ -129,17 +131,16 @@ class PurchaseRequestView extends Component {
 
 
         return (
-            <View>
+            <Container>
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
                     <Left>
                         <TouchableOpacity
                             onPress={this.props.OnToggled}
                             style={{ width: 32, height: 32 }}
                         >
-                            <Image
-                                source={GLOBALS.image}
-                                style={{ width: 32, height: 32 }}
-                            />
+                            <Icon
+                                name='bars'
+                                style={styles.headerIcon} />
 
                         </TouchableOpacity>
                     </Left>
@@ -148,19 +149,26 @@ class PurchaseRequestView extends Component {
                         <Title>ใบร้องขอ</Title>
                     </Body>
                     <Right>
+                        <TouchableOpacity
+                            onPress={this.addNode()}
+                            style={{ width: 32, height: 32 }}
+                        >
+                            <Icon
+                                name='plus-circle'
+                                style={styles.headerIcon} />
 
+                        </TouchableOpacity>
                     </Right>
 
                 </Header>
+                <ListView
+                    style={styles.listBody}
+                    dataSource={this.state.data_source}
+                    renderRow={this.renderRow.bind(this)} />
 
-                <View style={styles.container}>
-                    <ListView
-                        style={styles.listBody}
-                        dataSource={this.state.data_source}
-                        renderRow={this.renderRow.bind(this)} />
-                </View>
 
-            </View>
+
+            </Container>
 
         )
     }
@@ -169,10 +177,17 @@ class PurchaseRequestView extends Component {
 } export { PurchaseRequestView };
 
 const styles = StyleSheet.create({
+    headerIcon: {
+
+        width: 32,
+        height: 32,
+        fontSize: 32,
+        justifyContent: 'center',
+        alignItems: 'center'
+
+    },
     container: {
         flex: 1,
-        alignItems: 'stretch',
-        justifyContent: 'center'
     },
     listBody: {
         flex: 1,
@@ -197,7 +212,7 @@ const styles = StyleSheet.create({
     listItemContent: {
         flex: 1,
         alignItems: 'stretch',
-        paddingRight:4,
+        paddingRight: 4,
     },
     listItemContentRow: {
         flex: 1,
