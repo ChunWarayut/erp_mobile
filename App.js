@@ -15,6 +15,7 @@ import Home from './src/Home/Home';
 import SearchProduct from './src/SearchProduct/SearchProduct';
 import ProductList from './src/SearchProduct/ProductList'
 import EditPhon from './src/Profile/EditProfilePhon'
+import PurchaseRequestDetail from './src/PurchaseRequest/PurchaseRequestDetail';
 // import search_product from './src/Search_Product/search_product';
 
 import {
@@ -57,7 +58,14 @@ const AppNavigation = createStackNavigator(
       navigationOptions : { 
       header: null,
        }
+    }, 
+    PurchaseRequestDetail: {
+      screen: PurchaseRequestDetail,
+      navigationOptions : { 
+      header: null,
+       }
     },
+
 
     ProductList: {
       screen: ProductList,

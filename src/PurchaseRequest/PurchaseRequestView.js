@@ -62,7 +62,7 @@ class PurchaseRequestView extends Component {
                     data_source: this.state.data_source.cloneWithRows(responseJson),
                     purchase_requests: responseJson,
                 })
-                console.warn(responseJson);
+                //console.warn(responseJson);
             })
             .catch((error) => {
                 console.error(error);
@@ -78,8 +78,9 @@ class PurchaseRequestView extends Component {
         console.warn('Delete. ', rowData);
     }
 
-    viewNote(id, rowData) {
-        console.warn("View Data :", rowData);
+    viewNote(rowData) {
+        //console.warn(rowData);
+        this.props.navigation.navigate('PurchaseRequestDetail', {purchase_request_id: rowData.purchase_request_id});
     }
 
     addNode(data) {
@@ -112,11 +113,14 @@ class PurchaseRequestView extends Component {
             icon_status = 'info-circle';
             icon_color = '#F00';
         }
+
         return (
             <Swipeout right={swipeBtns}
                 autoClose='true'
                 backgroundColor='transparent'>
-                <TouchableHighlight>
+                <TouchableHighlight 
+                onPress={() => { this.viewNote(rowData) }} 
+                >
                     <View style={styles.listItem}>
                         <View style={styles.listItemIcon}>
                             <Icon name={icon_status} color={icon_color} style={{fontSize:32}} />
