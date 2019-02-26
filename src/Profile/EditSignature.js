@@ -8,15 +8,15 @@ import {
     StyleSheet,
     Button,
     Platform,
-    AsyncStorage,
-    Alert
+    Alert,
+    AsyncStorage
 } from 'react-native';
 import { Header, Left, Body, Title, Right, Content } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import GLOBALS from '../GLOBALS';
-import { TextInput } from 'react-native-gesture-handler';
+import SignatureView from './SignatureView';
 
-export default class EditProfilePhon extends Component {
+export default class EditSignature extends Component {
     constructor(props) {
         super(props);
 
@@ -26,19 +26,32 @@ export default class EditProfilePhon extends Component {
 
         };
 
-
     }
-    getMobilePhon() {
+
+    _showSignatureView() {
+        this._signatureView.show(true);
+    }
+
+    _onSave(result) {
+        const base64String = `data:image/png;base64,${result.encoded}`;
+        this.setState({ data: base64String });
+        this.seveSignature(base64String)
+        this._signatureView.show(false);
+    }
+
+    getSignatrue() {
         if (this.props.navigation.state.params.data.toString() != "") {
             this.setState({ data: this.props.navigation.state.params.data.toString() })
         }
     }
-    async saveMobilePhon(item) {
 
+    async seveSignature(item) {
         await AsyncStorage.getItem('Login_token')
             .then((token) => {
-                console.warn(token)
-                fetch(GLOBALS.SERVICE_URL + '/updateUserMobilePhon.php/', {
+                this.setState({ userid: token });
+                
+                console.warn(item)
+                fetch(GLOBALS.SERVICE_URL + '/updateUserSignature.php/', {
 
                     method: 'POST',
                     headers: {
@@ -48,8 +61,8 @@ export default class EditProfilePhon extends Component {
                     body: JSON.stringify({
 
                         userid: token,
-                        phon: item
-
+                        signature: item
+                        
                     })
 
                 })
@@ -69,16 +82,41 @@ export default class EditProfilePhon extends Component {
                     });
             });
     }
+
+
+
     componentDidMount() {
 
-        this.getMobilePhon()
+        this.getSignatrue()
 
     }
 
 
     render() {
-        //console.warn(this.state.data)
+        const { data } = this.state;
         const { goBack } = this.props.navigation;
+        var strImage = []
+
+        if (this.state.data != null) {
+            strImage.push(
+                <Image
+                    resizeMode={'contain'}
+                    style={{ width: 300, height: 300 }}
+                    source={{ uri: data }}
+                />
+            )
+        } else {
+            strImage.push(
+
+                <Image
+                    resizeMode={'contain'}
+                    style={{ width: 300, height: 300 }}
+                    source={require('../../image/signatur/defaultSignature.png')}
+                />
+            )
+        }
+
+
         return (
             <Content style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
                 <View>
@@ -88,12 +126,7 @@ export default class EditProfilePhon extends Component {
                                 onPress={() => goBack()}
                                 style={{ width: 32, height: 32 }}
                             >
-                                {/* <Image
-                                source={GLOBALS.IconBack}
-                                style={styles.icon}
-                            /> */}
                                 <Icon name='angle-left' style={styles.icon} />
-
                             </TouchableOpacity>
                         </Left>
 
@@ -101,31 +134,33 @@ export default class EditProfilePhon extends Component {
                             <Title
                                 style={styles.title}
                             >
-                                เเก้ไขเบอร์โทร
+                                เเก้ไขลายเซ็น
                         </Title>
                         </Body>
                         <Right style={{ flex: 0.2 }}>
 
                         </Right>
-
                     </Header>
+
                     <View style={styles.body}>
-                        <TextInput
-
-                            style={styles.textinput}
-                            value={this.state.data}
-                            onChangeText={data => this.setState({ data })}
-                        />
-
-
+                        <View style={styles.ImageSignature}>
+                            {strImage}
+                        </View>
                     </View>
-                    <View style={{ padding: 15 }}>
+
+                    <View style={styles.footer}>
+
                         <Button
-                            title="บันทึก"
+                            onPress={this._showSignatureView.bind(this)}
+                            title="เเก้ไขลายเซ็น"
                             color="#8ed1fc"
                             accessibilityLabel="Learn more about this purple button"
-                            style={styles.button}
-                            onPress={() => this.saveMobilePhon(this.state.data)}
+                        />
+
+                        <SignatureView
+                            ref={r => this._signatureView = r}
+                            rotateClockwise={!!true}
+                            onSave={this._onSave.bind(this)}
                         />
                     </View>
                 </View>
@@ -133,12 +168,12 @@ export default class EditProfilePhon extends Component {
         )
     }
 
-
 }
 
 const styles = StyleSheet.create({
     icon: {
         fontSize: 35,
+        color: '#000000',
     },
     title: {
         color: '#000000',
@@ -146,14 +181,24 @@ const styles = StyleSheet.create({
     },
     body: {
 
-        flex: 1,
+        flex: 0.4,
         backgroundColor: "#ffffff",
-        padding: 15,
-        //alignItems: 'center',
+        padding: 5,
+        alignItems: 'center',
 
     },
-    textinput: {
+    flexCenter: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
         padding: 10,
+    },
+    footer: {
+        flex: 0.6,
+        backgroundColor: "#ffffff",
+        padding: 15,
+    },
+    ImageSignature: {
         backgroundColor: 'white',
         ...Platform.select({
             ios: {
@@ -166,9 +211,6 @@ const styles = StyleSheet.create({
                 elevation: 5,
             },
         }),
-    },
-    button: {
-        padding: 15,
     }
 
 

@@ -32,7 +32,7 @@ export default class LoginArno extends Component {
 
       if(UserEmail != '' && UserPassword != ''){ 
         
-          fetch(GLOBALS.URL +'controllers/getLogin.php/', {
+          fetch(GLOBALS.SERVICE_URL +'/getLogin.php/', {
 
               method: 'POST',
               headers: {
@@ -49,9 +49,11 @@ export default class LoginArno extends Component {
           })
           .then((response) => response.json())
           .then((responseJson) => {
-            //console.warn(responseJson);
+            console.warn(responseJson);
             if(responseJson.result==true){
-            AsyncStorage.setItem('Login_token', this.state.userid);
+           // AsyncStorage.setItem('Login_token', this.state.userid);
+            AsyncStorage.setItem('Login_token', responseJson.user.user_id);
+
             this.props.navigation.replace('HomeArno')
              //console.warn(responseJson);
             }else{

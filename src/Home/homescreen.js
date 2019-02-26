@@ -5,6 +5,8 @@ import {
     View,
     Image,
     TouchableOpacity,
+    Button,
+    AsyncStorage
 } from 'react-native';
 import { Header, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
@@ -18,10 +20,15 @@ class HomeScreen extends Component {
         };
 
     }
+
+    Logout(){
+        AsyncStorage.setItem('Login_token', '');
+        this.props.navigation.replace('Login');
+    }
  
 
     render() {
-
+                console.warn(this.props)
         return (
 
             <View>
@@ -35,7 +42,6 @@ class HomeScreen extends Component {
                                 source={GLOBALS.image}
                                 style={{ width: 32, height: 32 }}
                             />
-
                         </TouchableOpacity>
                     </Left>
 
@@ -48,8 +54,18 @@ class HomeScreen extends Component {
 
                 </Header>
                 <Text>
+
                     homescreen
+               
                 </Text>
+
+                <Button
+                   onPress={ this.Logout.bind(this)}
+                   title="Learn More"
+                   color="#841584"
+                   accessibilityLabel="Learn more about this purple button"
+                 />
+    
             </View>
         )
     }
