@@ -15,6 +15,7 @@ import {PurchaseRequestView} from '../PurchaseRequest/PurchaseRequestView';
 import {HomeScreen} from './HomeScreen';
 import {Profile} from '../Profile/Profile';
 import {SearchProduct} from '../SearchProduct/SearchProduct';
+import {CustomerList } from '../Customer/CustomerList'
 const window = Dimensions.get('window');
 
 
@@ -38,7 +39,7 @@ export default function Menu({ onItemSelected, OnToggle ,navigation}) {
       <View style={{ padding: 3 }}> 
               
              
-        <ListItem style={styles.list} onPress={() => onItemSelected( <HomeScreen OnToggled = {OnToggle}/>)}>
+        <ListItem style={styles.list} onPress={() => onItemSelected( <HomeScreen OnToggled = {OnToggle}  navigation={navigation}/>)}>
             <View style = {{flex: 0.25}}>
                 <Icon name='home' style={styles.icon} />
             </View>
@@ -88,7 +89,7 @@ export default function Menu({ onItemSelected, OnToggle ,navigation}) {
               </Text>
               </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected( <About  OnToggled = {OnToggle}/>)}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <CustomerList  OnToggled = {OnToggle}  navigation={navigation}/>)}>
               <View style = {{flex: 0.25}}>
                   <Icon name='id-badge' style={styles.icon} />
               </View>

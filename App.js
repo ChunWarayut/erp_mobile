@@ -16,6 +16,11 @@ import SearchProduct from './src/SearchProduct/SearchProduct';
 import ProductList from './src/SearchProduct/ProductList'
 import EditPhon from './src/Profile/EditProfilePhon'
 import PurchaseRequestDetail from './src/PurchaseRequest/PurchaseRequestDetail';
+import EditEmail from './src/Profile/EditEmail'
+import EditPassword from './src/Profile/EditPassword'
+import EditSignature from './src/Profile/EditSignature'
+import CustomerMenu from './src/Customer/CustomerMenu'
+
 // import search_product from './src/Search_Product/search_product';
 
 import {
@@ -73,6 +78,33 @@ const AppNavigation = createStackNavigator(
       header: null,
        }
     },
+    EditEmail: {
+      screen: EditEmail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    EditPassword: {
+      screen: EditPassword,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    EditSignature: {
+      screen: EditSignature,
+      navigationOptions: {
+        header: null,
+      }
+    },
+
+    CustomerMenu: {
+      screen: CustomerMenu,
+      navigationOptions: {
+	 header: null,
+      }
+    },
+
+    
 
    
   },
