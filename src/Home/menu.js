@@ -64,7 +64,7 @@ export default function Menu({ onItemSelected, OnToggle ,navigation}) {
               </Text>
           </View>
           </ListItem>
-          <ListItem style={styles.list}  onPress={() => onItemSelected(<PurchaseRequestView  OnToggled = {OnToggle}/> )}>
+          <ListItem style={styles.list}  onPress={() => onItemSelected(<PurchaseRequestView  OnToggled = {OnToggle} navigation={navigation}/> )}>
           <View style = {{flex: 0.25}}> 
             <Icon name='clipboard' style={styles.icon} />
           </View>
