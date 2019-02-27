@@ -3,13 +3,15 @@ import React, { Component } from 'react';
 import {
     View,
     StyleSheet,
-    Alert,
     TouchableOpacity,
     Text,
     Image,
     TouchableHighlight,
     ListView,
     ScrollView,
+    Button,
+    Platform,
+
 
 
 
@@ -17,35 +19,16 @@ import {
 
 } from 'react-native';
 
-
-
-
 import { TextInput } from 'react-native-gesture-handler';
 import { Container, Content, Picker, Form, Header, Left, Body, Title, Right, Spinner } from 'native-base';
-
-import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
 import GLOBALS from '../GLOBALS';
-
-
-import { ProductList } from './ProductList';
-
-
 
 // const window = Dimensions.get('window');
 
 
 var products = [];
 export default class SearchProduct extends Component {
-
-
-    onPressButton() {
-        Alert.alert('You tapped the button!')
-    }
-
-
 
     constructor(props) {
         super(props);
@@ -114,7 +97,7 @@ export default class SearchProduct extends Component {
 
         const Stock_group_id = this.state.stock_group_id;
         const Keyword = this.state.keyword;
-        console.warn("stock_group_id : ", Stock_group_id);
+        console.warn("stock_group_id : ", Stock_group_id );
         console.warn("keyword : ", Keyword);
 
         fetch(GLOBALS.URL + 'getStockReport.php', {
@@ -151,7 +134,7 @@ export default class SearchProduct extends Component {
 
     renderRow(rowData) {
         return (
-            <TouchableHighlight>
+            <TouchableHighlight onPress={ () => this.props.navigation.navigate('ProductList'  , { data: rowData.product_id})} underlayColor="#03A9F4">
                 <View style={styles.listItem}>
                     <View style={styles.listItemIcon}>
                         <Icon name="rocket" color="#900" />
@@ -203,54 +186,58 @@ export default class SearchProduct extends Component {
 
         return (
             <Container>
-
-
-                <Header style={{ backgroundColor: '#FFFFFF' }}>
-                    <Left>
-                        <TouchableOpacity
-                            onPress={this.props.OnToggled}
-                            style={{ width: 32, height: 32 }}
-                        >
-                            <Image
-                                source={GLOBALS.image}
+                <View>
+                    <Header style={{ backgroundColor: '#FFFFFF' }}>
+                        <Left style={{ flex: 0.2 }}>
+                            <TouchableOpacity
+                                onPress={this.props.OnToggled}
                                 style={{ width: 32, height: 32 }}
-                            />
+                            >
+                                <Image
+                                    source={GLOBALS.image}
+                                    style={{ width: 32, height: 32 }}
+                                />
 
-                        </TouchableOpacity>
-                    </Left>
+                            </TouchableOpacity>
+                        </Left>
 
-                    <Body>
-                        <Title>ค้นหาคลังสินค้า</Title>
-                    </Body>
-                    <Right>
+                        <Body>
+                            <Title  style={styles.title}>ค้นหาคลังสินค้า</Title>
+                        </Body>
+                        <Right>
 
-                    </Right>
+                        </Right>
 
-                </Header>
-                <Content>
-                <Form>
-                            <Text>
-                                คลังสินค้า/Stock
-                            </Text>
+                    </Header>
 
+
+
+                    <Text style={{ fontSize: 15, color: '#000000', padding: 10 }}>คลังสินค้า/Stock</Text>
+
+                    <View style={{ padding: 5 }}>
+                        <View style={styles.border}>
                             <Picker
                                 mode="dropdown"
                                 // iosIcon={{Icon name="arrow-down" />}
-                                headerStyle={{ backgroundColor: "#b95dd3" }}
+                                headerStyle={{ backgroundColor: "#999999" }}
                                 headerBackButtonTextStyle={{ color: "#fff" }}
                                 headerTitleStyle={{ color: "#fff" }}
                                 selectedValue={this.state.stock_group_id}
                                 onValueChange={this.onValueChange.bind(this)}
                             >
 
-                                <Picker.Item label='ทั้งหมด' value=" " />
+                                <Picker.Item label='ทั้งหมด' value="ALL" />
                                 {dataPicker}
                             </Picker>
-                        </Form>
+                        </View>
+                    </View>
 
 
 
-                        <TextInput style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                    <Text style={{ fontSize: 15, color: '#000000', padding: 10 }}>คำค้น</Text>
+
+                    <View style={{ padding: 5, }}>
+                        <TextInput style={styles.textinput}
                             placeholder='คำค้น'
                             shake={true}
                             errorStyle={{ color: 'back' }}
@@ -259,45 +246,37 @@ export default class SearchProduct extends Component {
                             onChangeText={(pass) => this.setState({ keyword: pass })}
                             value={this.state.keyword}
                         />
+                    </View>
 
 
-
-
-
-                        {/* <TouchableHighlight style={styles.btnSearch} underlayColor={'#4fc3f7'} onPress={() => this.search()} >
-                            <Text style={styles.button}>
-                                ค้นหา
-                            </Text>
-                        </TouchableHighlight> */}
-
-                        {/* <Button
+                    <View style={{ padding: 10, alignItems: 'center' }}>
+                        <Button
                             style={styles.button}
-                            size={15}
                             onPress={() => this.search()}
+                            // onPress={ () => this.props.navigation.navigate('ProductList' , { data: this.state.stock_group_id , pass: this.state.keyword})} 
                             title="ค้นหาสินค้า"
-                        /> */}
-
-                            <TouchableHighlight
-                                underlayColor={'#4fc3f7'}
-                                style={styles.button}
-                                onPress={() => this.search()}
-
-                            >
-                                <Text> ค้นหาสินค้า </Text>
-                            </TouchableHighlight>
-
-                            <ListView
-                        style={styles.listBody}
-                        dataSource={this.state.data_source}
-                        renderRow={this.renderRow.bind(this)}
-                    />
-
-                </Content>
-                        
+                            color="#0693E3"
+                        />
+                    </View>
+                </View>
 
 
-                    
+
+                <View>
+                    <ScrollView >
+                        <ListView
+                            style={styles.listBody}
+                            dataSource={this.state.data_source}
+                            renderRow={this.renderRow.bind(this)}
+                            
+                        />
+                    </ScrollView>
+                </View>
+
             </Container >
+
+
+
         )
     }
 
@@ -317,9 +296,44 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#DDDDDD',
-        width: 150,
+        width: 180,
         height: 40,
 
+    },
+    textinput: {
+        padding: 10,
+        backgroundColor: 'white',
+        ...Platform.select({
+            ios: {
+                shadowColor: '#dedede',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.8,
+                shadowRadius: 2,
+            },
+            android: {
+                elevation: 5,
+            },
+        }),
+    },
+    border: {
+        borderRadius: 4,
+        borderWidth: 0.8,
+        borderColor: '#d6d7da',
+        ...Platform.select({
+            ios: {
+                shadowColor: '#dedede',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.8,
+                shadowRadius: 2,
+            },
+            android: {
+                elevation: 5,
+            },
+        }),
+    },
+    title:{
+        color: '#000000',
+        textAlign: 'center',
     },
     container: {
         flex: 0.2,
