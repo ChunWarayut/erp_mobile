@@ -18,7 +18,7 @@ export default class Home extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen : false,
-      selectedItem: <HomeScreen OnToggled={this.toggle}/>,
+      selectedItem: <HomeScreen OnToggled={this.toggle} navigation={this.props.navigation}/>,
     };
 
   }

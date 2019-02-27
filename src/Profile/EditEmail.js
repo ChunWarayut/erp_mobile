@@ -16,29 +16,42 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import GLOBALS from '../GLOBALS';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default class EditProfilePhon extends Component {
+export default class EditEmail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             data: null,
-            getdata: null
+            getdata: null,
+            selected: 1
 
         };
 
 
     }
-    getMobilePhon() {
+
+    
+
+    getEmail() {
         if (this.props.navigation.state.params.data.toString() != "") {
             this.setState({ data: this.props.navigation.state.params.data.toString() })
         }
     }
-    async saveMobilePhon(item) {
+
+    Back() {
+        const { navigation } = this.props;
+        navigation.goBack();
+        //navigation.state.params.onCheck();
+      }
+
+
+
+    async saveEmail(item) {
 
         await AsyncStorage.getItem('Login_token')
             .then((token) => {
                 console.warn(token)
-                fetch(GLOBALS.SERVICE_URL + '/updateUserMobilePhon.php/', {
+                fetch(GLOBALS.SERVICE_URL + '/updateUserEmail.php/', {
 
                     method: 'POST',
                     headers: {
@@ -48,7 +61,7 @@ export default class EditProfilePhon extends Component {
                     body: JSON.stringify({
 
                         userid: token,
-                        phon: item
+                        email: item
 
                     })
 
@@ -71,21 +84,21 @@ export default class EditProfilePhon extends Component {
     }
     componentDidMount() {
 
-        this.getMobilePhon()
+        this.getEmail()
 
     }
 
 
     render() {
-        //console.warn(this.state.data)
-        const { goBack } = this.props.navigation;
+        console.warn(this.state.data)
+        console.warn(this.props.navigation.state.params)
         return (
             <Content style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
                 <View>
                     <Header style={{ backgroundColor: '#FFFFFF' }}>
                         <Left style={{ flex: 0.2 }}>
                             <TouchableOpacity
-                                onPress={() => goBack()}
+                                onPress={() => this.Back()}
                                 style={{ width: 32, height: 32 }}
                             >
                                 {/* <Image
@@ -101,7 +114,7 @@ export default class EditProfilePhon extends Component {
                             <Title
                                 style={styles.title}
                             >
-                                เเก้ไขเบอร์โทร
+                                เเก้ไขอีเมล
                         </Title>
                         </Body>
                         <Right style={{ flex: 0.2 }}>
@@ -125,7 +138,7 @@ export default class EditProfilePhon extends Component {
                             color="#8ed1fc"
                             accessibilityLabel="Learn more about this purple button"
                             style={styles.button}
-                            onPress={() => this.saveMobilePhon(this.state.data)}
+                            onPress={() => this.saveEmail(this.state.data)}
                         />
                     </View>
                 </View>

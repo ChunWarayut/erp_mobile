@@ -16,29 +16,44 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import GLOBALS from '../GLOBALS';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default class EditProfilePhon extends Component {
+export default class EditPassword extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             data: null,
-            getdata: null
-
+            newpass: null,
+            oldpass: null,
+            conpass: null,
         };
 
-
     }
-    getMobilePhon() {
+    getPassword() {
         if (this.props.navigation.state.params.data.toString() != "") {
             this.setState({ data: this.props.navigation.state.params.data.toString() })
         }
     }
-    async saveMobilePhon(item) {
+
+    checkPassword() {
+        const password = this.state.data
+        const oldpassword = this.state.oldpass
+        const newpassword = this.state.newpass
+        const conpassword = this.state.conpass
+        if (oldpassword != password) {
+            Alert.alert("รหัสเดิมผ่านไม่ถูกต้อง")
+        } else if (newpassword != conpassword) {
+            Alert.alert("ยืนยันรหัสผ่านไม่ถูกต้อง")
+        } else {
+            this.savePassword(newpassword)
+        }
+    }
+
+    async savePassword(item) {
 
         await AsyncStorage.getItem('Login_token')
             .then((token) => {
                 console.warn(token)
-                fetch(GLOBALS.SERVICE_URL + '/updateUserMobilePhon.php/', {
+                fetch(GLOBALS.SERVICE_URL + '/updateUserPassword.php/', {
 
                     method: 'POST',
                     headers: {
@@ -48,7 +63,7 @@ export default class EditProfilePhon extends Component {
                     body: JSON.stringify({
 
                         userid: token,
-                        phon: item
+                        password: item
 
                     })
 
@@ -71,13 +86,13 @@ export default class EditProfilePhon extends Component {
     }
     componentDidMount() {
 
-        this.getMobilePhon()
+        this.getPassword()
 
     }
 
 
     render() {
-        //console.warn(this.state.data)
+        console.warn(this.state.data)
         const { goBack } = this.props.navigation;
         return (
             <Content style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
@@ -88,10 +103,6 @@ export default class EditProfilePhon extends Component {
                                 onPress={() => goBack()}
                                 style={{ width: 32, height: 32 }}
                             >
-                                {/* <Image
-                                source={GLOBALS.IconBack}
-                                style={styles.icon}
-                            /> */}
                                 <Icon name='angle-left' style={styles.icon} />
 
                             </TouchableOpacity>
@@ -101,7 +112,7 @@ export default class EditProfilePhon extends Component {
                             <Title
                                 style={styles.title}
                             >
-                                เเก้ไขเบอร์โทร
+                                เเก้ไขรหัสผ่าน
                         </Title>
                         </Body>
                         <Right style={{ flex: 0.2 }}>
@@ -110,13 +121,40 @@ export default class EditProfilePhon extends Component {
 
                     </Header>
                     <View style={styles.body}>
-                        <TextInput
 
-                            style={styles.textinput}
-                            value={this.state.data}
-                            onChangeText={data => this.setState({ data })}
-                        />
+                        <View style={styles.ViewPass}>
+                            <Text>
+                                รหัสผ่านเดิม
+                            </Text>
+                            <TextInput
+                                secureTextEntry={true}
+                                style={styles.textinput}
 
+                                onChangeText={oldpass => this.setState({ oldpass })}
+                            />
+                        </View>
+                        <View style={styles.ViewPass}>
+                            <Text>
+                                รหัสผ่านใหม่
+                            </Text>
+                            <TextInput
+                                secureTextEntry={true}
+                                style={styles.textinput}
+
+                                onChangeText={newpass => this.setState({ newpass })}
+                            />
+                        </View>
+                        <View style={styles.ViewPass}>
+                            <Text>
+                                ยืนยันรหัสผ่าน
+                            </Text>
+                            <TextInput
+                                secureTextEntry={true}
+                                style={styles.textinput}
+
+                                onChangeText={conpass => this.setState({ conpass })}
+                            />
+                        </View>
 
                     </View>
                     <View style={{ padding: 15 }}>
@@ -125,7 +163,7 @@ export default class EditProfilePhon extends Component {
                             color="#8ed1fc"
                             accessibilityLabel="Learn more about this purple button"
                             style={styles.button}
-                            onPress={() => this.saveMobilePhon(this.state.data)}
+                            onPress={() => this.checkPassword()}
                         />
                     </View>
                 </View>
@@ -153,6 +191,7 @@ const styles = StyleSheet.create({
 
     },
     textinput: {
+        marginTop: 10,
         padding: 10,
         backgroundColor: 'white',
         ...Platform.select({
@@ -169,7 +208,12 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 15,
-    }
+    },
+    ViewPass: {
+        marginTop: 5,
+        padding: 5,
+    },
+
 
 
 

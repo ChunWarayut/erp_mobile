@@ -62,7 +62,7 @@ class PurchaseRequestView extends Component {
                     data_source: this.state.data_source.cloneWithRows(responseJson),
                     purchase_requests: responseJson,
                 })
-                console.warn(responseJson);
+                //console.warn(responseJson);
             })
             .catch((error) => {
                 console.error(error);
@@ -78,8 +78,9 @@ class PurchaseRequestView extends Component {
         console.warn('Delete. ', rowData);
     }
 
-    viewNote(id, rowData) {
-        console.warn("View Data :", rowData);
+    viewNote(rowData) {
+        //console.warn(rowData);
+        this.props.navigation.navigate('PurchaseRequestDetail', {purchase_request_id: rowData.purchase_request_id});
     }
 
     addNode(data) {
@@ -101,14 +102,28 @@ class PurchaseRequestView extends Component {
                 onPress: () => { this.deleteNote(rowData) }
             }
         ];
+
+        var icon_status = "";
+        var icon_color = "";
+
+        if(rowData.purchase_request_accept_status == "Approve"){
+            icon_status = 'check-circle';
+            icon_color = '#0F0';
+        }else if (rowData.purchase_request_accept_status == "Waiting"){
+            icon_status = 'info-circle';
+            icon_color = '#F00';
+        }
+
         return (
             <Swipeout right={swipeBtns}
                 autoClose='true'
                 backgroundColor='transparent'>
-                <TouchableHighlight>
+                <TouchableHighlight 
+                onPress={() => { this.viewNote(rowData) }} 
+                >
                     <View style={styles.listItem}>
                         <View style={styles.listItemIcon}>
-                            <Icon name="rocket" color="#900" />
+                            <Icon name={icon_status} color={icon_color} style={{fontSize:32}} />
                         </View>
 
                         <View style={styles.listItemContent}>
@@ -207,10 +222,9 @@ const styles = StyleSheet.create({
     },
     listItemIcon: {
         margin: 4,
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        backgroundColor: "#efb",
+        width: 32,
+        height: 32, 
+        borderRadius: 24, 
         justifyContent: 'center',
         alignItems: 'center'
 

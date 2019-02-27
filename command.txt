@@ -10,5 +10,8 @@ npm install react-native-elements --save
 //vector icon 
 npm install react-native-vector-icons --save
 
+// SignatureCapture
+npm install react-native-signature-capture --save
+
 // link
 react-native link
