@@ -6,24 +6,26 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    ListView,
     TouchableHighlight,
+    ListView,
     ScrollView,
+    AsyncStorage
 } from 'react-native';
 import { Header, Left, Body, Title, Right } from 'native-base'
 import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GLOBALS from '../GLOBALS';
 
-var customer = [];
+var CustomerPurchaseOrderList = [];
 
-class CustomerList extends Component {
+export default class CustomerPurchaseOrderListView extends Component {
+
     constructor(props) {
+
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-
         this.state = {
-            data_source: ds.cloneWithRows(customer),
+            data_source: ds.cloneWithRows(CustomerPurchaseOrderList),
         };
 
     }
@@ -35,30 +37,42 @@ class CustomerList extends Component {
 
     async fetchData() {
 
-        fetch(GLOBALS.SERVICE_URL + '/getCustomerAll.php', {
+        await AsyncStorage.getItem('Login_token')
+            .then((token) => {
+                // console.warn(token)
+                fetch(GLOBALS.SERVICE_URL + '/getCustomerPurchaseOrder1By.php', {
 
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        user_id: "",
+                        customer_id: this.props.navigation.state.params.data.toString(),
 
-            })
+                    })
 
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-
-                this.setState({
-                    data_source: this.state.data_source.cloneWithRows(responseJson.customer),
-                    customer: responseJson.customer,
                 })
-                console.warn(responseJson);
-            })
-            .catch((error) => {
-                console.error(error);
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        // console.warn(responseJson);
+                        if (responseJson.result == true) {
+                            this.setState({
+                                data_source: this.state.data_source.cloneWithRows(responseJson.customer_purchase_order),
+                                CustomerPurchaseOrderList: responseJson.customer_purchase_order,
+                            })
+                        }
+
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
             });
+    }
+    viewNote(Data) {
+        // console.warn(Data);
+        this.props.navigation.navigate('CustomerPurchaseOrderDetail', { customer_purchase_order_id: Data });
     }
 
     renderRow(rowData) {
@@ -68,7 +82,9 @@ class CustomerList extends Component {
                 autoClose='true'
                 backgroundColor='transparent'
             >
-                <TouchableHighlight onPress={() => this.props.navigation.navigate('CustomerMenu', { data: rowData.customer_id })}>
+                <TouchableHighlight
+                    onPress={() => { this.viewNote(rowData.customer_purchase_order_id) }}
+                >
                     <View style={styles.listItem}>
                         <View style={styles.listItemIcon}>
                             <Icon name="rocket" color="#900" />
@@ -76,18 +92,13 @@ class CustomerList extends Component {
 
                         <View style={styles.listItemContent}>
                             <View style={styles.listItemContentRow}>
-                                <Text style={styles.listItemContentTitle}>  {rowData.customer_name_en} </Text>
-                                {/* <Text style={styles.listItemContentDate}> {rowData.customer_name_th} </Text> */}
+                                <Text style={styles.listItemContentTitle}>  {rowData.customer_purchase_order_code} </Text>
+
                             </View>
                             <View style={styles.listItemContentRow}>
-                                <Text style={styles.listItemContentDetail}> TAX ID : {rowData.customer_tax} </Text>
+                                <Text style={styles.listItemContentDetail}> Date : {rowData.customer_purchase_order_date} </Text>
                             </View>
-                            <View style={styles.listItemContentRow}>
-                                <Text style={styles.listItemContentDetail}> Mobile : {rowData.customer_tel} </Text>
-                            </View>
-                            <View style={styles.listItemContentRow}>
-                                <Text style={styles.listItemContentDetail}> Type : {rowData.customer_type_name} </Text>
-                            </View>
+
                         </View>
                     </View>
                 </TouchableHighlight>
@@ -99,48 +110,54 @@ class CustomerList extends Component {
     }
 
 
-    render() {
 
+
+    render() {
+        // console.warn(this.props.navigation.state.params.data.toString());
+        const { goBack } = this.props.navigation;
         return (
 
-            <View >
+            <View>
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
                     <Left style={{ flex: 0.2 }}>
                         <TouchableOpacity
-                            onPress={this.props.OnToggled}
+                            onPress={() => goBack()}
                             style={{ width: 32, height: 32 }}
                         >
-                            <Image
-                                source={GLOBALS.image}
-                                style={{ width: 32, height: 32 }}
-                            />
+                            {/* <Image
+                                source={GLOBALS.IconBack}
+                                style={styles.icon}
+                            /> */}
+                            <Icon name='angle-left' style={styles.icon} />
 
                         </TouchableOpacity>
                     </Left>
 
-                    <Body style={styles.headerbody}>
+                    <Body style={styles.headerBody}>
                         <Title
                             style={styles.title}
                         >
-                            ลูกค้า
+                            ใบสั่งซื้อลูกค้า
                         </Title>
                     </Body>
-                    <Right style={styles.headerright}>
+                    <Right style={styles.headerRight}>
 
                     </Right>
 
                 </Header>
 
-                <View style={{ padding: 15 }}>
+                <View style={styles.ViewBody}>
+
                     <ScrollView>
                         <ListView
                             style={styles.listBody}
                             dataSource={this.state.data_source}
                             renderRow={this.renderRow.bind(this)} />
                     </ScrollView>
+
                 </View>
-                
-            </View>
+
+            </View >
         )
     }
 
@@ -148,6 +165,14 @@ class CustomerList extends Component {
 }
 
 const styles = StyleSheet.create({
+    icon: {
+        fontSize: 35,
+        color: '#000000',
+    },
+    title: {
+        color: '#000000',
+        textAlign: 'center',
+    },
     header: {
         paddingTop: 24,
         flex: 0.25,
@@ -155,17 +180,32 @@ const styles = StyleSheet.create({
         alignItems: 'center',
 
     },
-    headerbody: {
+    headerBody: {
         alignItems: 'center',
         flex: 0.8
     },
-    headerright: {
+    headerRight: {
         alignItems: 'center',
         flex: 0.2
     },
-    title: {
-        color: '#000000',
-        textAlign: 'center',
+    ViewBody: {
+
+        padding: 15,
+
+    },
+    ContentRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    ItemIcon: {
+        margin: 4,
+        width: 70,
+        height: 70,
+        borderRadius: 10,
+        backgroundColor: "#efb",
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     listBody: {
         flex: 1,
@@ -200,7 +240,7 @@ const styles = StyleSheet.create({
     },
     listItemContentTitle: {
         flex: 1,
-        textAlign: 'left',
+        //textAlign: 'left',
     },
     listItemContentDate: {
         flex: 1,
@@ -211,5 +251,3 @@ const styles = StyleSheet.create({
         color: "#aaa"
     }
 })
-
-export { CustomerList };

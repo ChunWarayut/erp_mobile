@@ -9,6 +9,7 @@ import {
     Text,
     TextInput,
     AsyncStorage,
+    ScrollView,
     TouchableOpacity
 } from 'react-native';
 import { ListItem } from 'native-base'
@@ -216,7 +217,7 @@ class Profile extends Component {
                 </View>
 
                 <View style={styles.body} >
-
+                <ScrollView>
                     <View>
                         <ListItem>
 
@@ -328,7 +329,7 @@ class Profile extends Component {
                         {dataSignature}
 
                     </View>
-
+                    </ScrollView>
                 </View>
             </View>
         )

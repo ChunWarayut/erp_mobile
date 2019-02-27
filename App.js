@@ -20,7 +20,10 @@ import EditEmail from './src/Profile/EditEmail'
 import EditPassword from './src/Profile/EditPassword'
 import EditSignature from './src/Profile/EditSignature'
 import CustomerMenu from './src/Customer/CustomerMenu'
-
+import CustomerPurchaseOrderList from './src/CustomerPurchaseOrder/CustomerPurchaseOrderListView'
+import CustomerPurchaseOrderDetail from './src/CustomerPurchaseOrder/CustomerPurchaseOrderDetail'
+import CustomerInvoiceList from './src/CustomerInvoice/CustomerInvoiceListView'
+import CustomerInvoiceDetail from './src/CustomerInvoice/CustomerInvoiceDetail'
 // import search_product from './src/Search_Product/search_product';
 
 import {
@@ -54,29 +57,29 @@ const AppNavigation = createStackNavigator(
     },
     HomeArno: {
       screen: Home,
-      navigationOptions : { 
-      header: null,
-       }
+      navigationOptions: {
+        header: null,
+      }
     },
     EditProfilePhon: {
       screen: EditPhon,
-      navigationOptions : { 
-      header: null,
-       }
-    }, 
+      navigationOptions: {
+        header: null,
+      }
+    },
     PurchaseRequestDetail: {
       screen: PurchaseRequestDetail,
-      navigationOptions : { 
-      header: null,
-       }
+      navigationOptions: {
+        header: null,
+      }
     },
 
 
     ProductList: {
       screen: ProductList,
-      navigationOptions : { 
-      header: null,
-       }
+      navigationOptions: {
+        header: null,
+      }
     },
     EditEmail: {
       screen: EditEmail,
@@ -100,13 +103,35 @@ const AppNavigation = createStackNavigator(
     CustomerMenu: {
       screen: CustomerMenu,
       navigationOptions: {
-	 header: null,
+        header: null,
+      }
+    },
+    CustomerPurchaseOrderList: {
+      screen: CustomerPurchaseOrderList,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    CustomerPurchaseOrderDetail: {
+      screen: CustomerPurchaseOrderDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    CustomerInvoiceList: {
+      screen: CustomerInvoiceList,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    CustomerInvoiceDetail: {
+      screen: CustomerInvoiceDetail,
+      navigationOptions: {
+        header: null,
       }
     },
 
-    
 
-   
   },
   {
     initialRouteName: 'HomeArno'
