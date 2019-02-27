@@ -65,7 +65,7 @@ export default class SearchProduct extends Component {
 
     componentDidMount() {
 
-        return fetch(GLOBALS.URL + 'getStockGroup.php')
+        return fetch(GLOBALS.SERVICE_URL + '/getStockGroup.php')
             .then((response) => response.json())
             .then((responseJson) => {
 
@@ -97,10 +97,10 @@ export default class SearchProduct extends Component {
 
         const Stock_group_id = this.state.stock_group_id;
         const Keyword = this.state.keyword;
-        console.warn("stock_group_id : ", Stock_group_id );
+        console.warn("stock_group_id : ", Stock_group_id);
         console.warn("keyword : ", Keyword);
 
-        fetch(GLOBALS.URL + 'getStockReport.php', {
+        fetch(GLOBALS.SERVICE_URL + '/getStockReport.php', {
 
             method: 'POST',
             headers: {
@@ -134,7 +134,7 @@ export default class SearchProduct extends Component {
 
     renderRow(rowData) {
         return (
-            <TouchableHighlight onPress={ () => this.props.navigation.navigate('ProductList'  , { data: rowData.product_id})} underlayColor="#03A9F4">
+            <TouchableHighlight onPress={() => this.props.navigation.navigate('ProductList', { data: rowData.product_id })} underlayColor="#03A9F4">
                 <View style={styles.listItem}>
                     <View style={styles.listItemIcon}>
                         <Icon name="rocket" color="#900" />
@@ -202,7 +202,7 @@ export default class SearchProduct extends Component {
                         </Left>
 
                         <Body>
-                            <Title  style={styles.title}>ค้นหาคลังสินค้า</Title>
+                            <Title style={styles.title}>ค้นหาคลังสินค้า</Title>
                         </Body>
                         <Right>
 
@@ -260,18 +260,13 @@ export default class SearchProduct extends Component {
                     </View>
                 </View>
 
+                <ScrollView >
+                    <ListView
+                        style={styles.listBody}
+                        dataSource={this.state.data_source}
+                        renderRow={this.renderRow.bind(this)} />
+                </ScrollView>
 
-
-                <View>
-                    <ScrollView >
-                        <ListView
-                            style={styles.listBody}
-                            dataSource={this.state.data_source}
-                            renderRow={this.renderRow.bind(this)}
-                            
-                        />
-                    </ScrollView>
-                </View>
 
             </Container >
 
@@ -331,7 +326,7 @@ const styles = StyleSheet.create({
             },
         }),
     },
-    title:{
+    title: {
         color: '#000000',
         textAlign: 'center',
     },
