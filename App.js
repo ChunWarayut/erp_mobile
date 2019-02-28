@@ -24,6 +24,8 @@ import CustomerPurchaseOrderList from './src/CustomerPurchaseOrder/CustomerPurch
 import CustomerPurchaseOrderDetail from './src/CustomerPurchaseOrder/CustomerPurchaseOrderDetail'
 import CustomerInvoiceList from './src/CustomerInvoice/CustomerInvoiceListView'
 import CustomerInvoiceDetail from './src/CustomerInvoice/CustomerInvoiceDetail'
+import NotificationDetail from './src/Notifications/NotificationDetail'
+
 // import search_product from './src/Search_Product/search_product';
 
 import {
@@ -130,8 +132,14 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
+    NotificationDetail: {
+      screen: NotificationDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
 
-
+    
   },
   {
     initialRouteName: 'HomeArno'
