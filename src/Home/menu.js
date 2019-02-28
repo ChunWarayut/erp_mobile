@@ -16,6 +16,7 @@ import {HomeScreen} from './HomeScreen';
 import {Profile} from '../Profile/Profile';
 import {SearchProduct} from '../SearchProduct/SearchProduct';
 import {CustomerList } from '../Customer/CustomerList'
+import {Notification } from '../Notifications/Notification'
 const window = Dimensions.get('window');
 
 
@@ -103,6 +104,7 @@ export default function Menu({ onItemSelected, OnToggle ,navigation}) {
                   </Text>
               </View>
           </ListItem>
+
           <ListItem style={styles.list}  onPress={() => onItemSelected( <About   OnToggled = {OnToggle}/>)}>
             <View style = {{flex: 0.25}}>
               <Icon name='retweet' style={styles.icon} />
@@ -130,6 +132,21 @@ export default function Menu({ onItemSelected, OnToggle ,navigation}) {
                 </Text>
               </View>
           </ListItem>
+
+          <ListItem style={styles.list}  onPress={() => onItemSelected( <Notification   OnToggled = {OnToggle} navigation={navigation} />)}>
+            <View style = {{flex: 0.25}}>
+              <Icon name='retweet' style={styles.icon} />
+            </View>   
+            <View style = {{flex: 0.7}}>
+              <Text
+               
+                style={styles.item}
+              >
+                การเเจ้งเตือน
+              </Text>
+            </View>
+          </ListItem>
+
 
         
 
