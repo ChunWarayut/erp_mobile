@@ -243,6 +243,12 @@ export default class ProductList extends Component {
                   dataSource={this.state.data_source}
                   renderRow={this.renderRow.bind(this)} />
             </ScrollView>
+            <View>
+               <Image
+                  style={{ width: 430, height: 300 }}
+                  source={require('../../image/default.png')}
+               />
+            </View>
 
          </Container >
       );
