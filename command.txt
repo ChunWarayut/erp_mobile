@@ -4,7 +4,7 @@ react-native run-ios --simulator="iPhone 6s"
 // Navigation
 npm install --save react-native-gesture-handler
 
-// Font awsome 
+// Font awesome 
 npm install react-native-elements --save
 
 //vector icon 

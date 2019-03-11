@@ -47,13 +47,13 @@ const AppNavigation = createStackNavigator(
     },
     HomeArno: {
       screen: Home,
-      navigationOptions : { 
-      header: null,
-       }
+      navigationOptions: {
+        header: null,
+      }
     },
-   
 
-   
+
+
   },
   {
     initialRouteName: 'HomeArno'
