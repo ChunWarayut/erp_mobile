@@ -15,3 +15,7 @@ npm install react-native-signature-capture --save
 
 // link
 react-native link
+
+//radio button
+npm i react-native-btr --save
+npm i react-native-simple-radio-button --save

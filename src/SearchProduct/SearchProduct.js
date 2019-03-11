@@ -197,18 +197,21 @@ export default class SearchProduct extends Component {
                                     source={GLOBALS.image}
                                     style={{ width: 32, height: 32 }}
                                 />
-
                             </TouchableOpacity>
                         </Left>
 
-                        <Body>
+                        <Body tyle={styles.headerbody}>
                             <Title style={styles.title}>ค้นหาคลังสินค้า</Title>
                         </Body>
-                        <Right>
+                        <Right style={styles.headerright}>
 
                         </Right>
 
                     </Header>
+
+                    <View style={styles.viewIcon} >
+                        <Icon style={styles.icon} name='search' />
+                    </View>
 
 
 
@@ -260,12 +263,14 @@ export default class SearchProduct extends Component {
                     </View>
                 </View>
 
-                <ScrollView >
-                    <ListView
-                        style={styles.listBody}
-                        dataSource={this.state.data_source}
-                        renderRow={this.renderRow.bind(this)} />
-                </ScrollView>
+                <View style={{ padding: 10 }}>
+                    <ScrollView>
+                        <ListView
+                            style={styles.listBody}
+                            dataSource={this.state.data_source}
+                            renderRow={this.renderRow.bind(this)} />
+                    </ScrollView>
+                </View>
 
 
             </Container >
@@ -280,6 +285,14 @@ export default class SearchProduct extends Component {
 export { SearchProduct };
 
 const styles = StyleSheet.create({
+    headerbody: {
+        alignItems: 'center',
+        flex: 0.8
+    },
+    headerright: {
+        alignItems: 'center',
+        flex: 0.2
+    },
     btncontainer: {
         flex: 0.2,
         justifyContent: 'center',
@@ -381,6 +394,21 @@ const styles = StyleSheet.create({
     listItemContentQty: {
         flex: 1,
         textAlign: 'right',
+    },
+    icon: {
+        flex: 1,
+        color: '#337ab7',
+        fontSize: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    viewIcon: {
+        paddingTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        textAlign: 'center',
     },
 
 
