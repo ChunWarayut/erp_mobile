@@ -7,7 +7,12 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import {
+  createStackNavigator,
+  createAppContainer,
+}
+  from 'react-navigation';
+
 import ChoiceLogin from './src/Login/ChoiceLogin';
 import SplashScreen from './src/SplashScreen';
 import LoginArno from './src/Login/LoginArno';
@@ -25,14 +30,14 @@ import CustomerPurchaseOrderDetail from './src/CustomerPurchaseOrder/CustomerPur
 import CustomerInvoiceList from './src/CustomerInvoice/CustomerInvoiceListView'
 import CustomerInvoiceDetail from './src/CustomerInvoice/CustomerInvoiceDetail'
 import NotificationDetail from './src/Notifications/NotificationDetail'
+import AddStandardToolRequest from './src/TestRequest/AddStandardToolRequest'
+import StandardToolRequestView from './src/TestRequest/StandardToolRequestView'
+import AddProductStandardRequest from './src/TestRequest/AddProductStandardRequest'
+import AddProduct from './src/TestRequest/AddProduct'
+import AddStandardToolRequestDetail from './src/TestRequest/AddStandardToolRequestDetail'
 
-// import search_product from './src/Search_Product/search_product';
 
-import {
-  createStackNavigator,
-  createAppContainer,
-}
-  from 'react-navigation';
+
 
 const AppNavigation = createStackNavigator(
   {
@@ -75,8 +80,6 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-
-
     ProductList: {
       screen: ProductList,
       navigationOptions: {
@@ -101,7 +104,6 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-
     CustomerMenu: {
       screen: CustomerMenu,
       navigationOptions: {
@@ -138,8 +140,37 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
+    AddStandardToolRequest: {
+      screen: AddStandardToolRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    StandardToolRequestView: {
+      screen: StandardToolRequestView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductStandardRequest: {
+      screen: AddProductStandardRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProduct: {
+      screen: AddProduct,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddStandardToolRequestDetail: {
+      screen: AddStandardToolRequestDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
 
-    
   },
   {
     initialRouteName: 'HomeArno'
@@ -154,9 +185,3 @@ export default class App extends Component {
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

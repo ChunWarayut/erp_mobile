@@ -17,6 +17,7 @@ import {Profile} from '../Profile/Profile';
 import {SearchProduct} from '../SearchProduct/SearchProduct';
 import {CustomerList } from '../Customer/CustomerList'
 import {Notification } from '../Notifications/Notification'
+import {TestRequestView} from '../TestRequest/TestRequestView'
 const window = Dimensions.get('window');
 
 
@@ -78,7 +79,7 @@ export default function Menu({ onItemSelected, OnToggle ,navigation}) {
               </Text>
           </View>
           </ListItem>
-          <ListItem style={styles.list} onPress={() => onItemSelected( <About  OnToggled = {OnToggle}/>)}>
+          <ListItem style={styles.list} onPress={() => onItemSelected( <TestRequestView  OnToggled = {OnToggle} navigation={navigation}/>)}>
             <View style = {{flex: 0.25}}>
               <Icon name='tachometer' style={styles.icon} />
             </View>
