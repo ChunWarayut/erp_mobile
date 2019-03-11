@@ -3,26 +3,27 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import {
     Dimensions,
-    StyleSheet, 
+    StyleSheet,
     View,
     Image,
     Text,
     TextInput,
     AsyncStorage,
+    ScrollView,
     TouchableOpacity
 } from 'react-native';
 import { ListItem } from 'native-base'
 import { Header, Left, Body, Title, Right } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import GLOBALS from '../GLOBALS'; 
-const window = Dimensions.get('window'); 
+import GLOBALS from '../GLOBALS';
+const window = Dimensions.get('window');
 
 
 
 class Profile extends Component {
 
     constructor(props) {
-        super(props); 
+        super(props);
         this.state = {
             len: false,
             userid: "",
@@ -33,7 +34,13 @@ class Profile extends Component {
             user_email: '',
             user_mobile: '',
             isOpen: false,
+            selected: 1
+
         }
+    }
+
+    check() {
+        this.setState({ selected: this.state.selected + 1 })
     }
 
 
@@ -44,7 +51,7 @@ class Profile extends Component {
                 this.setState({ userid: token });
                 console.warn(token);
 
-                fetch(GLOBALS.URL + 'controllers/getUserProfile.php/', {
+                fetch(GLOBALS.SERVICE_URL + '/getUserProfile.php/', {
 
                     method: 'POST',
                     headers: {
@@ -63,10 +70,13 @@ class Profile extends Component {
 
                         if (responseJson.result == true) {
 
+                            console.warn(responseJson.user);
+
                             this.setState({ datauser: responseJson.user })
                             this.setState({ len: responseJson.result })
+
                         } else {
-                            this.props.navigation.navigate('Login');
+                            //this.props.navigation.navigate('Login');
                         }
                     })
                     .catch((error) => {
@@ -77,14 +87,22 @@ class Profile extends Component {
 
     }
 
-    componentWillMount() {
+
+    componentDidMount() {
 
         this.fetchData()
 
     }
 
-    render() {
+    goEditPhon() {
 
+    }
+
+
+
+
+    render() {
+        // console.warn(this.props);
         var dataUserCode = []
         var dataUserPrefix = []
         var dataName = []
@@ -93,8 +111,9 @@ class Profile extends Component {
         var dataEmail = []
         var dataUserName = []
         var dataPassWord = []
+        var dataSignature = []
         if (this.state.len) {
-            //  console.warn(this.state.datauser);
+
 
             dataUserCode.push(
                 <Text style={styles.text}>
@@ -136,6 +155,24 @@ class Profile extends Component {
                     {this.state.datauser.user_password}
                 </TextInput>
             )
+            dataSignature.push(
+                <ListItem
+                    onPress={() => this.props.navigation.navigate('EditSignature', { data: this.state.datauser.user_signature })}
+                >
+                    <View style={styles.list}>
+                        <View style={styles.viewCol}>
+                            <Text style={{ fontSize: 14 }}>
+                                ลายเซ็น / Signature
+                            </Text>
+
+                            {/* {dataPassWord} */}
+                        </View>
+                        <View style={{ padding: 10 }} >
+                            <Icon name='angle-right' style={styles.icon} />
+                        </View>
+                    </View>
+                </ListItem>
+            )
         }
 
         return (
@@ -143,7 +180,8 @@ class Profile extends Component {
             <View>
 
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
-                    <Left>
+
+                    <Left style={{ flex: 0.2 }}>
                         <TouchableOpacity
                             onPress={this.props.OnToggled}
                             style={{ width: 32, height: 32 }}
@@ -156,10 +194,14 @@ class Profile extends Component {
                         </TouchableOpacity>
                     </Left>
 
-                    <Body>
-                        <Title>ประวัติส่วนตัว</Title>
+                    <Body style={styles.headerbody}>
+                        <Title
+                            style={styles.title}
+                        >
+                            ประวัติส่วนตัว
+                        </Title>
                     </Body>
-                    <Right>
+                    <Right style={styles.headerright}>
 
                     </Right>
 
@@ -175,7 +217,7 @@ class Profile extends Component {
                 </View>
 
                 <View style={styles.body} >
-
+                <ScrollView>
                     <View>
                         <ListItem>
 
@@ -222,7 +264,9 @@ class Profile extends Component {
 
                             </View>
                         </ListItem>
-                        <ListItem>
+                        <ListItem
+                            onPress={() => this.props.navigation.navigate('EditProfilePhon', { data: this.state.datauser.user_mobile })}
+                        >
                             <View style={styles.list}>
                                 <View style={styles.viewCol}>
                                     <Text style={{ fontSize: 14 }}>
@@ -235,7 +279,9 @@ class Profile extends Component {
                                 </View>
                             </View>
                         </ListItem>
-                        <ListItem>
+                        <ListItem
+                            onPress={() => this.props.navigation.navigate('EditEmail', { data: this.state.datauser.user_email }, { onCheck: this.check })}
+                        >
                             <View style={styles.list}>
                                 <View style={styles.viewCol}>
                                     <Text style={{ fontSize: 14 }}>
@@ -257,14 +303,15 @@ class Profile extends Component {
 
                                     {dataUserName}
                                 </View>
-                                <View style={{ padding: 10 }} >
+                                {/* <View style={{ padding: 10 }} >
                                     <Icon name='angle-right' style={styles.icon} />
-                                </View>
+                                </View> */}
                             </View>
 
                         </ListItem>
-                        <ListItem>
-
+                        <ListItem
+                            onPress={() => this.props.navigation.navigate('EditPassword', { data: this.state.datauser.user_password })}
+                        >
                             <View style={styles.list}>
                                 <View style={styles.viewCol}>
                                     <Text style={{ fontSize: 14 }}>
@@ -279,8 +326,10 @@ class Profile extends Component {
                             </View>
                         </ListItem>
 
-                    </View>
+                        {dataSignature}
 
+                    </View>
+                    </ScrollView>
                 </View>
             </View>
         )
@@ -291,11 +340,19 @@ class Profile extends Component {
 
 const styles = StyleSheet.create({
     header: {
-        paddingTop:24,
+        paddingTop: 24,
         flex: 0.25,
         backgroundColor: "#ffffff",
         alignItems: 'center',
 
+    },
+    headerbody: {
+        alignItems: 'center',
+        flex: 0.8
+    },
+    headerright: {
+        alignItems: 'center',
+        flex: 0.8
     },
     body: {
 
@@ -337,6 +394,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         padding: 5
+    },
+    title: {
+        color: '#000000',
+        textAlign: 'center',
     }
 })
 export { Profile };

@@ -1,34 +1,26 @@
 
 import React, { Component } from 'react';
-import { 
-    Text,
+import {
     View,
     Image,
+    Text,
     TouchableOpacity,
-    Button,
-    AsyncStorage
 } from 'react-native';
 import { Header, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
 
-class HomeScreen extends Component { 
-
+export default class NotificationDetail extends Component {
     constructor(props) {
         super(props);
- 
+
         this.state = {
         };
 
     }
 
-    Logout(){
-        AsyncStorage.setItem('Login_token', '');
-        this.props.navigation.replace('Login');
-    }
- 
 
     render() {
-                console.warn(this.props)
+
         return (
 
             <View>
@@ -42,11 +34,12 @@ class HomeScreen extends Component {
                                 source={GLOBALS.image}
                                 style={{ width: 32, height: 32 }}
                             />
+
                         </TouchableOpacity>
                     </Left>
 
                     <Body>
-                        <Title>หน้าหลัก</Title>
+                        <Title>เกี่ยวกับเรา</Title>
                     </Body>
                     <Right>
 
@@ -54,21 +47,11 @@ class HomeScreen extends Component {
 
                 </Header>
                 <Text>
-
-                    homescreen
-               
+                    About
                 </Text>
-
-                <Button
-                   onPress={ this.Logout.bind(this)}
-                   title="Learn More"
-                   color="#841584"
-                   accessibilityLabel="Learn more about this purple button"
-                 />
-    
             </View>
         )
     }
 
 
-} export { HomeScreen };
+} 

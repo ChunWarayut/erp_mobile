@@ -18,7 +18,7 @@ export default class Home extends Component {
     this.toggle = this.toggle.bind(this);
     this.state = {
       isOpen : false,
-      selectedItem: <HomeScreen OnToggled={this.toggle}/>,
+      selectedItem: <HomeScreen OnToggled={this.toggle} navigation={this.props.navigation}/>,
     };
 
   }
@@ -43,7 +43,7 @@ export default class Home extends Component {
     }); 
   }
   render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} OnToggle={this.toggle} />;
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} OnToggle={this.toggle}  navigation={this.props.navigation}/>;
 return (
 
 

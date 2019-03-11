@@ -15,13 +15,15 @@ import { PurchaseRequestView } from '../PurchaseRequest/PurchaseRequestView';
 import { HomeScreen } from './HomeScreen';
 import { Profile } from '../Profile/Profile';
 import { SearchProduct } from '../SearchProduct/SearchProduct';
-import { RegrindView } from '../Regrind/RegrindView';
+import { CustomerList } from '../Customer/CustomerList'
+import { Notification } from '../Notifications/Notification'
+import { TestRequestView } from '../TestRequest/TestRequestView'
 const window = Dimensions.get('window');
 
 
 
 
-export default function Menu({ onItemSelected, OnToggle }) {
+export default function Menu({ onItemSelected, OnToggle, navigation }) {
   return (
     <ScrollView scrollsToTop={false} style={styles.menu}>
       <View style={styles.header}>
@@ -34,164 +36,179 @@ export default function Menu({ onItemSelected, OnToggle }) {
             <Text style={styles.item}>jhonnydoe@mail.com </Text>
             <Text style={styles.item}>Florida </Text>
           </View>
-        </View>
-      </View>
-      <View style={{ padding: 3 }}>
+          <View style={{ padding: 3 }}>
 
 
-        <ListItem style={styles.list} onPress={() => onItemSelected(<HomeScreen OnToggled={OnToggle} />)}>
-          <View style={{ flex: 0.25 }}>
-            <Icon name='home' style={styles.icon} />
-          </View>
-          <View style={{ flex: 0.7 }}>
-            <Text
-              style={styles.item}
-            >
-              หน้าเเรก
+            <ListItem style={styles.list} onPress={() => onItemSelected(<HomeScreen OnToggled={OnToggle} navigation={navigation} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='home' style={styles.icon} />
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Text
+                  style={styles.item}
+                >
+                  หน้าเเรก
                 </Text>
-          </View>
-        </ListItem>
+              </View>
+            </ListItem>
 
 
-        <ListItem style={styles.list} onPress={() => onItemSelected(<SearchProduct OnToggled={OnToggle} />)}>
-          <View style={{ flex: 0.25 }}>
-            <Icon name='search' style={styles.icon} />
-          </View>
-          <View style={{ flex: 0.7 }}>
-            <Text
-              style={styles.item}
-            >
-              ค้นหาสินค้า
+            <ListItem style={styles.list} onPress={() => onItemSelected(<SearchProduct OnToggled={OnToggle} navigation={navigation} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='search' style={styles.icon} />
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Text
+                  style={styles.item}
+                >
+                  ค้นหาสินค้า
               </Text>
-          </View>
-        </ListItem>
-        <ListItem style={styles.list} onPress={() => onItemSelected(<PurchaseRequestView OnToggled={OnToggle} />)}>
-          <View style={{ flex: 0.25 }}>
-            <Icon name='clipboard' style={styles.icon} />
-          </View>
-          <View style={{ flex: 0.7 }}>
-            <Text
-              style={styles.item}
-            >
-              สั่งซื้อสินค้า
+              </View>
+            </ListItem>
+            <ListItem style={styles.list} onPress={() => onItemSelected(<PurchaseRequestView OnToggled={OnToggle} navigation={navigation} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='clipboard' style={styles.icon} />
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Text
+                  style={styles.item}
+                >
+                  สั่งซื้อสินค้า
               </Text>
-          </View>
-        </ListItem>
-        <ListItem style={styles.list} onPress={() => onItemSelected(<About OnToggled={OnToggle} />)}>
-          <View style={{ flex: 0.25 }}>
-            <Icon name='tachometer' style={styles.icon} />
-          </View>
-          <View style={{ flex: 0.7 }}>
-            <Text
-              style={styles.item}
-            >
-              สั่งทดสอบสินค้า
+              </View>
+            </ListItem>
+            <ListItem style={styles.list} onPress={() => onItemSelected(<TestRequestView OnToggled={OnToggle} navigation={navigation} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='tachometer' style={styles.icon} />
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Text
+                  style={styles.item}
+                >
+                  สั่งทดสอบสินค้า
               </Text>
-          </View>
-        </ListItem>
-        <ListItem style={styles.list} onPress={() => onItemSelected(<About OnToggled={OnToggle} />)}>
-          <View style={{ flex: 0.25 }}>
-            <Icon name='id-badge' style={styles.icon} />
-          </View>
+              </View>
+            </ListItem>
+            <ListItem style={styles.list} onPress={() => onItemSelected(<CustomerList OnToggled={OnToggle} navigation={navigation} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='id-badge' style={styles.icon} />
+              </View>
 
-          <View style={{ flex: 0.7 }}>
-            <Text
+              <View style={{ flex: 0.7 }}>
+                <Text
 
-              style={styles.item}
-            >
-              ลูกค้า
+                  style={styles.item}
+                >
+                  ลูกค้า
                   </Text>
-          </View>
-        </ListItem>
-        <ListItem style={styles.list} onPress={() => onItemSelected(<RegrindView OnToggled={OnToggle} />)}>
-          <View style={{ flex: 0.25 }}>
-            <Icon name='retweet' style={styles.icon} />
-          </View>
-          <View style={{ flex: 0.7 }}>
-            <Text
+              </View>
+            </ListItem>
 
-              style={styles.item}
-            >
-              รีกรายด์สินค้า
+            <ListItem style={styles.list} onPress={() => onItemSelected(<About OnToggled={OnToggle} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='retweet' style={styles.icon} />
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Text
+
+                  style={styles.item}
+                >
+                  รีกายร์สินค้า
               </Text>
-          </View>
-        </ListItem>
+              </View>
+            </ListItem>
 
-        <ListItem style={styles.list} onPress={() => onItemSelected(<Profile OnToggled={OnToggle} />)}>
-          <View style={{ flex: 0.25 }}>
-            <Icon name='address-card' style={styles.icon} />
-          </View>
-          <View style={{ flex: 0.7 }}>
-            <Text
+            <ListItem style={styles.list} onPress={() => onItemSelected(<Profile OnToggled={OnToggle} navigation={navigation} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='address-card' style={styles.icon} />
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Text
 
-              style={styles.item}
-            >
-              โปรไฟล์
+                  style={styles.item}
+                >
+                  โปรไฟล์
                 </Text>
+              </View>
+            </ListItem>
+
+            <ListItem style={styles.list} onPress={() => onItemSelected(<Notification OnToggled={OnToggle} navigation={navigation} />)}>
+              <View style={{ flex: 0.25 }}>
+                <Icon name='retweet' style={styles.icon} />
+              </View>
+              <View style={{ flex: 0.7 }}>
+                <Text
+
+                  style={styles.item}
+                >
+                  การเเจ้งเตือน
+              </Text>
+              </View>
+            </ListItem>
+
+
+
+
+
+
           </View>
-        </ListItem>
-
-
-
-
-      </View>
 
     </ScrollView>
-  );
-}
-
+        );
+      }
+      
 const styles = StyleSheet.create({
-  header: {
-    height: window.height - (window.height * 0.75),
-    backgroundColor: "#03A9D1",
-    padding: 5,
-
-  },
+          header: {
+          height: window.height - (window.height * 0.75),
+        backgroundColor: "#03A9D1",
+        padding: 5,
+    
+      },
   headerContent: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 5,
-
-  },
+          flex: 1,
+        alignItems: 'center',
+        marginTop: 5,
+    
+      },
   menu: {
-    flex: 1,
-    width: window.width - (window.width * 0.35),
-    height: window.height,
-    backgroundColor: '#00B7E3',
-    // padding: 20,
-  },
-
+          flex: 1,
+        width: window.width - (window.width * 0.35),
+        height: window.height,
+        backgroundColor: '#00B7E3',
+        // padding: 20,
+      },
+    
   avatar: {
-    width: 75,
-    height: 75,
-    borderRadius: 35,
-    //flex: 1,
-    padding: 15,
-  },
+          width: 75,
+        height: 75,
+        borderRadius: 35,
+        //flex: 1,
+        padding: 15,
+      },
   name: {
-    position: 'absolute',
-    left: 70,
-    top: 20,
-  },
+          position: 'absolute',
+        left: 70,
+        top: 20,
+      },
   item: {
-    fontSize: 14,
-    fontWeight: '300',
-    paddingTop: 5,
-    color: '#FFFFFF',
-    textAlign: 'left'
-  },
+          fontSize: 14,
+        fontWeight: '300',
+        paddingTop: 5,
+        color: '#FFFFFF',
+        textAlign: 'left'
+      },
   list: {
-    flex: 1,
-    flexDirection: 'row'
-  },
+          flex: 1,
+        flexDirection: 'row'
+      },
   icon: {
-    fontSize: 35,
-    color: '#FFFFFF',
-    flex: 0.3
-  },
-});
-
+          fontSize: 35,
+        color: '#FFFFFF',
+        flex: 0.3
+      },
+    });
+    
 Menu.propTypes = {
-  onItemSelected: PropTypes.func.isRequired,
-};
-
+          onItemSelected: PropTypes.func.isRequired,
+      };
+      
