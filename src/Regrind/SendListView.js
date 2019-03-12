@@ -39,7 +39,7 @@ class SendListView extends Component {
                     </Left>
 
                     <Body>
-                        <Title>SendListView Body</Title>
+                        <Title>ส่งรีกรายน์</Title>
                     </Body>
                     <Right>
 

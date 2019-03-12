@@ -9,7 +9,7 @@ import {
 import { Header, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
 
-class ReceiveListView extends Component {
+class RegrindListView extends Component {
     constructor(props) {
         super(props);
 
@@ -39,7 +39,7 @@ class ReceiveListView extends Component {
                     </Left>
 
                     <Body>
-                        <Title>ReceiveListView Body</Title>
+                        <Title>รีกรายน์</Title>
                     </Body>
                     <Right>
 
@@ -47,11 +47,11 @@ class ReceiveListView extends Component {
 
                 </Header>
                 <Text>
-                    ReceiveListView
+                    RegrindListView
                 </Text>
             </View>
         )
     }
 
 
-} export { ReceiveListView };
+} export { RegrindListView };

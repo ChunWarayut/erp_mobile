@@ -5,15 +5,11 @@ import {
     Image,
     Text,
     TouchableOpacity,
-
 } from 'react-native';
-import {
-    Header, Left, Body, Title, Right, Segment,
-    Button
-} from 'native-base'
+import { Header, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
 
-class RegrindView extends Component {
+class ReceiveListView extends Component {
     constructor(props) {
         super(props);
 
@@ -38,19 +34,24 @@ class RegrindView extends Component {
                                 source={GLOBALS.image}
                                 style={{ width: 32, height: 32 }}
                             />
+
                         </TouchableOpacity>
                     </Left>
 
                     <Body>
+                        <Title>รับรีกรายน์</Title>
                     </Body>
                     <Right>
 
                     </Right>
 
                 </Header>
+                <Text>
+                    ReceiveListView
+                </Text>
             </View>
         )
     }
 
 
-} export { RegrindView };
+} export { ReceiveListView };
