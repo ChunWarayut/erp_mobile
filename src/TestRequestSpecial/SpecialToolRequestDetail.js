@@ -16,7 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import GLOBALS from '../GLOBALS';
 
 dataSTR_lists = [];
-export default class StandardToolRequestDetail extends Component {
+export default class SpecialToolRequestDetail extends Component {
 
 
     constructor(props) {
@@ -135,6 +135,8 @@ export default class StandardToolRequestDetail extends Component {
                     <View style={{ flex: 1 }}>
                         <View style={styles.ContentItem}>
                             <Text style={styles.ContentItemTitle}>  ประเภทใบร้องขอสั่งซื้อสินค้าทดลอง / STR Code </Text>
+                        </View>
+                        <View style={styles.ContentItem}>
                             <Text style={styles.ContentItemDetail1}>
                                 {this.state.request_standard.request_standard_code}
                             </Text>
@@ -144,6 +146,8 @@ export default class StandardToolRequestDetail extends Component {
                         <View style={{ flex: 1 }}>
                             <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemTitle}>  ผู้ร้องขอ / Request by  </Text>
+                            </View>
+                            <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemDetail}>
                                     {this.state.request_standard.user_name} {this.state.request_standard.user_lastname}
                                 </Text>
@@ -152,16 +156,20 @@ export default class StandardToolRequestDetail extends Component {
                         <View style={{ flex: 1 }}>
                             <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemTitle}> ผู้ขาย / Supplier </Text>
-                                <Text style={styles.ContentItemDetail}>
-                                    {this.state.request_standard.supplier_name_en}
-                                </Text>
                             </View>
+                            {/* <View style={styles.ContentItem}> */}
+                            <Text style={styles.ContentItemDetail}>
+                                {this.state.request_standard.supplier_name_th}
+                            </Text>
+                            {/* </View> */}
                         </View>
                     </View>
                     <View style={styles.ContentRow}>
                         <View style={{ flex: 1 }}>
                             <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemTitle}> หมายเหตุ / Remark </Text>
+                            </View>
+                            <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemDetail}>
                                     {this.state.request_standard.request_standard_remark}
                                 </Text>
@@ -244,7 +252,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'left',
         color: "#aaa",
-
+        padding: 3,
         fontSize: 14,
         paddingLeft: 5
     },
@@ -254,7 +262,7 @@ const styles = StyleSheet.create({
         color: "#aaa",
         padding: 3,
         fontSize: 16,
-        paddingLeft: 5
+        paddingLeft: 10
     },
     listBody: {
         // flex: 1,

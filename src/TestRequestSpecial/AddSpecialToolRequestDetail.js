@@ -16,39 +16,73 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import GLOBALS from '../GLOBALS';
 
 dataSTR_lists = [];
-export default class StandardToolRequestDetail extends Component {
+export default class AddStandardToolRequestDetail extends Component {
 
 
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        const itemSTR = this.props.navigation.getParam('request_standard_id', '0')
-
+        const itemSTR = this.props.navigation.getParam('dataSTR', '0')
+        const itemId = this.props.navigation.getParam('dataProduct', '0')
         this.state = {
-            // dataProduct: itemId,
+            dataProduct: itemId,
             dataSTR: itemSTR,
-            data_source: ds.cloneWithRows(dataSTR_lists),
+            data_source: ds.cloneWithRows(itemId),
             UserName: "",
             SuppliersName: "",
-            request_standard: []
 
         };
         this.fetchData(itemSTR)
     }
+
     componentWillMount() {
 
     }
-
-    async fetchData(request_standard_id) {
-        //console.warn(item);
-        fetch(GLOBALS.SERVICE_URL + '/getStandardRequestByID.php', {
+    saveStandardToolRequest() {
+        fetch(GLOBALS.SERVICE_URL + '/insertStandardToolRequest.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                request_standard_id: request_standard_id,
+                request_standard_code: this.state.dataSTR.gencode,
+                employee_id: this.state.dataSTR.users,
+                supplier_id: this.state.dataSTR.supplier_id,
+                request_standard_remark: this.state.dataSTR.textRemark,
+                product_list: this.state.dataProduct
+
+            })
+
+        })
+            .then((response) => response.json())
+            .then((responseJson) => {
+                if (responseJson.result == '1') {
+                    Alert.alert("เพิ่มข้อมูลสำเร็จ")
+                    this.props.navigation.pop(3)
+
+                } else {
+                    Alert.alert("เพิ่มข้อมูลไม่สำเร็จ")
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+
+    async fetchData(item) {
+        //console.warn(item);
+        fetch(GLOBALS.SERVICE_URL + '/getSupplierAndUserSrtByID.php', {
+
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                users_id: item.users,
+                suppliers_id: item.suppliers,
             })
 
         })
@@ -56,10 +90,10 @@ export default class StandardToolRequestDetail extends Component {
             .then((responseJson) => {
 
                 this.setState({
-                    request_standard: responseJson.request_standard,
-                    // request_standard_lists: responseJson.request_standard_lists,
+                    UserName: responseJson.userName,
+                    SuppliersName: responseJson.suppliersName
                     //     dataSTR: responseJson.dataSTR,
-                    data_source: this.state.data_source.cloneWithRows(responseJson.request_standard_lists),
+                    //     data_source: this.state.data_source.cloneWithRows(responseJson.dataSTR_list),
                 })
                 console.warn(responseJson);
             })
@@ -67,6 +101,7 @@ export default class StandardToolRequestDetail extends Component {
                 console.error(error);
             });
     }
+
     renderRow(rowData, sectionID, rowID, higlightRow) {
         return (
             <View style={styles.listItem}>
@@ -89,6 +124,7 @@ export default class StandardToolRequestDetail extends Component {
                         <Text style={styles.listItemContentDetail}>{rowData.product_name} </Text>
                     </View>
                 </View>
+
                 <View style={{
                     flex: 1,
                     width: 64
@@ -98,7 +134,7 @@ export default class StandardToolRequestDetail extends Component {
                         flex: 1,
                         textAlign: 'right',
                         paddingRight: 8,
-                    }}> {rowData.request_standard_list_qty} </Text>
+                    }}> {rowData.product_qty} </Text>
                 </View>
 
             </View>
@@ -107,36 +143,44 @@ export default class StandardToolRequestDetail extends Component {
     }
 
     render() {
+
         const { goBack } = this.props.navigation;
-        //console.warn(this.state.dataProduct)
+        console.warn(this.state.dataProduct)
         // console.warn(this.state.dataSTR)
         return (
+
             <Container>
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
-                    <Left style={{ flex: 0.1 }}>
+                    <Left style={{ flex: 0.2 }}>
                         <TouchableOpacity
                             onPress={() => goBack()}
                             style={{ width: 32, height: 32 }}
                         >
                             <Icon name='angle-left' style={styles.headerIcon} />
+
                         </TouchableOpacity>
                     </Left>
                     <Body style={styles.headerBody}>
                         <Title
                             style={styles.title}
                         >
-                            รายละเอียดใบร้องขอสั่งซื้อสินค้าทดลอง
+                            เพิ่มใบร้องขอสั่งซื้อสินค้าทดลอง
                         </Title>
                     </Body>
-                    <Right style={{ flex: 0.1 }}>
+                    <Right style={{ flex: 0.2 }}>
+
                     </Right>
+
                 </Header>
+
                 <View style={styles.BoxlistItem}>
                     <View style={{ flex: 1 }}>
                         <View style={styles.ContentItem}>
-                            <Text style={styles.ContentItemTitle}>  ประเภทใบร้องขอสั่งซื้อสินค้าทดลอง / STR Code </Text>
+                            <Text style={styles.ContentItemTitle}>  ประเภทใบร้องขอสั่งซื้อสินค้าทดลองพิเศษ / SPTR Code </Text>
+                        </View>
+                        <View style={styles.ContentItem}>
                             <Text style={styles.ContentItemDetail1}>
-                                {this.state.request_standard.request_standard_code}
+                                {this.state.dataSTR.gencode}
                             </Text>
                         </View>
                     </View>
@@ -144,54 +188,53 @@ export default class StandardToolRequestDetail extends Component {
                         <View style={{ flex: 1 }}>
                             <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemTitle}>  ผู้ร้องขอ / Request by  </Text>
+                            </View>
+                            <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemDetail}>
-                                    {this.state.request_standard.user_name} {this.state.request_standard.user_lastname}
+                                    {this.state.UserName}
                                 </Text>
                             </View>
                         </View>
                         <View style={{ flex: 1 }}>
                             <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemTitle}> ผู้ขาย / Supplier </Text>
-                                <Text style={styles.ContentItemDetail}>
-                                    {this.state.request_standard.supplier_name_en}
-                                </Text>
                             </View>
+                            {/* <View style={styles.ContentItem}> */}
+                            <Text style={styles.ContentItemDetail}>
+                                {this.state.SuppliersName}
+                            </Text>
+                            {/* </View> */}
                         </View>
                     </View>
                     <View style={styles.ContentRow}>
                         <View style={{ flex: 1 }}>
                             <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemTitle}> หมายเหตุ / Remark </Text>
+                            </View>
+                            <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemDetail}>
-                                    {this.state.request_standard.request_standard_remark}
+                                    {this.state.dataSTR.textRemark}
                                 </Text>
                             </View>
                         </View>
                     </View>
                 </View>
                 <View style={styles.BoxlistItem}>
-
-                    <View style={styles.ContentRowList}>
-                        <View style={{ flex: 0.2 }}>
-                            <Text > ลำดับ </Text>
-                        </View>
-                        <View style={{ flex: 0.8 }}>
-                            <Text > รหัสสินค้า / ชื่อสินค้า </Text>
-                        </View>
-                        <View style={{ flex: 0.2 }}>
-                            <Text > จำนวน </Text>
-                        </View>
-                    </View>
-
                     <ScrollView>
                         <ListView
                             style={styles.listBody}
                             dataSource={this.state.data_source}
                             renderRow={this.renderRow.bind(this)} />
                     </ScrollView>
-
                 </View>
 
+                <View style={styles.ButtonItem}>
+                    <Button
+                        onPress={() => this.saveStandardToolRequest()}
+                        title="บัททึก"
+                        color="#8ed1fc"
+                    />
+                </View>
             </Container>
         )
     }
@@ -227,12 +270,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         //alignItems: 'stretch'
     },
-    ContentRowList: {
-        height: 10,
-        //  flex: 1,
-        flexDirection: 'row',
-        marginBottom: 8
-    },
     ContentItemTitle: {
         flex: 1,
         textAlign: 'left',
@@ -244,7 +281,7 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlign: 'left',
         color: "#aaa",
-
+        padding: 3,
         fontSize: 14,
         paddingLeft: 5
     },
@@ -254,10 +291,10 @@ const styles = StyleSheet.create({
         color: "#aaa",
         padding: 3,
         fontSize: 16,
-        paddingLeft: 5
+        paddingLeft: 10
     },
     listBody: {
-        // flex: 1,
+        flex: 1,
     },
     listItem: {
         flex: 1,
@@ -298,7 +335,7 @@ const styles = StyleSheet.create({
         color: "#aaa"
     },
     BoxlistItem: {
-        // justifyContent: 'center',
+        justifyContent: 'center',
         backgroundColor: 'white',
         ...Platform.select({
             ios: {

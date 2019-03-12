@@ -13,9 +13,6 @@ import {
     ScrollView,
     Platform,
     CheckBox,
-
-
-
 } from 'react-native';
 import { Container, Content, Picker, Form, Header, Left, Body, Title, Right } from 'native-base';
 import { ButtonGroup } from 'react-native-elements';
@@ -56,7 +53,7 @@ export default class Notification extends Component {
             pressStatusall: false
         });
 
-        console.warn(this.state.pressStatus);
+        // console.warn(this.state.pressStatus);
     }
 
     setactive2 = () => {
@@ -66,7 +63,7 @@ export default class Notification extends Component {
             pressStatusall: false
         });
 
-        console.warn(this.state.pressStatusunseen);
+        // console.warn(this.state.pressStatusunseen);
     }
 
     setactive3 = () => {
@@ -76,7 +73,7 @@ export default class Notification extends Component {
             pressStatusunseen: false,
         });
 
-        console.warn(this.state.pressStatusall);
+        // console.warn(this.state.pressStatusall);
     }
 
 
@@ -156,10 +153,10 @@ export default class Notification extends Component {
                         result_text: 'ไม่มีข้อมูล!'
                     })
                 }
-                console.warn('after user_id', responseJson.user_id);
-                console.warn('after seen_type', responseJson.seen_type);
-                console.warn('after seen_state', responseJson.seen_state);
-                console.warn('after result_text', responseJson.result_text);
+                // console.warn('after user_id', responseJson.user_id);
+                // console.warn('after seen_type', responseJson.seen_type);
+                // console.warn('after seen_state', responseJson.seen_state);
+                // console.warn('after result_text', responseJson.result_text);
             })
             .catch((error) => {
                 console.error(error);
@@ -213,12 +210,12 @@ export default class Notification extends Component {
                     width: 64
                 }}
                 >
-                    <Text style={{
+                    {/* <Text style={{
                         flex: 1,
                         textAlign: 'right',
                         paddingRight: 8,
 
-                    }}> {rowData.notification_seen} </Text>
+                    }}> {rowData.notification_seen} </Text> */}
                 </View>
                 {/* </TouchableHighlight> */}
             </View>
@@ -252,7 +249,7 @@ export default class Notification extends Component {
 
 
         return (
-            <Container >
+            <View>
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
                     <Left style={{ flex: 0.2 }}>
                         <TouchableOpacity
@@ -268,72 +265,67 @@ export default class Notification extends Component {
                     </Left>
 
                     <Body>
-                        <Title style={styles.title}>การแจ้งแตือน</Title>
+                        <Title style={styles.headerBody}>การแจ้งแตือน</Title>
                     </Body>
-                    <Right>
+                    <Right style={{ flex: 0.2 }}>
 
                     </Right>
                 </Header>
-                <Content>
-                    <View style={{ flex: 1, height: 50, flexDirection: 'row', paddingLeft: 5, paddingRight: 5, paddingTop: 5 }}>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Request')}><View style={styles.component1}><Icon style={styles.icon} name='comments' /></View></TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Order')}><View style={styles.component2}><Icon style={styles.icon} name='tasks' /></View></TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Customer Order')}><View style={styles.component3}><Icon style={styles.icon} name='cart-plus' /></View></TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Supplier Approve')}><View style={styles.component4}><Icon style={styles.icon} name='life-ring' /></View></TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('')}><View style={styles.component5}><Icon style={styles.icon} name='undo' /></View></TouchableOpacity>
+
+                <View style={{ flex: 1, height: 50, flexDirection: 'row', paddingLeft: 5, paddingRight: 5, paddingTop: 5 }}>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Request')}><View style={styles.component1}><Icon style={styles.icon} name='comments' /></View></TouchableOpacity>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Order')}><View style={styles.component2}><Icon style={styles.icon} name='tasks' /></View></TouchableOpacity>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Customer Order')}><View style={styles.component3}><Icon style={styles.icon} name='cart-plus' /></View></TouchableOpacity>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Supplier Approve')}><View style={styles.component4}><Icon style={styles.icon} name='life-ring' /></View></TouchableOpacity>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('')}><View style={styles.component5}><Icon style={styles.icon} name='undo' /></View></TouchableOpacity>
+                </View>
+                <View style={{ padding: 5, flexDirection: 'row' }}>
+                    <View style={styles.border}>
+                        <Picker
+                            mode="dropdown"
+                            iosIcon={<Icon name="arrow-down" />}
+                            placeholder="All"
+                            placeholderStyle={{ color: "#bfc6ea" }}
+                            placeholderIconColor="#007aff"
+                            style={{ width: '100%' }}
+                            selectedValue={this.state.selected}
+                            onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label="All" value="key0" />
+                            <Picker.Item label="Seen" value="key1" />
+                            <Picker.Item label="Unseen" value="key2" />
+                            <Picker.Item label="NoSelect" value="key3" />
+                        </Picker>
                     </View>
 
+                    <View style={{ flex: 1, width: 64, flexDirection: 'row', paddingLeft: 30 }}>
+                        <TouchableOpacity style={this.state.pressStatusseen ? styles.active : styles.nonactive} onPress={() => this.sortseen('seen', this.state.type)}><Text style={styles.textTouchableOpacity}>Seen</Text></TouchableOpacity>
+                        <TouchableOpacity style={this.state.pressStatusunseen ? styles.active : styles.nonactive} onPress={() => this.sortseen('unseen', this.state.type)}><Text style={styles.textTouchableOpacity}>Unseen</Text></TouchableOpacity>
+                        <TouchableOpacity style={this.state.pressStatusall ? styles.active : styles.nonactive} onPress={() => this.sortseen('', this.state.type)}><Text style={styles.textTouchableOpacity}>All</Text></TouchableOpacity>
+                    </View>
+                </View>
 
-                    <View style={{ padding: 5, flexDirection: 'row' }}>
-                        <View style={styles.border}>
-                            <Picker
-                                mode="dropdown"
-                                iosIcon={<Icon name="arrow-down" />}
-                                placeholder="All"
-                                placeholderStyle={{ color: "#bfc6ea" }}
-                                placeholderIconColor="#007aff"
-                                style={{ width: '100%' }}
-                                selectedValue={this.state.selected}
-                                onValueChange={this.onValueChange.bind(this)}
-                            >
-                                <Picker.Item label="All" value="key0" />
-                                <Picker.Item label="Seen" value="key1" />
-                                <Picker.Item label="Unseen" value="key2" />
-                                <Picker.Item label="NoSelect" value="key3" />
-                            </Picker>
+
+                <View style={{ flex: 1, height: 30, flexDirection: 'row', paddingLeft: 5, paddingRight: 5, paddingTop: 5 }} >
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Request')}><View style={styles.component6}><Icon style={styles.iconAction} name='envelope-open' /></View></TouchableOpacity>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Order')}><View style={styles.component7}><Icon style={styles.iconAction} name='envelope' /></View></TouchableOpacity>
+                    <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Customer Order')}><View style={styles.component8}><Icon style={styles.iconAction} name='trash' /></View></TouchableOpacity>
+                </View>
+                <View style={{ padding: 10 }}>
+                    <ScrollView>
+                        <ListView
+                            style={styles.listBody}
+                            dataSource={this.state.data_source}
+                            renderRow={this.renderRow.bind(this)} />
+                        <View>
+                            <Text style={{ textAlign: 'center' }}>
+                                {this.state.result_text}
+                            </Text>
                         </View>
+                    </ScrollView>
+                </View>
 
-                        <View style={{ flex: 1, width: 64, flexDirection: 'row', paddingLeft: 30 }}>
-                            <TouchableOpacity style={this.state.pressStatusseen ? styles.active : styles.nonactive} onPress={() => this.sortseen('seen', this.state.type)}><Text style={styles.textTouchableOpacity}>Seen</Text></TouchableOpacity>
-                            <TouchableOpacity style={this.state.pressStatusunseen ? styles.active : styles.nonactive} onPress={() => this.sortseen('unseen', this.state.type)}><Text style={styles.textTouchableOpacity}>Unseen</Text></TouchableOpacity>
-                            <TouchableOpacity style={this.state.pressStatusall ? styles.active : styles.nonactive} onPress={() => this.sortseen('', this.state.type)}><Text style={styles.textTouchableOpacity}>All</Text></TouchableOpacity>
-                        </View>
-                    </View>
-
-
-                    <View style={{ flex: 1, height: 30, flexDirection: 'row', paddingLeft: 5, paddingRight: 5, paddingTop: 5 }} >
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Request')}><View style={styles.component6}><Icon style={styles.iconAction} name='envelope-open' /></View></TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Purchase Order')}><View style={styles.component7}><Icon style={styles.iconAction} name='envelope' /></View></TouchableOpacity>
-                        <TouchableOpacity style={{ flex: 1 }} onPress={() => this.sorttype('Customer Order')}><View style={styles.component8}><Icon style={styles.iconAction} name='trash' /></View></TouchableOpacity>
-                    </View>
-
-
-
-                    <View style={{ padding: 10 }}>
-                        <ScrollView>
-                            <ListView
-                                style={styles.listBody}
-                                dataSource={this.state.data_source}
-                                renderRow={this.renderRow.bind(this)} />
-                            <View>
-                                <Text style={{ textAlign: 'center' }}>
-                                    {this.state.result_text}
-                                </Text>
-                            </View>
-                        </ScrollView>
-                    </View>
-                </Content>
-            </Container >
+            </View>
         );
     }
 }
@@ -454,9 +446,9 @@ const styles = StyleSheet.create({
     checkbox: {
 
     },
-    title: {
-        color: '#000000',
-        textAlign: 'center',
+    headerBody: {
+        alignItems: 'center',
+        flex: 0.8
     },
     headerIcon: {
 
