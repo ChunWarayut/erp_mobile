@@ -35,9 +35,12 @@ import StandardToolRequestView from './src/TestRequest/StandardToolRequestView'
 import AddProductStandardRequest from './src/TestRequest/AddProductStandardRequest'
 import AddProduct from './src/TestRequest/AddProduct'
 import AddStandardToolRequestDetail from './src/TestRequest/AddStandardToolRequestDetail'
-
-
-
+import StandardToolRequestDetail from './src/TestRequest/StandardToolRequestDetail'
+import SpecialToolRequestView from './src/TestRequestSpecial/SpecialToolRequestView'
+import AddSpecialToolRequest from './src/TestRequestSpecial/AddSpecialToolRequest'
+import AddProductSpecialRequest from './src/TestRequestSpecial/AddProductSpecialRequest'
+import AddProductSpecial from './src/TestRequestSpecial/AddProductSpecial'
+import AddSpecialToolRequestDetail from './src/TestRequestSpecial/AddSpecialToolRequestDetail'
 
 const AppNavigation = createStackNavigator(
   {
@@ -170,7 +173,43 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-
+    StandardToolRequestDetail: {
+      screen: StandardToolRequestDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    SpecialToolRequestView: {
+      screen: SpecialToolRequestView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddSpecialToolRequest: {
+      screen: AddSpecialToolRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductSpecialRequest: {
+      screen: AddProductSpecialRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductSpecial: {
+      screen: AddProductSpecial,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddSpecialToolRequestDetail: {
+      screen: AddSpecialToolRequestDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    
   },
   {
     initialRouteName: 'HomeArno'

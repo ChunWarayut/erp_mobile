@@ -172,6 +172,7 @@ export default class AddStandardToolRequestDetail extends Component {
                     </Right>
 
                 </Header>
+                
                 <View style={styles.BoxlistItem}>
                     <View style={{ flex: 1 }}>
                         <View style={styles.ContentItem}>

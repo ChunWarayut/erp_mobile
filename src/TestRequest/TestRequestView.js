@@ -33,6 +33,11 @@ class TestRequestView extends Component {
     goStandardRequest() {
         this.props.navigation.navigate('StandardToolRequestView');
     }
+    goSpecialdRequest() {
+        this.props.navigation.navigate('SpecialToolRequestView');
+    }
+
+
 
 
 
@@ -74,6 +79,15 @@ class TestRequestView extends Component {
                 </Header>
                 <View style={styles.ViewBody}>
 
+                    {/* <View style={styles.BoxMenu}>
+                        <TouchableOpacity
+                        >
+                            <View style={styles.BoxMenuItem}>
+                                <Text style={styles.titleItem}>  ใบสั่งสินค้าทดลอง  </Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View> */}
+
                     <View style={styles.BoxMenu}>
                         <TouchableOpacity
                             onPress={() => this.goStandardRequest()}
@@ -87,10 +101,10 @@ class TestRequestView extends Component {
                     </View>
                     <View style={styles.BoxMenu}>
                         <TouchableOpacity
-
+                            onPress={() => this.goSpecialdRequest()}
                         >
                             <View style={styles.BoxMenuItem}>
-
+                                <Text style={styles.titleItem}>  สินค้าพิเศษ  </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -99,10 +113,11 @@ class TestRequestView extends Component {
 
                         >
                             <View style={styles.BoxMenuItem}>
-
+                                <Text style={styles.titleItem}>  สินค้ารีกายด์  </Text>
                             </View>
                         </TouchableOpacity>
                     </View>
+
                 </View>
             </View>
         )

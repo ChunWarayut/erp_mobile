@@ -17,7 +17,7 @@ import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome';
 var TestRequest = [];
 
-export default class StandardToolRequestView extends Component {
+export default class SpecialToolRequestView extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -36,7 +36,7 @@ export default class StandardToolRequestView extends Component {
         await AsyncStorage.getItem('Login_token')
             .then((token) => {
                 // console.warn(token)
-                fetch(GLOBALS.SERVICE_URL + '/getRequestStandardBy.php', {
+                fetch(GLOBALS.SERVICE_URL + '/getSpecialRequestBy.php', {
 
                     method: 'POST',
                     headers: {
@@ -54,8 +54,8 @@ export default class StandardToolRequestView extends Component {
 
                         if (responseJson.result == true) {
                             this.setState({
-                                data_source: this.state.data_source.cloneWithRows(responseJson.request_standard),
-                                TestRequest: responseJson.request_standard,
+                                data_source: this.state.data_source.cloneWithRows(responseJson.request_special),
+                                TestRequest: responseJson.request_special,
                             })
                         }
 
@@ -70,7 +70,7 @@ export default class StandardToolRequestView extends Component {
         this.props.navigation.navigate('StandardToolRequestDetail', { request_standard_id: request_standard_id });
     }
     addNode() {
-        this.props.navigation.navigate('AddStandardToolRequest');
+        this.props.navigation.navigate('AddSpecialToolRequest');
     }
     renderRow(rowData) {
         return (
@@ -127,7 +127,7 @@ export default class StandardToolRequestView extends Component {
                         <Title
                             style={styles.title}
                         >
-                            สินค้ามาตรฐาน
+                            สินค้าทดลองพิเศษ
                         </Title>
                     </Body>
                     <Right
