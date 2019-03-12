@@ -1,65 +1,65 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet, 
-  View, 
+  StyleSheet,
+  View,
 } from 'react-native';
-import {Content } from 'native-base' 
+import { Content } from 'native-base'
 import SideMenu from 'react-native-side-menu';
 import Menu from './Menu';
-import { HomeScreen } from './HomeScreen'; 
+import { HomeScreen } from './HomeScreen';
 
 
 
-export default class Home extends Component { 
+export default class Home extends Component {
 
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen : false,
-      selectedItem: <HomeScreen OnToggled={this.toggle} navigation={this.props.navigation}/>,
+      isOpen: false,
+      selectedItem: <HomeScreen OnToggled={this.toggle} navigation={this.props.navigation} />,
     };
 
   }
 
   toggle() {
     this.setState({
-      isOpen : !this.state.isOpen 
+      isOpen: !this.state.isOpen
     })
   }
 
 
   updateMenuState(isOpen) {
     this.setState({
-      isOpen : isOpen 
+      isOpen: isOpen
     })
   }
 
   onMenuItemSelected = item => {
     this.setState({
       selectedItem: item,
-      isOpen : false,
-    }); 
+      isOpen: false,
+    });
   }
   render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} OnToggle={this.toggle}  navigation={this.props.navigation}/>;
-return (
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} OnToggle={this.toggle} navigation={this.props.navigation} />;
+    return (
 
 
-  <SideMenu
-    menu={menu}
-    isOpen={this.state.isOpen}
-    onChange={isOpen => this.updateMenuState(isOpen)}
-  >
-    <Content style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
-      <View style={styles.container}>
-        {this.state.selectedItem}
-      </View>
-    </Content>
-  </SideMenu>
+      <SideMenu
+        menu={menu}
+        isOpen={this.state.isOpen}
+        onChange={isOpen => this.updateMenuState(isOpen)}
+      >
+        <Content style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+          <View style={styles.container}>
+            {this.state.selectedItem}
+          </View>
+        </Content>
+      </SideMenu>
 
-);
+    );
   }
 }
 
