@@ -17,7 +17,7 @@ import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome';
 var TestRequest = [];
 
-class RegrindListView extends Component {
+export default class RegrindSendListView extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -36,7 +36,7 @@ class RegrindListView extends Component {
         await AsyncStorage.getItem('Login_token')
             .then((token) => {
                 // console.warn(token)
-                fetch(GLOBALS.SERVICE_URL + '/getRegrindListViewBy.php', {
+                fetch(GLOBALS.SERVICE_URL + '/getRequestStandardBy.php', {
 
                     method: 'POST',
                     headers: {
@@ -44,8 +44,8 @@ class RegrindListView extends Component {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        user_id: token,
-                        supplier: ""
+                        user_id: token
+
                     })
 
                 })
@@ -54,8 +54,8 @@ class RegrindListView extends Component {
 
                         if (responseJson.result == true) {
                             this.setState({
-                                data_source: this.state.data_source.cloneWithRows(responseJson.regrind_supplier),
-                                TestRequest: responseJson.regrind_supplier,
+                                data_source: this.state.data_source.cloneWithRows(responseJson.request_standard),
+                                TestRequest: responseJson.request_standard,
                             })
                         }
 
@@ -63,14 +63,15 @@ class RegrindListView extends Component {
                     .catch((error) => {
                         console.error(error);
                     });
-            });
+            }
+            );
     }
 
-    viewNote(supplier_id) {
-        this.props.navigation.navigate('RegrindSupplier', { supplier_id: supplier_id });
+    viewNote(request_standard_id) {
+        this.props.navigation.navigate('StandardToolRequestDetail', { request_standard_id: request_standard_id });
     }
     addNode() {
-        // this.props.navigation.navigate('AddRegrindSend');
+        this.props.navigation.navigate('AddRegrindSend');
     }
     renderRow(rowData) {
         return (
@@ -79,7 +80,7 @@ class RegrindListView extends Component {
                 backgroundColor='transparent'
             >
                 <TouchableHighlight
-                    onPress={() => { this.viewNote(rowData.supplier_id) }}
+                    onPress={() => { this.viewNote(rowData.request_standard_id) }}
                 >
                     <View style={styles.listItem}>
                         <View style={styles.listItemIcon}>
@@ -88,11 +89,11 @@ class RegrindListView extends Component {
 
                         <View style={styles.listItemContent}>
                             <View style={styles.listItemContentRow}>
-                                <Text style={styles.listItemContentTitle}>{rowData.supplier_name} </Text>
+                                <Text style={styles.listItemContentTitle}>{rowData.request_standard_code} </Text>
 
                             </View>
                             <View style={styles.listItemContentRow}>
-                                <Text style={styles.listItemContentDetail}> Tel : {rowData.supplier_tel} </Text>
+                                <Text style={styles.listItemContentDetail}> Date : {rowData.request_standard_date} </Text>
                             </View>
 
                         </View>
@@ -127,7 +128,7 @@ class RegrindListView extends Component {
                         <Title
                             style={styles.title}
                         >
-                            รายการรีกรายน์
+                            รายการส่งรีกรายน์
                         </Title>
                     </Body>
                     <Right
@@ -244,5 +245,5 @@ const styles = StyleSheet.create({
     }
 })
 
-export { RegrindListView };
+
 

@@ -41,6 +41,11 @@ import AddSpecialToolRequest from './src/TestRequestSpecial/AddSpecialToolReques
 import AddProductSpecialRequest from './src/TestRequestSpecial/AddProductSpecialRequest'
 import AddProductSpecial from './src/TestRequestSpecial/AddProductSpecial'
 import AddSpecialToolRequestDetail from './src/TestRequestSpecial/AddSpecialToolRequestDetail'
+import RegrindSendListView from './src/Regrind/RegrindSendListView'
+import RegrindReceiveListView from './src/Regrind/RegrindReceiveListView'
+import AddRegrindReceive from './src/Regrind/AddRegrindReceive'
+import AddRegrindSend from './src/Regrind/AddRegrindSend'
+import RegrindSupplierList from './src/Regrind/RegrindSupplierList'
 
 const AppNavigation = createStackNavigator(
   {
@@ -209,7 +214,36 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-    
+    RegrindSendListView: {
+      screen: RegrindSendListView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    RegrindReceiveListView: {
+      screen: RegrindReceiveListView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddRegrindReceive: {
+      screen: AddRegrindReceive,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddRegrindSend: {
+      screen: AddRegrindSend,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    RegrindSupplierList: {
+      screen: RegrindSupplierList,
+      navigationOptions: {
+        header: null,
+      }
+    },
   },
   {
     initialRouteName: 'HomeArno'

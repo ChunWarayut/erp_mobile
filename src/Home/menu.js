@@ -107,7 +107,7 @@ export default function Menu({ onItemSelected, OnToggle, navigation }) {
                     </View>
                 </ListItem>
 
-                <ListItem style={styles.list} onPress={() => onItemSelected(<RegrindListView OnToggled={OnToggle} />)}>
+                <ListItem style={styles.list} onPress={() => onItemSelected(<RegrindListView OnToggled={OnToggle} navigation={navigation} />)}>
                     <View style={{ flex: 0.25 }}>
                         <Icon name='retweet' style={styles.icon} />
                     </View>
