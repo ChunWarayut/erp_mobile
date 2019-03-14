@@ -67,7 +67,7 @@ class RegrindListView extends Component {
     }
 
     viewNote(supplier_id) {
-        this.props.navigation.navigate('RegrindSupplier', { supplier_id: supplier_id });
+        this.props.navigation.navigate('RegrindSupplierList', { supplier_id: supplier_id });
     }
     addNode() {
         // this.props.navigation.navigate('AddRegrindSend');
