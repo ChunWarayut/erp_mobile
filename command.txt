@@ -13,6 +13,16 @@ npm install react-native-vector-icons --save
 // SignatureCapture
 npm install react-native-signature-capture --save
 
+
+//autocomplete
+npm install --save react-native-autocomplete-input
+
+//picker-select
+npm install react-native-picker-select
+
+//react-native-pathjs-charts
+npm install react-native-pathjs-charts --save
+
 // link
 react-native link
 
