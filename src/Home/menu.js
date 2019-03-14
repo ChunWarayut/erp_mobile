@@ -18,7 +18,7 @@ import { SearchProduct } from '../SearchProduct/SearchProduct';
 import { CustomerList } from '../Customer/CustomerList'
 import { Notification } from '../Notifications/Notification'
 import { TestRequestView } from '../TestRequest/TestRequestView'
-import { RegrindListView } from '../Regrind/RegrindListView';
+import { RegrindSupplier } from '../Regrind/RegrindSupplier';
 const window = Dimensions.get('window');
 
 
@@ -107,7 +107,7 @@ export default function Menu({ onItemSelected, OnToggle, navigation }) {
                     </View>
                 </ListItem>
 
-                <ListItem style={styles.list} onPress={() => onItemSelected(<RegrindListView OnToggled={OnToggle} navigation={navigation} />)}>
+                <ListItem style={styles.list} onPress={() => onItemSelected(<RegrindSupplier OnToggled={OnToggle} navigation={navigation} />)}>
                     <View style={{ flex: 0.25 }}>
                         <Icon name='retweet' style={styles.icon} />
                     </View>

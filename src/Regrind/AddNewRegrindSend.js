@@ -19,17 +19,21 @@ import { Header, Left, Body, Title, Right, Content, Container } from 'native-bas
 import GLOBALS from '../GLOBALS';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { TextInput } from 'react-native-gesture-handler';
-export default class AddRegrindSend extends Component {
+import DatePicker from 'react-native-datepicker'
+const today = new Date();
+export default class AddNewRegrindSend extends Component {
     constructor(props) {
         super(props);
         this.state = {
             gencode: "",
             users: [],
             suppliers: [],
-            suppliers_id: "",
+            supplier_id: "",
             suppliers_name: "",
-            users_id: "",
+            user_id: "",
             textRemark: "",
+            date: today.getDay() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear(),
+            minDate: today.getDay() + "-" + (today.getMonth() + 1) + "-" + today.getFullYear(),
         };
     }
     componentWillMount() {
@@ -39,7 +43,7 @@ export default class AddRegrindSend extends Component {
     async fetchData() {
         await AsyncStorage.getItem('Login_token')
             .then((token) => {
-                fetch(GLOBALS.SERVICE_URL + '/getDetailHeaderAddStandardRequest.php', {
+                fetch(GLOBALS.SERVICE_URL + '/getDetailHeaderAddRegrindSupplier.php', {
                     method: 'POST',
                     headers: {
                         'Accept': 'application/json',
@@ -52,34 +56,38 @@ export default class AddRegrindSend extends Component {
                 })
                     .then((response) => response.json())
                     .then((responseJson) => {
-
                         if (responseJson.result == true) {
                             this.setState({
                                 gencode: responseJson.last_code,
                                 users: responseJson.users,
-                                suppliers: responseJson.suppliers
+                                suppliers: responseJson.suppliers,
+                                user_id: token
+
                             })
                         }
+                        // console.warn("user_id =" + this.state.user_id);
                     })
                     .catch((error) => {
-                        console.error(error);
+                        // console.error(error);
                     });
             });
     }
 
     check() {
-        if (this.state.gencode == "" || this.state.users_id == "0") {
+        if (this.state.gencode == "" || this.state.user_id == "0") {
             Alert.alert("กรุณาเลือกผู้ร้องขอ")
         } else {
             const data = {
                 gencode: this.state.gencode,
-                users: this.state.users_id,
-                suppliers: this.state.suppliers_id,
-                textRemark: this.state.textRemark
+                users: this.state.user_id,
+                user_id: this.state.user_id,
+                supplier_id: this.state.supplier_id,
+                textRemark: this.state.textRemark,
+                date: this.state.date
             }
             this.props.navigation.navigate(
-                'AddProductStandardRequest', {
-                    dataSTR: data
+                'AddProductRegrindList', {
+                    dataRG: data
                 }
             )
         }
@@ -104,6 +112,7 @@ export default class AddRegrindSend extends Component {
                     <Picker.Item label={this.state.users[i].name + " (" + this.state.users[i].user_position_name + ")"} value={this.state.users[i].user_id} />
                 )
             }
+
         }
 
 
@@ -140,7 +149,7 @@ export default class AddRegrindSend extends Component {
                                 <Text
                                     style={styles.ContentItemTitle}
                                 >
-                                    ประเภทใบร้องขอสั่งซื้อสินค้าทดลอง / STR Code
+                                    หมายเลขใบรีกรายน์ / RG Code
                                 </Text>
                                 <Text style={{ color: 'red', padding: 8 }}>  * </Text>
                             </View>
@@ -150,15 +159,14 @@ export default class AddRegrindSend extends Component {
                                 style={{ color: '#000000', padding: 8 }}
                             >
                             </TextInput>
-                            <Text style={{ padding: 8 }} >Example : STR1801001.</Text>
+                            <Text style={{ padding: 8 }} >Example : RG1901001.</Text>
                         </View>
-
                         <View style={styles.BoxlistItem}>
                             <View style={{ flex: 1, flexDirection: 'row' }}>
                                 <Text
                                     style={styles.ContentItemTitle}
                                 >
-                                    ผู้ร้องขอ / Request by
+                                    ผู้ดำเนินการ / Sales
                                 </Text>
                                 <Text style={{ color: 'red', padding: 8 }}>  * </Text>
                             </View>
@@ -166,9 +174,9 @@ export default class AddRegrindSend extends Component {
                                 <Picker
                                     mode="dropdown"
                                     style={{ height: 50 }}
-                                    selectedValue={this.state.users_id}
-                                    onValueChange={(users_id) =>
-                                        this.setState({ users_id: users_id })
+                                    selectedValue={this.state.user_id}
+                                    onValueChange={(user_id) =>
+                                        this.setState({ user_id: user_id })
                                     }>
                                     <Picker.Item label="Select" value="0" />
                                     {dataPickerUsers}
@@ -180,20 +188,19 @@ export default class AddRegrindSend extends Component {
                                 Example : Thana Tepchuleepornsil.
                             </Text>
                         </View>
-
                         <View style={styles.BoxlistItem}>
                             <Text
                                 style={styles.ContentItemTitle}
                             >
                                 ผู้ขาย / Supplier
-                        </Text>
+                            </Text>
                             <View style={styles.itemPicker}>
                                 <Picker
                                     mode="dropdown"
                                     style={{ height: 50 }}
-                                    selectedValue={this.state.suppliers_id}
-                                    onValueChange={(suppliers_id) =>
-                                        this.setState({ suppliers_id: suppliers_id })
+                                    selectedValue={this.state.supplier_id}
+                                    onValueChange={(supplier_id) =>
+                                        this.setState({ supplier_id: supplier_id })
                                     }>
                                     <Picker.Item label="Select" value="0" />
                                     {dataPickerSuppliers}
@@ -205,13 +212,48 @@ export default class AddRegrindSend extends Component {
                                 Example : บริษัท เรเวลซอฟต์ จำกัด (Revel Soft co,ltd).
                             </Text>
                         </View>
-
+                        <View style={styles.BoxlistItem}>
+                            <View style={{ flex: 1, flexDirection: 'row' }}>
+                                <Text
+                                    style={styles.ContentItemTitle}
+                                >
+                                    วันที่ใช้สินค้า / Delivery Min
+                                </Text>
+                                <Text style={{ color: 'red', padding: 8 }}>  * </Text>
+                            </View>
+                            <DatePicker
+                                style={{ width: '100%' }}
+                                date={this.state.date}
+                                mode="date"
+                                placeholder="select date"
+                                format="DD-MM-YYYY"
+                                minDate={this.state.minDate}
+                                androidMode="spinner"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                customStyles={{
+                                    dateIcon: {
+                                        position: 'absolute',
+                                        left: 0,
+                                        top: 4,
+                                        marginLeft: 0
+                                    },
+                                    dateInput: {
+                                        fontWeight: 'bold',
+                                        borderBottomColor: '#000000',
+                                        borderBottomWidth: 0.5,
+                                        padding: 5
+                                    }
+                                }}
+                                onDateChange={(date) => { this.setState({ date: date }) }}
+                            />
+                        </View>
                         <View style={styles.BoxlistItem}>
                             <Text
                                 style={styles.ContentItemTitle}
                             >
                                 หมายเหตุ / Remark
-                        </Text>
+                            </Text>
                             <TextInput
                                 style={{
                                     borderBottomColor: '#000000',

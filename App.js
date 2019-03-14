@@ -44,8 +44,11 @@ import AddSpecialToolRequestDetail from './src/TestRequestSpecial/AddSpecialTool
 import RegrindSendListView from './src/Regrind/RegrindSendListView'
 import RegrindReceiveListView from './src/Regrind/RegrindReceiveListView'
 import AddRegrindReceive from './src/Regrind/AddRegrindReceive'
-import AddRegrindSend from './src/Regrind/AddRegrindSend'
+import AddNewRegrindSend from './src/Regrind/AddNewRegrindSend'
 import RegrindSupplierList from './src/Regrind/RegrindSupplierList'
+import AddProductRegrindList from './src/Regrind/AddProductRegrindList'
+import AddRegrindDetail from './src/Regrind/AddRegrindDetail'
+import AddProductRegrind from './src/Regrind/AddProductRegrind'
 
 const AppNavigation = createStackNavigator(
   {
@@ -232,14 +235,32 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-    AddRegrindSend: {
-      screen: AddRegrindSend,
+    AddNewRegrindSend: {
+      screen: AddNewRegrindSend,
       navigationOptions: {
         header: null,
       }
     },
     RegrindSupplierList: {
       screen: RegrindSupplierList,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductRegrindList: {
+      screen: AddProductRegrindList,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddRegrindDetail: {
+      screen: AddRegrindDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductRegrind: {
+      screen: AddProductRegrind,
       navigationOptions: {
         header: null,
       }

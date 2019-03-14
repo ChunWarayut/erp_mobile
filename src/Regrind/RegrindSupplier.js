@@ -1,9 +1,9 @@
 
 import React, { Component } from 'react';
 import {
+
     View,
     Image,
-    Text,
     TouchableOpacity,
     StyleSheet,
     ListView,
@@ -11,13 +11,13 @@ import {
     AsyncStorage,
     TouchableHighlight
 } from 'react-native';
-import { Header, Left, Body, Title, Right } from 'native-base'
+import { Container, Header, Content, Footer, FooterTab, Button, Text, Fab, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
 import Swipeout from 'react-native-swipeout';
 import Icon from 'react-native-vector-icons/FontAwesome';
 var TestRequest = [];
 
-class RegrindListView extends Component {
+class RegrindSupplier extends Component {
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
@@ -61,7 +61,7 @@ class RegrindListView extends Component {
 
                     })
                     .catch((error) => {
-                        console.error(error);
+                        // console.error(error);
                     });
             });
     }
@@ -71,6 +71,9 @@ class RegrindListView extends Component {
     }
     addNode() {
         // this.props.navigation.navigate('AddRegrindSend');
+    }
+    addNewSend() {
+        this.props.navigation.navigate('AddNewRegrindSend');
     }
     renderRow(rowData) {
         return (
@@ -83,7 +86,7 @@ class RegrindListView extends Component {
                 >
                     <View style={styles.listItem}>
                         <View style={styles.listItemIcon}>
-                            <Icon name="rocket" color="#900" />
+                            <Icon name="rocket" color="#ffffff" />
                         </View>
 
                         <View style={styles.listItemContent}>
@@ -101,22 +104,19 @@ class RegrindListView extends Component {
             </Swipeout>
         )
     }
-
-
-
-
     render() {
-        const { goBack } = this.props.navigation;
         return (
-
-            <View>
+            <Container>
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
                     <Left style={{ flex: 0.2 }}>
                         <TouchableOpacity
-                            onPress={() => goBack()}
+                            onPress={this.props.OnToggled}
                             style={{ width: 32, height: 32 }}
                         >
-                            <Icon name='angle-left' style={styles.headerIcon} />
+                            <Image
+                                source={GLOBALS.image}
+                                style={{ width: 32, height: 32 }}
+                            />
 
                         </TouchableOpacity>
                     </Left>
@@ -127,18 +127,18 @@ class RegrindListView extends Component {
                         <Title
                             style={styles.title}
                         >
-                            รายการรีกรายน์
+                            ซัพพลายเออร์
                         </Title>
                     </Body>
                     <Right
                         style={{ flex: 0.2 }}
                     >
                         <TouchableOpacity
-                            onPress={() => this.addNode()}
+                            onPress={() => this.addNewSend()}
                             style={{ width: 32, height: 32 }}
                         >
                             <Icon
-                                name='plus-circle'
+                                name='send'
                                 style={styles.headerIcon} />
 
                         </TouchableOpacity>
@@ -146,7 +146,7 @@ class RegrindListView extends Component {
                     </Right>
 
                 </Header>
-                <View style={styles.ViewBody}>
+                <Content style={styles.ViewBody}>
 
                     <ScrollView>
                         <ListView
@@ -155,8 +155,17 @@ class RegrindListView extends Component {
                             renderRow={this.renderRow.bind(this)} />
                     </ScrollView>
 
-                </View>
-            </View>
+                </Content>
+                <Fab
+                    active={true}
+                    direction="up"
+                    containerStyle={{}}
+                    style={{ backgroundColor: '#5067FF' }}
+                    position="bottomLeft"
+                    onPress={() => this.addNewSend()}>
+                    <Icon name="plus" />
+                </Fab>
+            </Container >
         )
     }
 
@@ -214,7 +223,7 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         borderRadius: 10,
-        backgroundColor: "#efb",
+        backgroundColor: "#ff0000",
         justifyContent: 'center',
         alignItems: 'center'
 
@@ -244,5 +253,5 @@ const styles = StyleSheet.create({
     }
 })
 
-export { RegrindListView };
+export { RegrindSupplier };
 

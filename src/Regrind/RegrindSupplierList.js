@@ -82,7 +82,7 @@ export default class RegrindSupplierList extends Component {
                 >
                     <View style={styles.listItem}>
                         <View style={styles.listItemIcon}>
-                            <Icon name="rocket" color="#900" />
+                            <Icon name="rocket" color="#fff" />
                         </View>
 
                         <View style={styles.listItemContent}>
@@ -92,6 +92,9 @@ export default class RegrindSupplierList extends Component {
                             </View>
                             <View style={styles.listItemContentRow}>
                                 <Text style={styles.listItemContentDetail}> ชื่อสินค้า : {rowData.product_name} </Text>
+                            </View>
+                            <View style={styles.listItemContentRow}>
+                                <Text style={styles.listItemContentDetail}> จำนวน : {rowData.qty} </Text>
                             </View>
 
                         </View>
@@ -126,7 +129,7 @@ export default class RegrindSupplierList extends Component {
                         <Title
                             style={styles.title}
                         >
-                            รายการรับรีกรายน์
+                            รายการสินค้าที่ส่งรีกรายน์
                         </Title>
                     </Body>
                     <Right
@@ -206,14 +209,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'stretch',
         paddingTop: 8,
-        paddingBottom: 8
+        paddingBottom: 8,
+        borderBottomColor: 'grey',
+        borderBottomWidth: 1,
     },
     listItemIcon: {
         margin: 4,
         width: 60,
         height: 60,
         borderRadius: 10,
-        backgroundColor: "#efb",
+        backgroundColor: "#f00",
         justifyContent: 'center',
         alignItems: 'center'
 
@@ -227,7 +232,7 @@ const styles = StyleSheet.create({
     listItemContentRow: {
         flex: 1,
         flexDirection: 'row',
-        alignItems: 'stretch'
+        alignItems: 'stretch',
     },
     listItemContentTitle: {
         flex: 1,
