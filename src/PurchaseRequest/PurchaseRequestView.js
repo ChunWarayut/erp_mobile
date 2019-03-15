@@ -27,7 +27,7 @@ class PurchaseRequestView extends Component {
             date_start: '',
             date_end: '',
             keyword: '',
-            user_id: '',
+            employee_id: '12',
         };
 
     }
@@ -51,7 +51,7 @@ class PurchaseRequestView extends Component {
                 date_start: this.state.date_start,
                 date_end: this.state.date_end,
                 keyword: this.state.keyword,
-                user_id: this.state.user_id,
+                employee_id: this.state.employee_id,
             })
 
         })
@@ -83,8 +83,8 @@ class PurchaseRequestView extends Component {
         this.props.navigation.navigate('PurchaseRequestDetail', {purchase_request_id: rowData.purchase_request_id});
     }
 
-    addNode(data) {
-        console.warn("Add node.");
+    addNode() {
+        this.props.navigation.navigate('PurchaseRequestSubject', {employee_id: this.state.employee_id});
     }
 
     renderRow(rowData) {
@@ -167,7 +167,7 @@ class PurchaseRequestView extends Component {
                         </Body>
                         <Right>
                             <TouchableOpacity
-                                onPress={this.addNode()}
+                                onPress={()=>this.addNode()}
                                 style={{ width: 32, height: 32 }}
                             >
                                 <Icon

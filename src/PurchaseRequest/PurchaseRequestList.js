@@ -10,7 +10,7 @@ import {
     Text,
 } from 'react-native';
 
-class PurchaseRequestList extends Component {
+export default class PurchaseRequestList extends Component {
 
     render(){
 
@@ -25,4 +25,4 @@ class PurchaseRequestList extends Component {
     }
 
     
-}export { PurchaseRequestList };
+};
