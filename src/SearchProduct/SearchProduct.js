@@ -11,12 +11,7 @@ import {
     ScrollView,
     Button,
     Platform,
-
-
-
-
-
-
+    Alert
 } from 'react-native';
 
 import { TextInput } from 'react-native-gesture-handler';
@@ -97,36 +92,42 @@ export default class SearchProduct extends Component {
 
         const Stock_group_id = this.state.stock_group_id;
         const Keyword = this.state.keyword;
-        console.warn("stock_group_id : ", Stock_group_id);
-        console.warn("keyword : ", Keyword);
+        // console.warn("stock_group_id : ", Stock_group_id);
+        // console.warn("keyword : ", Keyword);
 
-        fetch(GLOBALS.SERVICE_URL + '/getStockReport.php', {
+        if (Keyword == "" && Stock_group_id == "ALL") {
 
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+            Alert.alert("กรุณาเลือกคลังสินค้า")
 
-                stock_group_id: Stock_group_id,
-                keyword: Keyword,
+        } else {
 
-            })
+            fetch(GLOBALS.SERVICE_URL + '/getStockReport.php', {
 
-        })
-            .then((response) => response.json())
-            .then((responseJson) => {
-                this.setState({
-                    data_source: this.state.data_source.cloneWithRows(responseJson.products),
-                    products: responseJson.products,
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+
+                    stock_group_id: Stock_group_id,
+                    keyword: Keyword,
+
                 })
-                console.warn(responseJson.products);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
 
+            })
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    this.setState({
+                        data_source: this.state.data_source.cloneWithRows(responseJson.products),
+                        products: responseJson.products,
+                    })
+                    console.warn(responseJson.products);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
     }
 
     //--------------------------------------------------------------------------------------------
@@ -185,93 +186,77 @@ export default class SearchProduct extends Component {
 
 
         return (
-            <Container>
-                <View>
-                    <Header style={{ backgroundColor: '#FFFFFF' }}>
-                        <Left style={{ flex: 0.2 }}>
-                            <TouchableOpacity
-                                onPress={this.props.OnToggled}
+
+            <View>
+                <Header style={{ backgroundColor: '#FFFFFF' }}>
+                    <Left style={{ flex: 0.2 }}>
+                        <TouchableOpacity
+                            onPress={this.props.OnToggled}
+                            style={{ width: 32, height: 32 }}
+                        >
+                            <Image
+                                source={GLOBALS.image}
                                 style={{ width: 32, height: 32 }}
-                            >
-                                <Image
-                                    source={GLOBALS.image}
-                                    style={{ width: 32, height: 32 }}
-                                />
-
-                            </TouchableOpacity>
-                        </Left>
-
-                        <Body>
-                            <Title style={styles.title}>ค้นหาคลังสินค้า</Title>
-                        </Body>
-                        <Right>
-
-                        </Right>
-
-                    </Header>
-
-
-
-                    <Text style={{ fontSize: 15, color: '#000000', padding: 10 }}>คลังสินค้า/Stock</Text>
-
-                    <View style={{ padding: 5 }}>
-                        <View style={styles.border}>
-                            <Picker
-                                mode="dropdown"
-                                // iosIcon={{Icon name="arrow-down" />}
-                                headerStyle={{ backgroundColor: "#999999" }}
-                                headerBackButtonTextStyle={{ color: "#fff" }}
-                                headerTitleStyle={{ color: "#fff" }}
-                                selectedValue={this.state.stock_group_id}
-                                onValueChange={this.onValueChange.bind(this)}
-                            >
-
-                                <Picker.Item label='ทั้งหมด' value="ALL" />
-                                {dataPicker}
-                            </Picker>
-                        </View>
-                    </View>
-
-
-
-                    <Text style={{ fontSize: 15, color: '#000000', padding: 10 }}>คำค้น</Text>
-
-                    <View style={{ padding: 5, }}>
-                        <TextInput style={styles.textinput}
-                            placeholder='คำค้น'
-                            shake={true}
-                            errorStyle={{ color: 'back' }}
-                            errorMessage='Example: T001.'
-                            // secureTextEntry={true}
-                            onChangeText={(pass) => this.setState({ keyword: pass })}
-                            value={this.state.keyword}
-                        />
-                    </View>
-
-
-                    <View style={{ padding: 10, alignItems: 'center' }}>
-                        <Button
-                            style={styles.button}
-                            onPress={() => this.search()}
-                            // onPress={ () => this.props.navigation.navigate('ProductList' , { data: this.state.stock_group_id , pass: this.state.keyword})} 
-                            title="ค้นหาสินค้า"
-                            color="#0693E3"
-                        />
+                            />
+                        </TouchableOpacity>
+                    </Left>
+                    <Body tyle={styles.headerbody}>
+                        <Title style={styles.title}>ค้นหาคลังสินค้า</Title>
+                    </Body>
+                    <Right style={styles.headerright}>
+                    </Right>
+                </Header>
+                <View style={styles.viewIcon} >
+                    <Icon style={styles.icon} name='search' />
+                </View>
+                <Text style={{ fontSize: 15, color: '#000000', padding: 10 }}>คลังสินค้า/Stock</Text>
+                <View style={{ padding: 5 }}>
+                    <View style={styles.border}>
+                        <Picker
+                            mode="dropdown"
+                            // iosIcon={{Icon name="arrow-down" />}
+                            headerStyle={{ backgroundColor: "#999999" }}
+                            headerBackButtonTextStyle={{ color: "#fff" }}
+                            headerTitleStyle={{ color: "#fff" }}
+                            selectedValue={this.state.stock_group_id}
+                            onValueChange={this.onValueChange.bind(this)}
+                        >
+                            <Picker.Item label='ทั้งหมด' value="ALL" />
+                            {dataPicker}
+                        </Picker>
                     </View>
                 </View>
+                <Text style={{ fontSize: 15, color: '#000000', padding: 10 }}>คำค้น</Text>
+                <View style={{ padding: 5, }}>
+                    <TextInput style={styles.textinput}
+                        placeholder='คำค้น'
+                        shake={true}
+                        errorStyle={{ color: 'back' }}
+                        errorMessage='Example: T001.'
+                        // secureTextEntry={true}
+                        onChangeText={(pass) => this.setState({ keyword: pass })}
+                        value={this.state.keyword}
+                    />
+                </View>
+                <View style={{ padding: 10, alignItems: 'center' }}>
+                    <Button
+                        style={styles.button}
+                        onPress={() => this.search()}
+                        // onPress={ () => this.props.navigation.navigate('ProductList' , { data: this.state.stock_group_id , pass: this.state.keyword})} 
+                        title="ค้นหาสินค้า"
+                        color="#0693E3"
+                    />
+                </View>
 
-                <ScrollView >
-                    <ListView
-                        style={styles.listBody}
-                        dataSource={this.state.data_source}
-                        renderRow={this.renderRow.bind(this)} />
-                </ScrollView>
-
-
-            </Container >
-
-
-
+                <View style={{ padding: 10 }}>
+                    <ScrollView>
+                        <ListView
+                            style={styles.listBody}
+                            dataSource={this.state.data_source}
+                            renderRow={this.renderRow.bind(this)} />
+                    </ScrollView>
+                </View>
+            </View>
         )
     }
 
@@ -280,6 +265,14 @@ export default class SearchProduct extends Component {
 export { SearchProduct };
 
 const styles = StyleSheet.create({
+    headerbody: {
+        alignItems: 'center',
+        flex: 0.8
+    },
+    headerright: {
+        alignItems: 'center',
+        flex: 0.2
+    },
     btncontainer: {
         flex: 0.2,
         justifyContent: 'center',
@@ -381,6 +374,21 @@ const styles = StyleSheet.create({
     listItemContentQty: {
         flex: 1,
         textAlign: 'right',
+    },
+    icon: {
+        flex: 1,
+        color: '#337ab7',
+        fontSize: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+    },
+    viewIcon: {
+        paddingTop: 15,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'row',
+        textAlign: 'center',
     },
 
 

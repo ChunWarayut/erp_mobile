@@ -4,7 +4,7 @@ react-native run-ios --simulator="iPhone 6s"
 // Navigation
 npm install --save react-native-gesture-handler
 
-// Font awsome 
+// Font awesome 
 npm install react-native-elements --save
 
 //vector icon 
@@ -13,5 +13,19 @@ npm install react-native-vector-icons --save
 // SignatureCapture
 npm install react-native-signature-capture --save
 
+
+//autocomplete
+npm install --save react-native-autocomplete-input
+
+//picker-select
+npm install react-native-picker-select
+
+//react-native-pathjs-charts
+npm install react-native-pathjs-charts --save
+
 // link
 react-native link
+
+//radio button
+npm i react-native-btr --save
+npm i react-native-simple-radio-button --save

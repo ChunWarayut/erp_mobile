@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { 
+import {
     View,
     Image,
     Text,
@@ -9,16 +9,16 @@ import {
 import { Header, Left, Body, Title, Right } from 'native-base'
 import GLOBALS from '../GLOBALS';
 
-class About extends Component { 
+class About extends Component {
     constructor(props) {
-        super(props); 
+        super(props);
 
         this.state = {
         };
 
     }
 
-    
+
     render() {
 
         return (

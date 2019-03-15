@@ -7,45 +7,48 @@ import {
     StyleSheet,
     ListView,
     ScrollView,
+    Platform,
+    Button,
+    Alert
 } from 'react-native';
 import { Header, Left, Body, Title, Right, Container } from 'native-base'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GLOBALS from '../GLOBALS';
 
-customer_purchase_order_lists = [];
-export default class CustomerPurchaseOrderDetail extends Component {
+dataSTR_lists = [];
+export default class SpecialToolRequestDetail extends Component {
 
 
     constructor(props) {
         super(props);
         const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        const itemId = this.props.navigation.getParam('customer_purchase_order_id', '0')
-        // console.warn(itemId);
+        const itemSTR = this.props.navigation.getParam('request_standard_id', '0')
+
         this.state = {
-            data_source: ds.cloneWithRows(customer_purchase_order_lists),
-            customer_purchase_order_id: itemId,
-            customer_purchase_order: [],
-            customer_purchase_order_lists: []
+            // dataProduct: itemId,
+            dataSTR: itemSTR,
+            data_source: ds.cloneWithRows(dataSTR_lists),
+            UserName: "",
+            SuppliersName: "",
+            request_standard: []
+
         };
-
-        this.fetchData(itemId)
+        this.fetchData(itemSTR)
     }
-
     componentWillMount() {
 
     }
 
-    async fetchData(customer_purchase_order_id) {
-
-        fetch(GLOBALS.SERVICE_URL + '/getCustomerPurchaseOrderListByID.php', {
-
+    async fetchData(request_standard_id) {
+        //console.warn(item);
+        fetch(GLOBALS.SERVICE_URL + '/getStandardRequestByID.php', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                customer_purchase_order_id: customer_purchase_order_id,
+                request_standard_id: request_standard_id,
             })
 
         })
@@ -53,20 +56,18 @@ export default class CustomerPurchaseOrderDetail extends Component {
             .then((responseJson) => {
 
                 this.setState({
-                    customer_purchase_order: responseJson.customer_purchase_order,
-                    data_source: this.state.data_source.cloneWithRows(responseJson.customer_purchase_order_list),
+                    request_standard: responseJson.request_standard,
+                    // request_standard_lists: responseJson.request_standard_lists,
+                    //     dataSTR: responseJson.dataSTR,
+                    data_source: this.state.data_source.cloneWithRows(responseJson.request_standard_lists),
                 })
-                // console.warn(responseJson);
+                console.warn(responseJson);
             })
             .catch((error) => {
                 console.error(error);
             });
-
     }
-
-
     renderRow(rowData, sectionID, rowID, higlightRow) {
-
         return (
             <View style={styles.listItem}>
                 <View style={{
@@ -78,7 +79,6 @@ export default class CustomerPurchaseOrderDetail extends Component {
                         textAlign: 'center'
                     }}> {parseInt(rowID) + 1}. </Text>
                 </View>
-
                 <View style={{
                     flex: 8,
                 }}>
@@ -89,7 +89,6 @@ export default class CustomerPurchaseOrderDetail extends Component {
                         <Text style={styles.listItemContentDetail}>{rowData.product_name} </Text>
                     </View>
                 </View>
-
                 <View style={{
                     flex: 1,
                     width: 64
@@ -99,8 +98,7 @@ export default class CustomerPurchaseOrderDetail extends Component {
                         flex: 1,
                         textAlign: 'right',
                         paddingRight: 8,
-
-                    }}> {rowData.customer_purchase_order_list_qty} </Text>
+                    }}> {rowData.request_standard_list_qty} </Text>
                 </View>
 
             </View>
@@ -109,120 +107,100 @@ export default class CustomerPurchaseOrderDetail extends Component {
     }
 
     render() {
-
         const { goBack } = this.props.navigation;
+        //console.warn(this.state.dataProduct)
+        // console.warn(this.state.dataSTR)
         return (
-
             <Container>
                 <Header style={{ backgroundColor: '#FFFFFF' }}>
-                    <Left style={{ flex: 0.2 }}>
+                    <Left style={{ flex: 0.1 }}>
                         <TouchableOpacity
                             onPress={() => goBack()}
                             style={{ width: 32, height: 32 }}
                         >
                             <Icon name='angle-left' style={styles.headerIcon} />
-
                         </TouchableOpacity>
                     </Left>
-
                     <Body style={styles.headerBody}>
                         <Title
                             style={styles.title}
                         >
-                            {this.state.customer_purchase_order.customer_purchase_order_code}
+                            รายละเอียดใบร้องขอสั่งซื้อสินค้าทดลอง
                         </Title>
                     </Body>
-                    <Right style={{ flex:0.2 }}>
-
+                    <Right style={{ flex: 0.1 }}>
                     </Right>
-
                 </Header>
-                <View style={{ height: 240, padding: 15 }}>
-
-                    <View style={styles.ContentRow}>
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemTitle}> รหัสลูกค้า </Text>
-                            </View>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemDetail}>
-                                    {this.state.customer_purchase_order.customer_code}
-                                </Text>
-                            </View>
+                <View style={styles.BoxlistItem}>
+                    <View style={{ flex: 1 }}>
+                        <View style={styles.ContentItem}>
+                            <Text style={styles.ContentItemTitle}>  ประเภทใบร้องขอสั่งซื้อสินค้าทดลอง / STR Code </Text>
                         </View>
-
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemTitle}> ลูกค้า  </Text>
-                            </View>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemDetail}>
-                                    {this.state.customer_purchase_order.customer_name_en}
-                                </Text>
-                            </View>
+                        <View style={styles.ContentItem}>
+                            <Text style={styles.ContentItemDetail1}>
+                                {this.state.request_standard.request_standard_code}
+                            </Text>
                         </View>
-
                     </View>
                     <View style={styles.ContentRow}>
                         <View style={{ flex: 1 }}>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemTitle}> เลขที่ใบสั่งซื้อ </Text>
+                            <View style={styles.ContentItem}>
+                                <Text style={styles.ContentItemTitle}>  ผู้ร้องขอ / Request by  </Text>
                             </View>
-                            <View style={styles.ContentRow}>
+                            <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemDetail}>
-                                    {this.state.customer_purchase_order.customer_purchase_order_code}
+                                    {this.state.request_standard.user_name} {this.state.request_standard.user_lastname}
                                 </Text>
                             </View>
                         </View>
-
                         <View style={{ flex: 1 }}>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemTitle}> วันที่ออกใบสั่งซื้อ  </Text>
+                            <View style={styles.ContentItem}>
+                                <Text style={styles.ContentItemTitle}> ผู้ขาย / Supplier </Text>
                             </View>
-                            <View style={styles.ContentRow}>
+                            {/* <View style={styles.ContentItem}> */}
+                            <Text style={styles.ContentItemDetail}>
+                                {this.state.request_standard.supplier_name_th}
+                            </Text>
+                            {/* </View> */}
+                        </View>
+                    </View>
+                    <View style={styles.ContentRow}>
+                        <View style={{ flex: 1 }}>
+                            <View style={styles.ContentItem}>
+                                <Text style={styles.ContentItemTitle}> หมายเหตุ / Remark </Text>
+                            </View>
+                            <View style={styles.ContentItem}>
                                 <Text style={styles.ContentItemDetail}>
-                                    {this.state.customer_purchase_order.customer_purchase_order_date}
+                                    {this.state.request_standard.request_standard_remark}
                                 </Text>
                             </View>
                         </View>
                     </View>
+                </View>
+                <View style={styles.BoxlistItem}>
 
-                    <View style={styles.ContentRow}>
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemTitle}> จ่ายเงินภายใน (วัน)  </Text>
-                            </View>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemDetail}>
-                                    {this.state.customer_purchase_order.customer_purchase_order_credit_term}
-                                </Text>
-                            </View>
+                    <View style={styles.ContentRowList}>
+                        <View style={{ flex: 0.2 }}>
+                            <Text > ลำดับ </Text>
                         </View>
-
-                        <View style={{ flex: 1 }}>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemTitle}> พนักงานขาย  </Text>
-                            </View>
-                            <View style={styles.ContentRow}>
-                                <Text style={styles.ContentItemDetail}>
-                                    {this.state.customer_purchase_order.user_name}  {this.state.customer_purchase_order.user_lastname}
-                                </Text>
-                            </View>
+                        <View style={{ flex: 0.8 }}>
+                            <Text > รหัสสินค้า / ชื่อสินค้า </Text>
                         </View>
-
+                        <View style={{ flex: 0.2 }}>
+                            <Text > จำนวน </Text>
+                        </View>
                     </View>
 
+                    <ScrollView>
+                        <ListView
+                            style={styles.listBody}
+                            dataSource={this.state.data_source}
+                            renderRow={this.renderRow.bind(this)} />
+                    </ScrollView>
 
                 </View>
-                <ScrollView>
-                    <ListView
-                        style={styles.listBody}
-                        dataSource={this.state.data_source}
-                        renderRow={this.renderRow.bind(this)} />
-                </ScrollView>
+
             </Container>
-
-
         )
     }
 
@@ -248,25 +226,46 @@ const styles = StyleSheet.create({
         alignItems: 'center'
 
     },
+    ContentItem: {
+        flex: 1,
+        alignItems: 'stretch'
+    },
     ContentRow: {
         flex: 1,
         flexDirection: 'row',
-        // alignItems: 'stretch'
+        //alignItems: 'stretch'
+    },
+    ContentRowList: {
+        height: 10,
+        //  flex: 1,
+        flexDirection: 'row',
+        marginBottom: 8
     },
     ContentItemTitle: {
         flex: 1,
         textAlign: 'left',
         fontWeight: 'bold',
-        padding: 8,
+        padding: 3,
+
     },
     ContentItemDetail: {
         flex: 1,
         textAlign: 'left',
         color: "#aaa",
-        padding: 8,
+        padding: 3,
+        fontSize: 14,
+        paddingLeft: 5
+    },
+    ContentItemDetail1: {
+        flex: 1,
+        textAlign: 'left',
+        color: "#aaa",
+        padding: 3,
+        fontSize: 16,
+        paddingLeft: 10
     },
     listBody: {
-        flex: 1,
+        // flex: 1,
     },
     listItem: {
         flex: 1,
@@ -305,5 +304,28 @@ const styles = StyleSheet.create({
     listItemContentDetail: {
         flex: 1,
         color: "#aaa"
-    }
+    },
+    BoxlistItem: {
+        // justifyContent: 'center',
+        backgroundColor: 'white',
+        ...Platform.select({
+            ios: {
+                shadowColor: '#dedede',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.8,
+                shadowRadius: 2,
+            },
+            android: {
+                elevation: 5,
+            },
+        }),
+        flex: 0.9,
+        padding: 15,
+        marginTop: 5
+
+    },
+    ButtonItem: {
+        marginTop: 10,
+        marginBottom: 10
+    },
 });

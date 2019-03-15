@@ -7,7 +7,12 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import {
+  createStackNavigator,
+  createAppContainer,
+}
+  from 'react-navigation';
+
 import ChoiceLogin from './src/Login/ChoiceLogin';
 import SplashScreen from './src/SplashScreen';
 import LoginArno from './src/Login/LoginArno';
@@ -25,14 +30,25 @@ import CustomerPurchaseOrderDetail from './src/CustomerPurchaseOrder/CustomerPur
 import CustomerInvoiceList from './src/CustomerInvoice/CustomerInvoiceListView'
 import CustomerInvoiceDetail from './src/CustomerInvoice/CustomerInvoiceDetail'
 import NotificationDetail from './src/Notifications/NotificationDetail'
-
-// import search_product from './src/Search_Product/search_product';
-
-import {
-  createStackNavigator,
-  createAppContainer,
-}
-  from 'react-navigation';
+import AddStandardToolRequest from './src/TestRequest/AddStandardToolRequest'
+import StandardToolRequestView from './src/TestRequest/StandardToolRequestView'
+import AddProductStandardRequest from './src/TestRequest/AddProductStandardRequest'
+import AddProduct from './src/TestRequest/AddProduct'
+import AddStandardToolRequestDetail from './src/TestRequest/AddStandardToolRequestDetail'
+import StandardToolRequestDetail from './src/TestRequest/StandardToolRequestDetail'
+import SpecialToolRequestView from './src/TestRequestSpecial/SpecialToolRequestView'
+import AddSpecialToolRequest from './src/TestRequestSpecial/AddSpecialToolRequest'
+import AddProductSpecialRequest from './src/TestRequestSpecial/AddProductSpecialRequest'
+import AddProductSpecial from './src/TestRequestSpecial/AddProductSpecial'
+import AddSpecialToolRequestDetail from './src/TestRequestSpecial/AddSpecialToolRequestDetail'
+import RegrindSendListView from './src/Regrind/RegrindSendListView'
+import RegrindReceiveListView from './src/Regrind/RegrindReceiveListView'
+import AddRegrindReceive from './src/Regrind/AddRegrindReceive'
+import AddNewRegrindSend from './src/Regrind/AddNewRegrindSend'
+import RegrindSupplierList from './src/Regrind/RegrindSupplierList'
+import AddProductRegrindList from './src/Regrind/AddProductRegrindList'
+import AddRegrindDetail from './src/Regrind/AddRegrindDetail'
+import AddProductRegrind from './src/Regrind/AddProductRegrind'
 
 const AppNavigation = createStackNavigator(
   {
@@ -75,8 +91,6 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-
-
     ProductList: {
       screen: ProductList,
       navigationOptions: {
@@ -101,7 +115,6 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-
     CustomerMenu: {
       screen: CustomerMenu,
       navigationOptions: {
@@ -138,8 +151,120 @@ const AppNavigation = createStackNavigator(
         header: null,
       }
     },
-
-    
+    AddStandardToolRequest: {
+      screen: AddStandardToolRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    StandardToolRequestView: {
+      screen: StandardToolRequestView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductStandardRequest: {
+      screen: AddProductStandardRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProduct: {
+      screen: AddProduct,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddStandardToolRequestDetail: {
+      screen: AddStandardToolRequestDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    StandardToolRequestDetail: {
+      screen: StandardToolRequestDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    SpecialToolRequestView: {
+      screen: SpecialToolRequestView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddSpecialToolRequest: {
+      screen: AddSpecialToolRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductSpecialRequest: {
+      screen: AddProductSpecialRequest,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductSpecial: {
+      screen: AddProductSpecial,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddSpecialToolRequestDetail: {
+      screen: AddSpecialToolRequestDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    RegrindSendListView: {
+      screen: RegrindSendListView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    RegrindReceiveListView: {
+      screen: RegrindReceiveListView,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddRegrindReceive: {
+      screen: AddRegrindReceive,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddNewRegrindSend: {
+      screen: AddNewRegrindSend,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    RegrindSupplierList: {
+      screen: RegrindSupplierList,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductRegrindList: {
+      screen: AddProductRegrindList,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddRegrindDetail: {
+      screen: AddRegrindDetail,
+      navigationOptions: {
+        header: null,
+      }
+    },
+    AddProductRegrind: {
+      screen: AddProductRegrind,
+      navigationOptions: {
+        header: null,
+      }
+    },
   },
   {
     initialRouteName: 'HomeArno'
@@ -154,9 +279,3 @@ export default class App extends Component {
   }
 }
 
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
